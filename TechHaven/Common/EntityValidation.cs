@@ -9,4 +9,9 @@ public static class EntityValidation
         public const int SpecsJsonMaxLength = 2000;
         public const int ImageUrlMaxLength = 500;
     }
+
+    public static class Category
+    {
+        public const int NameMaxLength = 50;
+    }
 }
