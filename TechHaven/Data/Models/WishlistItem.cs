@@ -5,8 +5,6 @@ namespace TechHaven.Data.Models;
 
 public class WishlistItem
 {
-    public int Id { get; set; }
-
     [Required]
     [ForeignKey(nameof(User))]
     public string UserId { get; set; } = null!;
