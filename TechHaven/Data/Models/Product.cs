@@ -1,5 +1,4 @@
 ﻿using System.ComponentModel.DataAnnotations;
-using TechHaven.Data.Enums;
 using static TechHaven.Common.EntityValidation.Product;
 namespace TechHaven.Data.Models;
 
@@ -12,7 +11,7 @@ public class Product
     [MaxLength(NameMaxLength)]
     public string Name { get; set; } = null!;
 
-    public Category Category { get; set; }
+    public Category Category { get; set; } = null!;
 
     [Required]
     [MaxLength(DescriptionMaxLength)]
