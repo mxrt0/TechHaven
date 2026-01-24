@@ -8,4 +8,5 @@ public class ApplicationUser : IdentityUser
     [MaxLength(DisplayNameMaxLength)]
     public string? DisplayName { get; set; }
     public virtual ICollection<Order> Orders { get; set; } = new HashSet<Order>();
+    public virtual ICollection<WishlistItem> WishlistItems { get; set; } = new HashSet<WishlistItem>();
 }
