@@ -8,6 +8,6 @@ public class ProductSaleConfiguration : IEntityTypeConfiguration<ProductSale>
 {
     public void Configure(EntityTypeBuilder<ProductSale> builder)
     {
-
+        builder.HasKey(ps => new { ps.OrderId, ps.ProductId });
     }
 }

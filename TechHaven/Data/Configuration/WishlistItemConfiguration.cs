@@ -8,6 +8,6 @@ public class WishlistItemConfiguration : IEntityTypeConfiguration<WishlistItem>
 {
     public void Configure(EntityTypeBuilder<WishlistItem> builder)
     {
-
+        builder.HasKey(ps => new { ps.UserId, ps.ProductId });
     }
 }
