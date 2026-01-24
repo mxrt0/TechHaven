@@ -32,5 +32,7 @@ public class CategoryConfiguration : IEntityTypeConfiguration<Category>
     public void Configure(EntityTypeBuilder<Category> builder)
     {
         builder.HasData(categories);
+
+        builder.ToTable("Categories");
     }
 }
