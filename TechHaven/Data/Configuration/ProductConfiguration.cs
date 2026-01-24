@@ -364,5 +364,10 @@ public class ProductConfiguration : IEntityTypeConfiguration<Product>
     public void Configure(EntityTypeBuilder<Product> builder)
     {
         builder.HasData(products);
+
+        builder
+            .Property(p => p.Price)
+            .HasPrecision(10, 2);
+
     }
 }
