@@ -13,6 +13,7 @@ public static class EntityValidation
     public static class Category
     {
         public const int NameMaxLength = 50;
+        public const int ImageUrlMaxLength = 500;
     }
 
     public static class ApplicationUser

@@ -10,4 +10,8 @@ public class Category
     [Required]
     [MaxLength(NameMaxLength)]
     public string Name { get; set; } = null!;
+
+    [Required]
+    [MaxLength(ImageUrlMaxLength)]
+    public string ImageUrl { get; set; } = null!;
 }
