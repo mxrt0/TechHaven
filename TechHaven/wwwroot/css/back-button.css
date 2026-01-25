@@ -1,26 +1,26 @@
 ﻿.back-btn {
-    font-size: 1rem; /* Comfortable text size */
-    font-weight: 500; /* Slightly bold */
-    background-color: #f1f3f5; /* Light gray background, subtle on white */
-    color: #333; /* Dark text for contrast */
-    border: 1px solid #ccc; /* Soft border for definition */
-    border-radius: 6px; /* Rounded corners */
-    padding: 0.5rem 1rem; /* Rectangle shape */
+    font-size: 1rem; 
+    font-weight: 500; 
+    background-color: #f1f3f5; 
+    color: #333; 
+    border: 1px solid #ccc; 
+    border-radius: 6px; 
+    padding: 0.5rem 1rem; 
     cursor: pointer;
-    display: inline-flex; /* Align arrow + text */
+    display: inline-flex; 
     align-items: center;
-    gap: 0.5rem; /* Space between arrow and text */
-    transition: all 0.2s ease; /* Smooth hover transition */
-    box-shadow: 0 2px 4px rgba(0,0,0,0.08); /* Slight depth */
-    margin-left: 1rem; /* Spacing from edge of container */
-    margin-top: 1rem; /* Spacing from top content */
+    gap: 0.5rem; 
+    transition: all 0.2s ease;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.08);
+    margin-left: 1rem; 
+    margin-top: 1rem; 
 }
 
     .back-btn:hover {
-        background-color: #e2e6ea; /* Slightly darker on hover */
-        color: #007bff; /* Accent color */
-        transform: scale(1.05); /* Slight pop effect */
-        box-shadow: 0 4px 10px rgba(0,0,0,0.15); /* More pronounced shadow */
+        background-color: #e2e6ea;
+        color: #007bff;
+        transform: scale(1.05);
+        box-shadow: 0 4px 10px rgba(0,0,0,0.15);
     }
 
     .back-btn:focus {
