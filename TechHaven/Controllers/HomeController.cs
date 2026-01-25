@@ -16,7 +16,7 @@ namespace TechHaven.Controllers
         {
             var categories = await _categoryService.GetAllAsync();
             var vm = new HomeIndexViewModel { Categories = categories };
-            return View(categories);
+            return View(vm);
         }
 
         public IActionResult Privacy()
