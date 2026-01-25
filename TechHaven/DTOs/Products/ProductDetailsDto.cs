@@ -4,7 +4,7 @@ public sealed record ProductDetailsDto(
     int Id,
     string Name,
     string Description,
-    string SpecsJson,
+    Dictionary<string, string> Specs,
     decimal Price,
     int StockQuantity,
     string ImageUrl,
