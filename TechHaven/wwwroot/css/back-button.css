@@ -1,0 +1,28 @@
+﻿.back-btn {
+    font-size: 1rem; /* Comfortable text size */
+    font-weight: 500; /* Slightly bold */
+    background-color: #f1f3f5; /* Light gray background, subtle on white */
+    color: #333; /* Dark text for contrast */
+    border: 1px solid #ccc; /* Soft border for definition */
+    border-radius: 6px; /* Rounded corners */
+    padding: 0.5rem 1rem; /* Rectangle shape */
+    cursor: pointer;
+    display: inline-flex; /* Align arrow + text */
+    align-items: center;
+    gap: 0.5rem; /* Space between arrow and text */
+    transition: all 0.2s ease; /* Smooth hover transition */
+    box-shadow: 0 2px 4px rgba(0,0,0,0.08); /* Slight depth */
+    margin-left: 1rem; /* Spacing from edge of container */
+    margin-top: 1rem; /* Spacing from top content */
+}
+
+    .back-btn:hover {
+        background-color: #e2e6ea; /* Slightly darker on hover */
+        color: #007bff; /* Accent color */
+        transform: scale(1.05); /* Slight pop effect */
+        box-shadow: 0 4px 10px rgba(0,0,0,0.15); /* More pronounced shadow */
+    }
+
+    .back-btn:focus {
+        outline: none;
+    }
