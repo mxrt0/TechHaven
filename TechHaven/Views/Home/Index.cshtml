@@ -1,8 +1,41 @@
-﻿@{
+﻿@model HomeIndexViewModel
+@{
     ViewData["Title"] = "Home";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+<div class="hero-section">
+    <div class="container">
+        <div class="hero-content">
+            <h1 class="hero-title">Build Your Perfect PC</h1>
+            <p class="hero-subtitle">Browse our collection of premium components</p>
+        </div>
+    </div>
+</div>
+
+<div class="categories-section">
+    <div class="container">
+        <h2 class="section-title">Shop by Category</h2>
+
+        <div class="row g-4">
+            @foreach (var category in Model.Categories)
+            {
+                <div class="col-12 col-sm-6 col-lg-4 col-xl-3">
+                    <a asp-controller="Products"
+                       asp-action="Index"
+                       asp-route-categoryId="@category.Id"
+                       class="category-card">
+                        <div class="category-image-wrapper">
+                            <img src="@category.ImageUrl"
+                                 alt="@category.Name"
+                                 class="category-image" />
+                        </div>
+                        <div class="category-info">
+                            <h3 class="category-name">@category.Name</h3>
+                            <span class="category-arrow">→</span>
+                        </div>
+                    </a>
+                </div>
+            }
+        </div>
+    </div>
 </div>
