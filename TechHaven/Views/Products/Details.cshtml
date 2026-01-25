@@ -1,0 +1,98 @@
+﻿@model ProductDetailsDto
+@{
+    ViewData["Title"] = Model.Name;
+}
+
+<section class="container my-5">
+
+    <nav aria-label="breadcrumb" class="mb-4">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item">
+                <a asp-controller="Home" asp-action="Index">Home</a>
+            </li>
+            <li class="breadcrumb-item">
+                <a asp-controller="Product" asp-action="Index">
+                    Products
+                </a>
+            </li>
+            <li class="breadcrumb-item active" aria-current="page">
+                @Model.Name
+            </li>
+        </ol>
+    </nav>
+
+    <div class="row g-5">
+        <div class="col-12 col-lg-6">
+            <div class="product-image-card">
+                <img src="@Model.ImageUrl"
+                     alt="@Model.Name" />
+            </div>
+        </div>
+
+        <div class="col-12 col-lg-6">
+            <div class="product-info">
+
+                <div class="product-category">
+                    @Model.Category
+                </div>
+
+                <h1 class="product-title mb-3">
+                    @Model.Name
+                </h1>
+
+                <div class="product-price mb-4">
+                    @Model.Price.ToString("C")
+                </div>
+
+                <p class="product-description">
+                    @Model.Description
+                </p>
+
+                <div class="stock-status mb-4">
+                    @if (Model.StockQuantity > 0)
+                    {
+                        <span class="in-stock">
+                            In stock (@Model.StockQuantity)
+                        </span>
+                    }
+                    else
+                    {
+                        <span class="out-of-stock">
+                            Out of stock
+                        </span>
+                    }
+                </div>
+
+                <div class="action-buttons">
+                    <button class="btn btn-primary btn-lg">
+                        Add to Wishlist
+                    </button>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <div class="specs-section mt-5">
+        <h2 class="mb-4">Specifications</h2>
+
+        <div class="specs-card">
+            <table class="table table-borderless mb-0">
+                <tbody>
+                    @foreach (var spec in Model.Specs)
+                    {
+                        <tr>
+                            <th class="spec-key">
+                                @spec.Key
+                            </th>
+                            <td class="spec-value">
+                                @spec.Value
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+</section>
