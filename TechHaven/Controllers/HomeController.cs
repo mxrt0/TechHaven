@@ -1,21 +1,22 @@
-using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
+using System.Diagnostics;
 using TechHaven.Models;
+using TechHaven.Services.Contracts;
 
 namespace TechHaven.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly ILogger<HomeController> _logger;
-
-        public HomeController(ILogger<HomeController> logger)
+        private readonly ICategoryService _categoryService;
+        public HomeController(ICategoryService categoryService)
         {
-            _logger = logger;
+            _categoryService = categoryService;
         }
-
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            return View();
+            var categories = await _categoryService.GetAllAsync();
+            var vm = new HomeIndexViewModel { Categories = categories };
+            return View(categories);
         }
 
         public IActionResult Privacy()
