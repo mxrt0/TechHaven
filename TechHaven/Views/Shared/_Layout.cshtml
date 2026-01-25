@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/TechHaven.styles.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/back-button.css" />
     <link rel="icon" href="~/images/icons/online-shop.png" type="image/png" />
 </head>
 <body>
@@ -33,12 +34,12 @@
             </div>
         </nav>
     </header>
+    @await RenderSectionAsync("Back", required: false)
     <div class="container">
         <main role="main" class="pb-3">
             @RenderBody()
         </main>
-    </div>
-
+    </div>    
     <footer class="border-top footer text-muted">
         <div class="container">
             &copy; 2026 - TechHaven - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
