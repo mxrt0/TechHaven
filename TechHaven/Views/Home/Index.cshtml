@@ -21,8 +21,8 @@
             {
                 <div class="col-12 col-sm-6 col-lg-4 col-xl-3">
                     <a asp-controller="Products"
-                       asp-action="Index"
-                       asp-route-categoryId="@category.Id"
+                       asp-action="Category"
+                       asp-route-id="@category.Id"
                        class="category-card">
                         <div class="category-image-wrapper">
                             <img src="@category.ImageUrl"
