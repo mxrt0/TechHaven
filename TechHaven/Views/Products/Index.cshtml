@@ -4,6 +4,12 @@
     Func<decimal, decimal> toEuro = (priceInLv) => priceInLv / 1.95m;
 }
 
+@section Back {
+    <button class="back-btn" onclick="history.back()">
+        ← Back
+    </button>
+}
+
 <section class="container my-5">
     <div class="d-flex justify-content-between align-items-center mb-4">
         <h1 class="fw-bold">Products</h1>

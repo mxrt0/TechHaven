@@ -3,6 +3,12 @@
     ViewData["Title"] = Model.Name;
 }
 
+@section Back {
+    <button class="back-btn" onclick="history.back()">
+        ← Back
+    </button>
+}
+
 <section class="container my-5">
 
     <nav aria-label="breadcrumb" class="mb-4">
