@@ -19,6 +19,7 @@ namespace TechHaven
             builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
             builder.Services.AddScoped<IProductService, ProductService>();
+            builder.Services.AddScoped<ICategoryService, CategoryService>();
             builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
                 .AddEntityFrameworkStores<ApplicationDbContext>();
             builder.Services.AddControllersWithViews();
