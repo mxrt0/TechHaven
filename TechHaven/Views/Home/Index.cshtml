@@ -23,7 +23,7 @@
                     <a asp-controller="Products"
                        asp-action="Category"
                        asp-route-id="@category.Id"
-                       class="category-card">
+                       class="category-card text-decoration-none">
                         <div class="category-image-wrapper">
                             <img src="@category.ImageUrl"
                                  alt="@category.Name"
@@ -31,7 +31,7 @@
                         </div>
                         <div class="category-info">
                             <h3 class="category-name">@category.Name</h3>
-                            <span class="category-arrow">→</span>
+                            <span class="category-arrow text-decoration-underline">→</span>
                         </div>
                     </a>
                 </div>
