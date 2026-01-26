@@ -18,7 +18,7 @@
         <nav>
             <a asp-controller="Home" asp-action="Index" class="nav-link @(string.Equals(
               ViewContext.RouteData.Values["controller"]?.ToString(),
-               "home", StringComparison.OrdinalIgnoreCase) ? "active" : "")><span class="icon">🏠</span> Home</a>
+               "home", StringComparison.OrdinalIgnoreCase) ? "active" : "")"><span class="icon">🏠</span> Home</a>
 
             <a asp-controller="Products" asp-action="Index" class="nav-link @(string.Equals(
               ViewContext.RouteData.Values["controller"]?.ToString(),
