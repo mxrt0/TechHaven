@@ -32,37 +32,6 @@ body {
   text-align: start;
 }
 
-.navbar {
-    background-color: #ffffffcc;
-    backdrop-filter: blur(5px);
-    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 0 2rem;
-    position: fixed;
-    top: 0;
-    z-index: 1000;
-    font-family: 'Inter', 'Helvetica Neue', sans-serif;
-    font-size: 16px;
-    line-height: 1.5;
-    color: #333;
-    background: #f8f9fa;
-   
-}
-
-    .navbar a {
-        color: #333;
-        text-decoration: none;
-        padding: 0.5rem 1rem;
-        transition: color 0.2s;
-    }
-
-        .navbar a:hover {
-            color: #007bff; /* subtle blue accent */
-        }
-
-/* Global Reset */
 * {
     box-sizing: border-box;
     margin: 0;
@@ -70,35 +39,24 @@ body {
     font-family: 'Inter', sans-serif;
 }
 
-body {
-    display: flex;
-    min-height: 100vh;
-    background: #f0f2f5; /* subtle light background for content */
-}
 
-/* Global Reset */
-* {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
-    font-family: 'Inter', sans-serif;
-}
-
-/* Body layout */
 body {
     display: flex;
     min-height: 100vh;
     background: linear-gradient(135deg, #e0e5ec, #f0f2f5);
 }
 
-/* Sidebar */
+
 .sidebar {
     width: 240px;
     height: 100vh;
     position: fixed;
     top: 0;
     left: 0;
-    background: rgba(20, 20, 30, 0.75);
+    background: linear-gradient( 180deg, 
+    rgba(40,44,52,0.95) 0%,
+    rgba(50,55,65,0.9) 100% 
+    );
     backdrop-filter: blur(12px);
     -webkit-backdrop-filter: blur(12px);
     color: #fff;
@@ -106,24 +64,24 @@ body {
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
-    box-shadow: 2px 0 20px rgba(0,0,0,0.4);
-    border-right: 1px solid rgba(255,255,255,0.1);
+    box-shadow: 2px 0 20px rgba(0,0,0,0.3);
+    border-right: 1px solid rgba(255, 255, 255, 0.05);
     z-index: 1000;
     transition: all 0.3s ease;
 }
 
-    /* Logo */
+   
     .sidebar .logo {
         font-size: 1.8rem;
         font-weight: 700;
         text-align: center;
         margin-bottom: 2rem;
         letter-spacing: 1px;
-        color: #00f5ff; /* neon accent */
+        color: #00f5ff; 
         text-shadow: 0 0 8px #00f5ff;
     }
 
-    /* Navigation */
+    
     .sidebar nav {
         display: flex;
         flex-direction: column;
@@ -143,35 +101,33 @@ body {
         transition: all 0.3s ease;
     }
 
-        /* Neon hover effect */
         .sidebar .nav-link:hover {
             color: #00f5ff;
-            text-shadow: 0 0 8px #00f5ff;
+            text-shadow: 0 0 6px #00f5ff;
             transform: translateX(5px);
         }
 
-        /* Active link */
+        
         .sidebar .nav-link.active {
-            background: rgba(0,245,255,0.1);
+            background: rgba(0,245,255,0.15);
             color: #00f5ff;
-            text-shadow: 0 0 12px #00f5ff;
+            text-shadow: 0 0 8px #00f5ff;
         }
 
-    /* Icons */
+    
     .sidebar .icon {
         font-size: 1.2rem;
     }
 
-/* Main content */
+
 .main-content {
     margin-left: 240px;
     padding: 2rem;
-    flex: 1;
-   
+    flex: 1;   
     min-height: 100vh;
 }
 
-/* Cards inside content */
+
 .card {
     background: #fff;
     border-radius: 12px;
@@ -179,6 +135,47 @@ body {
     padding: 1.5rem;
     margin-bottom: 1.5rem;
 }
+
+
+.sidebar .auth-buttons {
+    margin-top: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.auth-btn {
+    display: block;
+    text-align: center;
+    padding: 0.6rem 1rem;
+    border-radius: 8px;
+    background: rgba(0, 245, 255, 0.2);
+    color: #00f5ff;
+    font-weight: 500;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    margin-bottom: 5px;
+}
+
+    .auth-btn:hover {
+        background: rgba(0, 245, 255, 0.35);
+        text-shadow: 0 0 8px #00f5ff;
+        transform: translateX(3px);
+    }
+
+    .auth-btn:active {
+        transform: translateX(1px);
+    }
+
+/* Icons inside sidebar nav */
+.sidebar .icon {
+    display: inline-flex; /* ensures it behaves like an element */
+    width: 24px; /* fixed width for all icons */
+    text-align: center; /* center the icon in its box */
+    margin-right: 0.75rem; /* consistent spacing to text */
+    font-size: 1.2rem; /* adjust size if needed */
+}
+
 
 @media (max-width: 768px) {
     body {
