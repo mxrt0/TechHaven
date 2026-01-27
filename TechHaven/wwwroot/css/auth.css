@@ -1,6 +1,7 @@
-﻿body {
+﻿﻿body {
     overflow: hidden;
 }
+
 .auth-page {
     display: flex;
     justify-content: center;
@@ -206,5 +207,3 @@ input.input-validation-error {
     .auth-back:hover {
         text-shadow: 0 0 8px rgba(0,245,255,0.7);
     }
-
-
