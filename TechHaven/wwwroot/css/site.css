@@ -145,6 +145,8 @@ body {
 }
 
 .auth-btn {
+    all: unset;
+    width: 80%;
     display: block;
     text-align: center;
     padding: 0.6rem 1rem;
@@ -156,6 +158,11 @@ body {
     transition: all 0.3s ease;
     margin-bottom: 5px;
 }
+    .auth-btn:focus-visible {
+        outline: 2px solid rgba(0, 245, 255, 0.6);
+        outline-offset: 2px;
+    }
+
 
     .auth-btn:hover {
         background: rgba(0, 245, 255, 0.35);
@@ -167,14 +174,27 @@ body {
         transform: translateX(1px);
     }
 
-/* Icons inside sidebar nav */
 .sidebar .icon {
-    display: inline-flex; /* ensures it behaves like an element */
-    width: 24px; /* fixed width for all icons */
-    text-align: center; /* center the icon in its box */
-    margin-right: 0.75rem; /* consistent spacing to text */
-    font-size: 1.2rem; /* adjust size if needed */
+    display: inline-flex;
+    width: 24px; 
+    text-align: center;
+    margin-right: 0.75rem; 
+    font-size: 1.2rem;
 }
+
+.sidebar .auth-buttons form {
+    width: 100%;
+}
+
+.auth-btn.logout {
+    background: rgba(255, 80, 80, 0.15);
+    color: #ffb3b3;
+}
+
+    .auth-btn.logout:hover {
+        background: rgba(255, 80, 80, 0.3);
+        text-shadow: 0 0 8px #ff6b6b;
+    }
 
 
 @media (max-width: 768px) {
