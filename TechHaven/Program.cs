@@ -22,7 +22,6 @@ namespace TechHaven
                 .AddEntityFrameworkStores<ApplicationDbContext>();
             builder.Services.AddScoped<IProductService, ProductService>();
             builder.Services.AddScoped<ICategoryService, CategoryService>();
-            builder.Services.AddScoped<IWishlistService, WishlistService>();
             builder.Services.AddControllersWithViews();
             builder.Services.AddRazorPages();
             var app = builder.Build();
