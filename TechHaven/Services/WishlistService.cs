@@ -1,7 +1,9 @@
 ﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 using System.Security.Claims;
 using TechHaven.Data;
 using TechHaven.Data.Models;
+using TechHaven.DTOs.Wishlist;
 using TechHaven.Services.Contracts;
 
 namespace TechHaven.Services;
@@ -17,6 +19,26 @@ public class WishlistService : IWishlistService
     {
         _context = context;
         _userManager = userManager;
+    }
+
+    public async Task<IEnumerable<WishlistProductDto>> GetByUserIdAsync(ClaimsPrincipal principal)
+    {
+        var userId = _userManager.GetUserId(principal);
+
+        return await _context.WishlistItems
+            .Where(wi => wi.UserId == userId)
+            .Include(wi => wi.Product)
+            .OrderByDescending(wi => wi.AddedAt)
+            .Select(wi => new WishlistProductDto
+            (
+                wi.ProductId,
+                wi.Product.Name,
+                wi.Product.Price,
+                wi.Product.ImageUrl,
+                wi.Product.StockQuantity > 0
+            ))
+            .ToListAsync();
+
     }
 
     public async Task<bool> IsInWishlistAsync(int productId, ClaimsPrincipal principal)
