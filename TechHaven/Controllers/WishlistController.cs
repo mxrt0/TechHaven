@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using TechHaven.Common;
+using TechHaven.Models;
 using TechHaven.Services.Contracts;
 
 namespace TechHaven.Controllers;
@@ -12,6 +13,17 @@ public class WishlistController : Controller
     public WishlistController(IWishlistService wishlistService)
     {
         _wishlistService = wishlistService;
+    }
+
+    [Authorize]
+    public async Task<IActionResult> Index()
+    {
+        var items = await _wishlistService.GetByUserIdAsync(User);
+        var vm = new WishlistIndexViewModel
+        {
+            Wishlist = items.ToArray()
+        };
+        return View(vm);
     }
 
     [Authorize]
