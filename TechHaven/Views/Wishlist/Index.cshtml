@@ -1,0 +1,65 @@
+﻿@model WishlistIndexViewModel
+@{
+    ViewData["Title"] = "My Wishlist";
+    var products = Model.Wishlist;
+}
+
+<div class="container py-4 wishlist-page">
+
+    <h2 class="mb-4 wishlist-title text-center">My Wishlist</h2>
+
+    <div class="wishlist-empty text-center p-5" style="@(!products.Any() ? "display: block;" : "display: none;")">
+        <i class="bi bi-heart neon-icon"></i>
+        <p class="mt-3">Your wishlist is empty</p>
+        <a asp-controller="Products"
+            asp-action="Index"
+            class="btn btn-outline-info mt-2">
+            Browse products
+        </a>
+    </div>
+
+    else
+    {
+        <div class="row g-4">
+            @foreach (var item in products)
+            {
+                <div class="col-md-6 col-lg-4">
+                    <div class="wishlist-card" id="@($"wc{item.Id}")">
+                        <img src="@item.ImageUrl"
+                             alt="@item.Name" />
+
+                        <div class="wishlist-card-body">
+                            <div class="header-row">
+                                <h5>@item.Name</h5>
+                                <span class="stock-info @(item.InStock ? "in-stock" : "out-of-stock")">
+                                    @(item.InStock ? "In stock" : "Out of stock")
+                                </span>
+                            </div>
+                            <p class="price">
+                                @Helper.ToEuro(item.Price).ToString("0.00") &euro; / @item.Price.ToString("C")
+                            </p>
+
+                            
+                            <div class="wishlist-actions">
+                                <a asp-controller="Products"
+                                   asp-action="Details"
+                                   asp-route-id="@item.Id"
+                                   class="btn btn-sm btn-outline-info">
+                                    View
+                                </a>
+
+                                <button class="wishlist-btn btn btn-sm btn-outline-danger"
+                                        data-product-id="@item.Id">
+                                    Remove
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    }
+</div>
+@section Scripts {
+    <script src="~/js/wishlist.js"></script>
+}

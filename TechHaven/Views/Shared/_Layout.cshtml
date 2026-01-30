@@ -7,7 +7,7 @@
     <script type="importmap"></script>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />    
     <link rel="stylesheet" href="~/TechHaven.styles.css" asp-append-version="true" />
-    <link rel="stylesheet" href="~/css/back-button.css" />
+    <link rel="stylesheet" href="~/css/back-button.css" />    
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="icon" href="~/images/icons/online-shop.png" type="image/png" />
     @await RenderSectionAsync("PageCss", false);
@@ -25,12 +25,32 @@
               ViewContext.RouteData.Values["controller"]?.ToString(),
                "products", StringComparison.OrdinalIgnoreCase) ? "active" : "")"><span class="icon">📦</span> Products</a>
 
-            <a href="#" class="nav-link"><span class="icon">🛒</span> Orders</a>            
+            @if (User?.Identity?.IsAuthenticated ?? false)
+            {
+                <a asp-controller="Wishlist" asp-action="Index" class="nav-link @(string.Equals(
+                                                                                    ViewContext.RouteData.Values["controller"]?.ToString(),
+                                                                                    "wishlist", StringComparison.OrdinalIgnoreCase) ? "active" : "")"><span class="icon">📝</span> My Wishlist</a>
+
+                <a href="#" class="nav-link"><span class="icon">🛒</span> Orders</a>
+            }
+            
         </nav>
         <partial name="_LoginPartial" />
     </aside>
 
     <div class="container">
+        <div class="toast-container position-fixed bottom-0 end-0 p-3">
+            <div id="wishlistToast"
+                 class="toast align-items-center text-bg-dark border-0"
+                 role="alert">
+                <div class="d-flex flex-column text-center">
+                    <div class="toast-body" id="wishlistToastBody"></div>   
+                    <div class="progress-bar neon-timer"></div>
+                </div>
+                <button type="button" class="btn-close" data-bs-dismiss="toast"></button>
+            </div>
+        </div>
+
         <main class="main-content" role="main">
             @await RenderSectionAsync("Back", false)
             @RenderBody()

@@ -20,6 +20,7 @@ namespace TechHaven
             builder.Services.AddDatabaseDeveloperPageExceptionFilter();
             builder.Services.AddIdentity<ApplicationUser, IdentityRole>()
                 .AddEntityFrameworkStores<ApplicationDbContext>();
+            builder.Services.AddScoped<IWishlistService, WishlistService>();
             builder.Services.AddScoped<IProductService, ProductService>();
             builder.Services.AddScoped<ICategoryService, CategoryService>();
             builder.Services.AddControllersWithViews();

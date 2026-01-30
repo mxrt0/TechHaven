@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using TechHaven.Models;
 using TechHaven.Services.Contracts;
 
 namespace TechHaven.Controllers;
@@ -6,9 +7,11 @@ namespace TechHaven.Controllers;
 public class ProductsController : Controller
 {
     private readonly IProductService _productService;
-    public ProductsController(IProductService productService)
+    private readonly IWishlistService _wishlistService;
+    public ProductsController(IProductService productService, IWishlistService wishlistService)
     {
         _productService = productService;
+        _wishlistService = wishlistService;
     }
 
     public async Task<IActionResult> Index()
@@ -25,6 +28,16 @@ public class ProductsController : Controller
     public async Task<IActionResult> Details(int id)
     {
         var product = await _productService.GetByIdAsync(id);
-        return product is null ? NotFound() : View(product);
+        if (product is null)
+        {
+            return NotFound();
+        }
+        var vm = new DetailsViewModel
+        {
+            IsInWishlist = await _wishlistService.IsInWishlistAsync(product.Id, User),
+            Product = product
+        };
+
+        return View(vm);
     }
 }

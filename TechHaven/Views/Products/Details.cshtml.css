@@ -1,5 +1,5 @@
 ﻿.product-image-card {
-    background: #f8f9fa;
+    background: #ffffff;
     border-radius: 20px;
     padding: 2rem;
     display: flex;
@@ -81,3 +81,27 @@
 .spec-value {
     font-weight: 500;
 }
+
+.wishlist-btn {
+    border-radius: 50%;
+    transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+    .wishlist-btn:hover {
+        transform: scale(1.1);
+        box-shadow: 0 4px 10px rgba(0,0,0,.15);
+    }
+
+    .wishlist-btn:active {
+        transform: scale(0.9);
+        box-shadow: 0 0 10px rgba(255, 0, 255, 0.5) inset;
+    }
+
+    .wishlist-btn i {
+        transition: transform 0.2s ease, color 0.2s ease;
+    }
+
+    .wishlist-btn.toggle-animation i {
+        transform: scale(1.3);
+    }
+
