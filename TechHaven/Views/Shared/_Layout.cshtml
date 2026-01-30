@@ -25,7 +25,15 @@
               ViewContext.RouteData.Values["controller"]?.ToString(),
                "products", StringComparison.OrdinalIgnoreCase) ? "active" : "")"><span class="icon">📦</span> Products</a>
 
-            <a href="#" class="nav-link"><span class="icon">🛒</span> Orders</a>            
+            @if (User?.Identity?.IsAuthenticated ?? false)
+            {
+                <a asp-controller="Wishlist" asp-action="Index" class="nav-link @(string.Equals(
+                                                                                    ViewContext.RouteData.Values["controller"]?.ToString(),
+                                                                                    "wishlist", StringComparison.OrdinalIgnoreCase) ? "active" : "")"><span class="icon">📝</span> My Wishlist</a>
+
+                <a href="#" class="nav-link"><span class="icon">🛒</span> Orders</a>
+            }
+            
         </nav>
         <partial name="_LoginPartial" />
     </aside>
