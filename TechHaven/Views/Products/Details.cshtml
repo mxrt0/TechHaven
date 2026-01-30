@@ -19,11 +19,11 @@
                 <a asp-controller="Home" asp-action="Index">Home</a>
             </li>
             <li class="breadcrumb-item">
-                <a asp-controller="Product" asp-action="Index">
+                <a asp-controller="Products" asp-action="Index">
                     Products
                 </a>
             </li>
-            <li class="breadcrumb-item active" aria-current="page">
+            <li class="breadcrumb-item active">
                 @Model.Product.Name
             </li>
         </ol>
@@ -49,7 +49,7 @@
                 </h1>
 
                 <div class="product-price mb-4">
-                    @Model.Product.Price.ToString("C")
+                    @Helper.ToEuro(Model.Product.Price).ToString("0.00") &euro; / @Model.Product.Price.ToString("C")
                 </div>
 
                 <p class="product-description">
@@ -72,19 +72,17 @@
                 </div>
                 @if (User?.Identity?.IsAuthenticated ?? false)
                 {
-                    <div class="action-buttons">
-                        <button class="btn btn-primary btn-lg wishlist-btn"
+                  <div class="action-buttons">
+                     <button class="btn btn-primary btn-lg wishlist-btn"
                                 data-product-id="@Model.Product.Id">
-                            <span class="wishlist-text">
-                                @(Model.IsInWishlist
-                                    ? "Remove From Wishlist"
-                                    : "Add To Wishlist")
-                        </span>
-                        <i class="bi @(Model.IsInWishlist ? "bi-heart-fill text-danger" : "bi-heart")"></i>
-                    </button>
-                </div>
-                }
-                
+                        <i class="bi @(Model.IsInWishlist ? "bi-heart-fill text-danger" : "bi-heart")"
+                               title="@(Model.IsInWishlist
+                                        ? "Remove From Wishlist"
+                                        : "Add To Wishlist")">
+                        </i>
+                     </button>
+                  </div>
+                }                
             </div>
         </div>
     </div>
