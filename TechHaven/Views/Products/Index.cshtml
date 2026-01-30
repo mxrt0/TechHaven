@@ -1,7 +1,6 @@
 ﻿@model IReadOnlyList<ProductListDto>
 @{
     ViewData["Title"] = "Products";
-    Func<decimal, decimal> toEuro = (priceInLv) => priceInLv / 1.95m;
 }
 
 @section Back {
@@ -39,7 +38,7 @@
 
                             <div class="mt-auto d-flex justify-content-between align-items-center">
                                 <span class="price">
-                                    @toEuro(p.Price).ToString("0.00") &euro; / @p.Price.ToString("0.00") лв.
+                                    @Helper.ToEuro(p.Price).ToString("0.00") &euro; / @p.Price.ToString("C")
                                 </span>
 
                                 <a asp-action="Details"
