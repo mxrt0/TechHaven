@@ -30,7 +30,7 @@ public class CartController : Controller
     public IActionResult Add(int productId, int quantity = 1)
     {
         _cart.Add(productId, quantity);
-        TempData["SuccessMessage"] = "Product added to cart successfully.";
+        TempData["SuccessMessage"] = "Item added to cart 🛒";
         return RedirectToAction(nameof(Index));
     }
 
@@ -38,7 +38,7 @@ public class CartController : Controller
     public IActionResult Remove(int productId)
     {
         _cart.Remove(productId);
-        TempData["SuccessMessage"] = "Product removed from cart successfully.";
+        TempData["SuccessMessage"] = "Item removed from cart";
         return RedirectToAction(nameof(Index));
     }
 
@@ -46,7 +46,7 @@ public class CartController : Controller
     public IActionResult UpdateQuantity(int productId, int quantity)
     {
         _cart.UpdateQuantity(productId, quantity);
-        TempData["SuccessMessage"] = "Cart updated successfully.";
+        TempData["SuccessMessage"] = "Cart updated";
         return RedirectToAction(nameof(Index));
     }
 
@@ -54,7 +54,7 @@ public class CartController : Controller
     public IActionResult Clear()
     {
         _cart.Clear();
-        TempData["SuccessMessage"] = "Cart cleared successfully.";
+        TempData["SuccessMessage"] = "Cart cleared";
         return RedirectToAction(nameof(Index));
     }
 
