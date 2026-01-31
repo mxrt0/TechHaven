@@ -5,7 +5,7 @@ using TechHaven.Models;
 using TechHaven.Services.Contracts;
 
 namespace TechHaven.Controllers;
-
+// TODO: Finish Up Cart Implementation (Only done adding) AND FIX UI For Cart
 [Authorize]
 public class CartController : Controller
 {
@@ -30,32 +30,43 @@ public class CartController : Controller
     public IActionResult Add(int productId, int quantity = 1)
     {
         _cart.Add(productId, quantity);
-        TempData["SuccessMessage"] = "Item added to cart 🛒";
-        return RedirectToAction(nameof(Index));
+        return Json(new
+        {
+            success = true,
+            message = "Item(s) added to cart 🛒"
+        });
     }
 
     [HttpPost]
     public IActionResult Remove(int productId)
     {
         _cart.Remove(productId);
-        TempData["SuccessMessage"] = "Item removed from cart";
-        return RedirectToAction(nameof(Index));
+        return Json(new
+        {
+            success = true,
+            message = "Item removed from cart"
+        });
     }
 
     [HttpPost]
     public IActionResult UpdateQuantity(int productId, int quantity)
     {
         _cart.UpdateQuantity(productId, quantity);
-        TempData["SuccessMessage"] = "Cart updated";
-        return RedirectToAction(nameof(Index));
+        return Json(new
+        {
+            success = true
+        });
     }
 
     [HttpPost]
     public IActionResult Clear()
     {
         _cart.Clear();
-        TempData["SuccessMessage"] = "Cart cleared";
-        return RedirectToAction(nameof(Index));
+        return Json(new
+        {
+            success = true,
+            message = "Cart cleared"
+        });
     }
 
 
