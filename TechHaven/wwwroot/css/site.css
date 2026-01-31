@@ -82,8 +82,17 @@ body {
     .sidebar nav {
         display: flex;
         flex-direction: column;
+        flex: 1;
         gap: 1rem;
     }
+
+        .sidebar .cart-container {
+            margin-top: auto;
+            margin-bottom: 8px;
+            display: flex;
+            width: 100%;
+            justify-content: center;
+        }
 
     .sidebar .nav-link {
         display: flex;
@@ -116,6 +125,23 @@ body {
         font-size: 1.2rem;
     }
 
+    .sidebar .cart-container .nav-link {
+        background-color: #00f5ff;
+        color: #1e293b;
+        font-weight: 600;
+        text-align: center;
+        padding: 0.6rem 1rem;
+        box-shadow: 0 0 5px #00f5ff;
+        transition: all 0.2s ease;
+        flex: 1;
+        align-items: center;
+        justify-content: center;
+    }
+
+        .sidebar .cart-container .nav-link:hover {
+            background-color: #00e0ff;
+            transform: scale(1.03);
+        }
 
 .main-content {
     margin-left: 240px;
@@ -151,7 +177,7 @@ body {
     color: #00f5ff;
     font-weight: 500;
     text-decoration: none;
-    width: 80%;
+    width: 83%;
     transition: all 0.3s ease;
     margin-bottom: 5px;
 }
