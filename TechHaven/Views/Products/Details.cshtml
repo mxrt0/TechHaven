@@ -70,19 +70,38 @@
                         </span>
                     }
                 </div>
-                @if (User?.Identity?.IsAuthenticated ?? false)
-                {
-                  <div class="action-buttons">
-                     <button class="btn btn-primary btn-lg wishlist-btn"
-                                data-product-id="@Model.Product.Id">
-                        <i class="bi @(Model.IsInWishlist ? "bi-heart-fill text-danger" : "bi-heart")"
-                               title="@(Model.IsInWishlist
-                                        ? "Remove From Wishlist"
-                                        : "Add To Wishlist")">
-                        </i>
-                     </button>
-                  </div>
-                }                
+                <div class="action-buttons">
+                    @if (User?.Identity?.IsAuthenticated ?? false)
+                    {
+                  
+                         <button class="btn btn-primary btn-lg wishlist-btn"
+                                    data-product-id="@Model.Product.Id">
+                            <i class="bi @(Model.IsInWishlist ? "bi-heart-fill text-danger" : "bi-heart")"
+                                   title="@(Model.IsInWishlist
+                                            ? "Remove From Wishlist"
+                                            : "Add To Wishlist")">
+                            </i>
+                         </button>
+                     }
+                     <div class="d-inline-flex align-items-center gap-2">
+                        @Html.AntiForgeryToken()
+                        <input type="hidden"
+                               name="productId"
+                               value="@Model.Product.Id" />                       
+
+                        <button type="submit"
+                                class="btn btn-cart"
+                                @(Model.Product.StockQuantity <= 0 ? "disabled" : "")>
+                            🛒 Add to Cart
+                        </button>
+
+                        <input type="number" name="quantity"
+                               value="1" min="1"
+                               class="form-control quantity-input"
+                               style="width: 70px;" />
+                     </div>
+                 </div>
+                                
             </div>
         </div>
     </div>
@@ -110,6 +129,8 @@
 
 </section>
 
-@section Scripts {
+@section Scripts {    
+    <script src="~/js/toast.js"></script>
+    <script src="~/js/cart.js"></script>
     <script src="~/js/wishlist.js"></script>
 }
