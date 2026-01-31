@@ -1,0 +1,104 @@
+﻿@model CartIndexViewModel
+@{
+    ViewData["Title"] = "Cart";
+}
+
+<div class="container my-5 cart-page">
+    <h2 class="mb-4 neon-title text-center">🛒 Your Cart</h2>
+
+    @if (!Model.Items.Any())
+    {
+        <div class="alert alert-secondary text-center">
+            Your cart is empty.
+        </div>
+    }
+    else
+    {
+        <div class="card cart-card">
+            <div class="card-body p-0">
+
+                <table class="table table-dark table-hover mb-0 align-middle">
+                    <thead>
+                        <tr>
+                            <th>Product</th>
+                            <th class="text-center">Price</th>
+                            <th class="text-center">Quantity</th>
+                            <th class="text-end">Subtotal</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model.Items)
+                        {
+                            <tr>
+                                <td>
+                                    <strong>@item.Name</strong>
+                                </td>
+
+                                <td class="text-center">
+                                    €@item.Price
+                                </td>
+
+                                <td class="text-center">
+                                    <form asp-action="Update" method="post" class="d-inline-flex gap-2">
+                                        @Html.AntiForgeryToken()
+                                        <input type="hidden" name="productId" value="@item.ProductId" />
+                                        <input type="number"
+                                               name="quantity"
+                                               value="@item.Quantity"
+                                               min="1"
+                                               class="form-control form-control-sm quantity-input" />
+                                        <button class="btn btn-outline-neon btn-sm">
+                                            Update
+                                        </button>
+                                    </form>
+                                </td>
+
+                                <td class="text-end">
+                                    @Helper.ToEuro(item.Total).ToString("0.00") &euro; / @item.Total.ToString("C")
+                                </td>
+
+                                <td class="text-end">
+                                    <form asp-action="Remove" method="post">
+                                        @Html.AntiForgeryToken()
+                                        <input type="hidden" name="productId" value="@item.ProductId" />
+                                        <button class="btn btn-sm btn-outline-danger">
+                                            ✕
+                                        </button>
+                                    </form>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+
+            </div>
+        </div>
+
+        <div class="d-flex justify-content-between align-items-center mt-4">
+            <form asp-action="Clear" method="post">
+                @Html.AntiForgeryToken()
+                <button class="btn btn-outline-warning">
+                    Clear cart
+                </button>
+            </form>
+
+            <div class="cart-total">
+                <span>Total:</span>
+                <strong class="neon-price">@Helper.ToEuro(Model.TotalPrice).ToString("0.00") &euro; / @Model.TotalPrice.ToString("C")</strong>
+            </div>
+        </div>
+
+        <div class="text-end mt-4">
+            <a asp-controller="Orders"
+               asp-action="Add"
+               class="btn btn-neon btn-lg">
+                Proceed to Checkout →
+            </a>
+        </div>
+    }
+</div>
+@section Scripts {
+    <script src="~/js/toast.js"></script>
+    <script src="~/js/cart.js"></script>
+}

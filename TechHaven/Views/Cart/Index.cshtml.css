@@ -1,0 +1,50 @@
+﻿.cart-page {
+    color: #e6ffff;
+}
+
+.neon-title {
+    color: #0f172a;
+    text-shadow: 0 0 6px rgba(0, 255, 255, 0.7);
+}
+
+.cart-card {
+    background: #0b1220;
+    border: 1px solid rgba(0, 255, 255, 0.2);
+    box-shadow: 0 0 20px rgba(0, 255, 255, 0.08);
+}
+
+.quantity-input {
+    width: 70px;
+    text-align: center;
+    background: #020617;
+    color: #e6ffff;
+    border: 1px solid rgba(0, 255, 255, 0.3);
+}
+
+.btn-outline-neon {
+    color: #0ff;
+    border-color: #0ff;
+}
+
+    .btn-outline-neon:hover {
+        background-color: #0ff;
+        color: #020617;
+    }
+
+.btn-neon {
+    background: linear-gradient(135deg, #0ff, #38bdf8);
+    color: #020617;
+    border: none;
+    box-shadow: 0 0 15px rgba(0, 255, 255, 0.6);
+}
+
+.neon-price {
+    font-size: 1.5rem;
+    color: #0ff;
+    text-shadow: 0 0 6px rgba(0, 255, 255, 0.7);
+}
+
+.cart-total span {
+    margin-right: 0.5rem;
+    opacity: 0.8;
+}
