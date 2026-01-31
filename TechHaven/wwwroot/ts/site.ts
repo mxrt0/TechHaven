@@ -1,1 +1,1 @@
-﻿
+﻿/// <reference types="bootstrap" />
