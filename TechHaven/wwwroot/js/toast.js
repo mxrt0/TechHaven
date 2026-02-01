@@ -26,6 +26,6 @@ function showToast(message, options) {
             toastEl.style.color = "#38bdf8";
             toastEl.style.textShadow = "0 0 4px #38bdf8, 0 0 10px #0ff, 0 0 20px #0ff70";
     }
-    const toast = new bootstrap.Toast(toastEl, { delay: 2000 });
+    const toast = new bootstrap.Toast(toastEl, { delay: options.delay || 2000 });
     toast.show();
 }

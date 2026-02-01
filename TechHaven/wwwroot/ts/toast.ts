@@ -2,11 +2,10 @@
     Cart,
     Wishlist
 }
-type ToastOptions = WishlistToastOptions | CartToastOptions; // Extendable for other toast types in the future
+type ToastOptions = (WishlistToastOptions | CartToastOptions) & { delay?: number }; // Extendable for other toast types in the future
 
 type CartToastOptions = {
     type: ToastType.Cart,
-    cartItems: string[]
 }
 type WishlistToastOptions = {
     type: ToastType.Wishlist,
@@ -39,6 +38,6 @@ function showToast(message: string, options: ToastOptions) {
             toastEl.style.color = "#38bdf8";    
             toastEl.style.textShadow = "0 0 4px #38bdf8, 0 0 10px #0ff, 0 0 20px #0ff70"; 
     }
-    const toast = new bootstrap.Toast(toastEl, { delay: 2000 });
+    const toast = new bootstrap.Toast(toastEl, { delay: options.delay || 2000 });
     toast.show();
 }
