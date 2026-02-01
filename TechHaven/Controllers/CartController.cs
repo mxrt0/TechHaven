@@ -54,7 +54,8 @@ public class CartController : Controller
         _cart.UpdateQuantity(productId, quantity);
         return Json(new
         {
-            success = true
+            success = true,
+            message = "Cart updated"
         });
     }
 
@@ -62,12 +63,7 @@ public class CartController : Controller
     public IActionResult Clear()
     {
         _cart.Clear();
-        return Json(new
-        {
-            success = true,
-            message = "Cart cleared"
-        });
+        TempData["SuccessMessage"] = "Cart cleared";
+        return RedirectToAction(nameof(Index));
     }
-
-
 }
