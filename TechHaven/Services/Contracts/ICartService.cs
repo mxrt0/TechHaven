@@ -9,4 +9,5 @@ public interface ICartService
     void UpdateQuantity(int productId, int quantity);
     IEnumerable<CartItemDto>? GetCart();
     void Clear();
+    bool IsInCart(int productId);
 }

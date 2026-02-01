@@ -48,6 +48,10 @@ public class CartService : ICartService
         var cartItems = ReadCartCookie();
 
         var item = cartItems.FirstOrDefault(ci => ci.ProductId == productId);
+        if (quantity <= 0)
+        {
+            return;
+        }
         if (item is not null)
         {
             item.Quantity += quantity;
@@ -112,5 +116,11 @@ public class CartService : ICartService
         }
 
         WriteCartCookie(cart);
+    }
+
+    public bool IsInCart(int productId)
+    {
+        var cart = ReadCartCookie();
+        return cart.Any(i => i.ProductId == productId);
     }
 }
