@@ -2,6 +2,7 @@
 @{
     ViewData["Title"] = "Cart";
 }
+<div id="temp-message" data-msg="@TempData["SuccessMessage"]"></div>
 
 <div class="container my-5 cart-page">
     <h2 class="mb-5 neon-title text-center">🛒 Your Cart</h2>
@@ -10,6 +11,11 @@
     {
         <div class="empty-cart text-center">
             <p>Your cart is empty.</p>
+            <a asp-controller="Products"
+               asp-action="Index"
+               class="btn btn-outline-info mt-2 btn-lg">
+                Browse products
+             </a>
         </div>
     }
     else
@@ -27,26 +33,18 @@
                         </div>
 
                         <div class="cart-item-actions">
-                            <form asp-action="Update" method="post" class="d-flex gap-2 align-items-center">
-                                @Html.AntiForgeryToken()
                                 <input type="hidden" name="productId" value="@item.ProductId" />
                                 <input type="number"
                                        name="quantity"
                                        value="@item.Quantity"
                                        min="1"
                                        class="quantity-input" />
-                                <button class="btn btn-outline-neon btn-sm">
+                                <button class="btn btn-outline-neon btn-sm btn-update">
                                     Update
                                 </button>
-                            </form>
-
-                            <form asp-action="Remove" method="post">
-                                @Html.AntiForgeryToken()
-                                <input type="hidden" name="productId" value="@item.ProductId" />
                                 <button class="btn btn-remove" title="Remove">
                                     ✕
                                 </button>
-                            </form>
                         </div>
                     </div>
 
@@ -60,14 +58,13 @@
             }
         </div>
 
+        
         <div class="cart-footer mt-5">
-            <form asp-action="Clear" method="post">
-                @Html.AntiForgeryToken()
+            <form method="post" asp-action="Clear">
                 <button class="btn btn-outline-warning btn-lg">
                     Clear cart
                 </button>
             </form>
-
             <div class="cart-total">
                 <span>Total</span>
                 <strong class="neon-price">
@@ -85,3 +82,7 @@
         </div>
     }
 </div>
+@section Scripts {
+    <script src="~/js/toast.js"></script>
+    <script src="~/js/cart.js"></script>
+}
