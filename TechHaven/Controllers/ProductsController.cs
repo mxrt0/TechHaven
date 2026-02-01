@@ -8,10 +8,12 @@ public class ProductsController : Controller
 {
     private readonly IProductService _productService;
     private readonly IWishlistService _wishlistService;
-    public ProductsController(IProductService productService, IWishlistService wishlistService)
+    private readonly ICartService _cartService;
+    public ProductsController(IProductService productService, IWishlistService wishlistService, ICartService cartService)
     {
         _productService = productService;
         _wishlistService = wishlistService;
+        _cartService = cartService;
     }
 
     public async Task<IActionResult> Index()
@@ -35,6 +37,7 @@ public class ProductsController : Controller
         var vm = new DetailsViewModel
         {
             IsInWishlist = await _wishlistService.IsInWishlistAsync(product.Id, User),
+            IsInCart = _cartService.IsInCart(product.Id),
             Product = product
         };
 

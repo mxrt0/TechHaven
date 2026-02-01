@@ -104,4 +104,46 @@
     .wishlist-btn.toggle-animation i {
         transform: scale(1.3);
     }
+.btn-cart, .wishlist-btn {
+    background-color: #0b1220;
+    color: #0ff;
+    border: 2px solid #0ff;
+    border-radius: 6px;
+    padding: 0.5rem 1rem;
+    font-weight: 600;
+    font-size: 1rem;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    transition: all 0.2s ease-in-out;
+    box-shadow: 0 0 10px rgba(0, 255, 255, 0.3);
+}
 
+    .btn-cart:hover {
+        background-color: #0ff;
+        color: #020617;
+        transform: translateY(-2px);
+        box-shadow: 0 0 15px rgba(0, 255, 255, 0.6);
+    }
+
+    .btn-cart:active {
+        transform: translateY(0);
+        box-shadow: 0 0 8px rgba(0, 255, 255, 0.3);
+    }
+
+.quantity-input {
+    background-color: #020617;
+    color: #e6ffff;
+    border: 2px solid #0ff;
+    border-radius: 6px;
+    padding: 0.3rem 0.5rem;
+    text-align: center;
+    font-weight: 600;
+    transition: all 0.2s ease-in-out;
+}
+
+    .quantity-input:focus {
+        outline: none;
+        border-color: #38bdf8;
+        box-shadow: 0 0 8px rgba(0, 255, 255, 0.5);
+    }

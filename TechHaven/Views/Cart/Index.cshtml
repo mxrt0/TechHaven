@@ -1,0 +1,88 @@
+﻿@model CartIndexViewModel
+@{
+    ViewData["Title"] = "Cart";
+}
+<div id="temp-message" data-msg="@TempData["SuccessMessage"]"></div>
+
+<div class="container my-5 cart-page">
+    <h2 class="mb-5 neon-title text-center">🛒 Your Cart</h2>
+
+    @if (!Model.Items.Any())
+    {
+        <div class="empty-cart text-center">
+            <p>Your cart is empty.</p>
+            <a asp-controller="Products"
+               asp-action="Index"
+               class="btn btn-outline-info mt-2 btn-lg">
+                Browse products
+             </a>
+        </div>
+    }
+    else
+    {
+        <div class="cart-items">
+            @foreach (var item in Model.Items)
+            {
+                <div class="cart-item-card">
+                    <div class="cart-item-main">
+                        <div class="cart-item-info">
+                            <h5 class="cart-item-name">@item.Name</h5>
+                            <div class="cart-item-price">
+                                @Helper.ToEuro(item.Price).ToString("0.00") €
+                            </div>
+                        </div>
+
+                        <div class="cart-item-actions">
+                                <input type="hidden" name="productId" value="@item.ProductId" />
+                                <input type="number"
+                                       name="quantity"
+                                       value="@item.Quantity"
+                                       min="1"
+                                       class="quantity-input" />
+                                <button class="btn btn-outline-neon btn-sm btn-update">
+                                    Update
+                                </button>
+                                <button class="btn btn-remove" title="Remove">
+                                    ✕
+                                </button>
+                        </div>
+                    </div>
+
+                    <div class="cart-item-subtotal">
+                        Subtotal:
+                        <strong>
+                            @Helper.ToEuro(item.Total).ToString("0.00") €
+                        </strong>
+                    </div>
+                </div>
+            }
+        </div>
+
+        
+        <div class="cart-footer mt-5">
+            <form method="post" asp-action="Clear">
+                <button class="btn btn-outline-warning btn-lg">
+                    Clear cart
+                </button>
+            </form>
+            <div class="cart-total">
+                <span>Total</span>
+                <strong class="neon-price">
+                    @Helper.ToEuro(Model.TotalPrice).ToString("0.00") €
+                </strong>
+            </div>
+        </div>
+
+        <div class="text-end mt-4">
+            <a asp-controller="Orders"
+               asp-action="Add"
+               class="btn btn btn-lg">
+                Proceed to Checkout →
+            </a>
+        </div>
+    }
+</div>
+@section Scripts {
+    <script src="~/js/toast.js"></script>
+    <script src="~/js/cart.js"></script>
+}
