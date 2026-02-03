@@ -9,6 +9,6 @@ public interface IOrderService
     Task<bool> CreateOrderAsync(IEnumerable<OrderItemDto> orderItems, ClaimsPrincipal principal);
 
     Task<IEnumerable<OrderListDto>> GetOrdersByUserIdAsync(ClaimsPrincipal principal);
-    Task<OrderListDto?> GetOrderByIdAsync(Guid orderId);
+    Task<OrderListDto?> GetOrderByIdAsync(Guid orderId, ClaimsPrincipal principal);
     Task<bool> CancelOrderAsync(Guid orderId, ClaimsPrincipal principal);
 }
