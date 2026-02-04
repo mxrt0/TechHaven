@@ -1,18 +1,22 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System.Reflection.Metadata.Ecma335;
 using TechHaven.DTOs.Cart;
+using TechHaven.DTOs.Order;
 using TechHaven.Models;
 using TechHaven.Services.Contracts;
 
 namespace TechHaven.Controllers;
-// TODO: Finish Up Cart Implementation (Only done adding) AND FIX UI For Cart
+
 [Authorize]
 public class CartController : Controller
 {
     private readonly ICartService _cart;
-    public CartController(ICartService cart)
+    private readonly IOrderService _orderService;
+    public CartController(ICartService cart, IOrderService orderService)
     {
         _cart = cart;
+        _orderService = orderService;
     }
 
     public IActionResult Index()
@@ -65,5 +69,49 @@ public class CartController : Controller
         _cart.Clear();
         TempData["SuccessMessage"] = "Cart cleared";
         return RedirectToAction(nameof(Index));
+    }
+
+    [HttpGet]
+    public IActionResult Checkout()
+    {
+        var cart = _cart.GetCart();
+        if (cart is null || !cart.Any())
+        {
+            TempData["ErrorMessage"] = "Shopping cart is empty.";
+            return RedirectToAction(nameof(Index));
+        }
+        var vm = new CartIndexViewModel
+        {
+            Items = cart ?? new List<CartItemDto>(),
+            TotalPrice = cart?.Sum(i => i.Total) ?? 0m
+        };
+        return View(vm);
+    }
+
+    [HttpPost]
+    public async Task<IActionResult> CheckoutConfirm(List<CartItemDto> dtos)
+    {
+        var cartItems = _cart.GetCart();
+        if (cartItems is null || !cartItems.Any())
+        {
+            TempData["ErrorMessage"] = "Shopping cart is empty.";
+            return RedirectToAction(nameof(Index));
+        };
+
+        var orderItems = cartItems.Select(dto => new OrderItemDto
+        (
+           dto.ProductId,
+           dto.Quantity
+        ));
+               
+        var success = await _orderService.CreateOrderAsync(orderItems, User);
+        if (!success)
+        {
+            return RedirectToAction("Error", "Home");
+        }
+
+        _cart.Clear();
+        TempData["SuccessMessage"] = "Your order has been placed.";
+        return RedirectToAction("Index", "Orders");
     }
 }
