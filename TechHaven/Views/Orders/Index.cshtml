@@ -1,0 +1,92 @@
+﻿@model OrderIndexViewModel
+
+@{
+    ViewData["Title"] = "My Orders";
+}
+
+<div class="container my-5 orders-page">
+    <h2 class="mb-5 neon-title text-center">🧾 My Orders</h2>
+
+    @if (!Model.Orders.Any())
+    {
+        <div class="empty-orders text-center">
+            <p>You haven’t placed any orders yet.</p>
+            <a asp-controller="Products"
+               asp-action="Index"
+               class="btn btn-outline-info mt-2 btn-lg">
+                Browse products
+            </a>
+        </div>
+    }
+    else
+    {
+        <div class="orders-list">
+            @foreach (var order in Model.Orders)
+            {
+                <div class="order-card">
+                  <div class="order-header">
+                        <div>
+                            <h5 class="order-number">
+                                Order #@order.OrderNumber
+                            </h5>
+                            <div class="order-date">
+                                @order.OrderDate.ToString("dd/MM/yyyy", CultureInfo.InvariantCulture)
+                            </div>
+                        </div>
+
+                    <div class="order-header-actions">
+                        <div class="order-total">
+                            @Helper.ToEuro(order.OrderTotal).ToString("0.00") €
+                        </div>
+
+                        <div class="order-actions">
+                            <a asp-action="Details"
+                               asp-route-id="@order.OrderId"
+                               class="btn btn-info">
+                                View
+                            </a>
+
+                            <form asp-action="Cancel"
+                                  asp-route-id="@order.OrderId"
+                                  method="post"
+                                  class="cancel-form">
+                                <button type="submit"
+                                        class="btn btn-danger"
+                                        onclick="return confirm('Cancel this order?');">
+                                    Cancel
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+                  </div>
+                    <div class="order-items">
+                        @foreach (var item in order.OrderItems)
+                        {
+                            <div class="order-item">
+                                <img src="@item.ImageUrl"
+                                     alt="@item.ProductName"
+                                     class="order-item-image" />
+
+                                <div class="order-item-info">
+                                    <div class="order-item-name">
+                                        @item.ProductName
+                                    </div>
+
+                                    <div class="order-item-meta">
+                                        @item.Quantity ×
+                                        @Helper.ToEuro(item.UnitPrice).ToString("0.00") €
+                                    </div>
+                                </div>
+
+                                <div class="order-item-total">
+                                    @Helper.ToEuro(item.TotalPrice).ToString("0.00") €
+                                </div>
+                            </div>
+                        }
+                    </div>
+                </div>
+            }
+        </div>
+    }
+</div>
+
