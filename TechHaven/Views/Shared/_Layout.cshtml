@@ -31,7 +31,9 @@
                   ViewContext.RouteData.Values["controller"]?.ToString(),
                   "wishlist", StringComparison.OrdinalIgnoreCase) ? "active" : "")"><span class="icon">❤️</span> My Wishlist</a>
 
-                <a href="#" class="nav-link"><span class="icon">🧾</span> Orders</a>
+                <a asp-controller="Orders" asp-action="Index" class="nav-link @(string.Equals(
+                  ViewContext.RouteData.Values["controller"]?.ToString(),
+                  "orders", StringComparison.OrdinalIgnoreCase) ? "active" : "")"><span class="icon">🧾</span> Orders</a>
 
                 <div class="cart-container">
                     <a asp-controller="Cart" asp-action="Index" class="nav-link @(string.Equals(
