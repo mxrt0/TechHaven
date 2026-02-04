@@ -1,0 +1,28 @@
+﻿
+.checkout-page .cart-item-actions {
+    display: none;
+}
+
+.checkout-actions {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 3rem;
+    gap: 2rem;
+}
+
+.btn-neon-confirm {
+    background: linear-gradient(135deg, #22d3ee, #0ff);
+    color: #020617;
+    font-weight: 700;
+    padding: 0.75rem 2.25rem;
+    border-radius: 999px;
+    border: none;
+    box-shadow: 0 0 18px rgba(34, 211, 238, 0.85), 0 0 36px rgba(0, 255, 255, 0.45);
+    transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+    .btn-neon-confirm:hover {
+        transform: translateY(-1px);
+        box-shadow: 0 0 26px rgba(34, 211, 238, 1), 0 0 52px rgba(0, 255, 255, 0.65);
+    }

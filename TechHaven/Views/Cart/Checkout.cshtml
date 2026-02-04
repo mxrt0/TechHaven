@@ -1,0 +1,71 @@
+﻿@model CartIndexViewModel
+@{
+    ViewData["Title"] = "Checkout";
+}
+@section PageCss {
+    <link rel="stylesheet" href="~/css/cart-shared.css" />
+}
+<div class="container my-5 cart-page checkout-page">
+    <h2 class="mb-5 neon-title text-center">✅ Checkout</h2>
+
+    @if (!Model.Items.Any())
+    {
+        <div class="empty-cart text-center">
+            <p>Your cart is empty.</p>
+            <a asp-controller="Products"
+               asp-action="Index"
+               class="btn btn-outline-info mt-2 btn-lg">
+                Browse products
+            </a>
+        </div>
+    }
+    else
+    {
+        <div class="cart-items">
+            @foreach (var item in Model.Items)
+            {
+                <div class="cart-item-card">
+                    <div class="cart-item-main">
+                        <div class="cart-item-info">
+                            <h5 class="cart-item-name">@item.Name</h5>
+                            <div class="cart-item-price">
+                                @Helper.ToEuro(item.Price).ToString("0.00") € × @item.Quantity
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="cart-item-subtotal">
+                        Subtotal:
+                        <strong>
+                            @Helper.ToEuro(item.Total).ToString("0.00") €
+                        </strong>
+                    </div>
+                </div>
+            }
+        </div>
+
+        <div class="cart-footer mt-5">
+            <div class="cart-total">
+                <span>Total</span>
+                <strong class="neon-price">
+                    @Helper.ToEuro(Model.TotalPrice).ToString("0.00") €
+                </strong>
+            </div>
+        </div>
+
+        <div class="checkout-actions mt-5">
+            <a asp-action="Index"
+               class="btn btn-outline-neon btn-lg">
+                ← Back to Cart
+            </a>
+
+            <form method="post" asp-action="CheckoutConfirm">
+                <button type="submit"
+                        class="btn btn-lg btn-neon-confirm">
+                    Place Order 🛒
+                </button>
+            </form>
+        </div>
+    }
+</div>
+
