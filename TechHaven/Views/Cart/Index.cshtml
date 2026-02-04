@@ -2,6 +2,9 @@
 @{
     ViewData["Title"] = "Cart";
 }
+@section PageCss {
+    <link rel="stylesheet" href="~/css/cart-shared.css" />
+}
 <div id="temp-message" data-msg="@TempData["SuccessMessage"]"></div>
 
 <div class="container my-5 cart-page">
@@ -74,8 +77,8 @@
         </div>
 
         <div class="text-end mt-4">
-            <a asp-controller="Orders"
-               asp-action="Add"
+            <a
+               asp-action="Checkout"
                class="btn btn btn-lg">
                 Proceed to Checkout →
             </a>
