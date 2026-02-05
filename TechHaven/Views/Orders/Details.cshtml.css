@@ -1,0 +1,100 @@
+﻿.orders-page {
+    background: radial-gradient(circle at top, #0b0f22, #01030d);
+    border-radius: 16px;
+    padding: 3rem 2rem;
+    color: #e6ffff;
+}
+
+.neon-title {
+    color: #e6ffff;
+    font-weight: 700;
+}
+
+    .neon-title::after {
+        content: "";
+        display: block;
+        width: 80px;
+        height: 3px;
+        margin: 0.75rem auto 0;
+        background: linear-gradient(90deg, #38bdf8, #0ff);
+        box-shadow: 0 0 6px rgba(56, 189, 248, 0.6);
+        border-radius: 2px;
+    }
+
+.order-summary {
+    background: rgba(15, 23, 42, 0.6);
+    padding: 1rem 1.5rem;
+    border-radius: 12px;
+    margin-bottom: 2rem;
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 1rem;
+}
+
+.order-items {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.order-item-card {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    background: linear-gradient(180deg, #020617, #020617cc);
+    border: 1px solid rgba(0, 255, 255, 0.25);
+    border-radius: 12px;
+    padding: 1rem;
+    box-shadow: 0 0 20px rgba(0, 255, 255, 0.1);
+}
+
+.order-item-image {
+    width: 48px;
+    height: 48px;
+    object-fit: cover;
+    border-radius: 8px;
+    border: 1px solid rgba(0, 255, 255, 0.3);
+}
+
+.order-item-info {
+    flex-grow: 1;
+}
+
+.order-item-name {
+    font-size: 0.95rem;
+    color: #e6ffff;
+}
+
+.order-item-meta {
+    font-size: 0.8rem;
+    color: #94a3b8;
+}
+
+.order-item-total {
+    font-size: 1rem;
+    font-weight: 600;
+    color: #7dd3fc;
+}
+
+.text-end {
+    width: 30%;
+    text-align: center;
+    text-wrap: nowrap;
+    margin: auto;
+    background: linear-gradient(135deg, #22d3ee, #0ff);
+    color: #020617;
+    font-weight: 600;
+    padding: 0.5rem 1.5rem;
+    border-radius: 102px;
+    border: none;
+    box-shadow: 0 0 18px rgba(34, 211, 238, 0.85), 0 0 36px rgba(0, 255, 255, 0.45), inset 0 0 0 1px rgba(2, 6, 23, 0.35);
+    transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+    .text-end:hover {
+        transform: translateY(-1px);
+        box-shadow: 0 0 24px rgba(34, 211, 238, 1), 0 0 48px rgba(0, 255, 255, 0.6);
+        color: #020617;
+    }
+

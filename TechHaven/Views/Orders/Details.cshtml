@@ -1,0 +1,39 @@
+﻿@model OrderDetailsViewModel
+
+@{
+    ViewData["Title"] = $"Order #{Model.Order.OrderNumber}";
+}
+
+<div class="container my-5 orders-page">
+    <h2 class="mb-4 neon-title text-center">🧾 Order #@Model.Order.OrderNumber</h2>
+
+    <div class="order-summary mb-4">
+        <div><strong>Order Date:</strong> @Model.Order.OrderDate.ToString("dd/MM/yyyy HH:mm", CultureInfo.InvariantCulture)</div>
+        <div><strong>Total Items:</strong> @Model.Order.OrderItems.Count</div>
+        <div><strong>Order Total:</strong> @Helper.ToEuro(Model.Order.OrderTotal).ToString("0.00") €</div>
+    </div>
+
+    <div class="order-items">
+        @foreach (var item in Model.Order.OrderItems)
+        {
+            <div class="order-item-card">
+                <img src="@item.ImageUrl" alt="@item.ProductName" class="order-item-image" />
+
+                <div class="order-item-info">
+                    <div class="order-item-name">@item.ProductName</div>
+                    <div class="order-item-meta">
+                        @item.Quantity × @Helper.ToEuro(item.UnitPrice).ToString("0.00") €
+                    </div>
+                </div>
+
+                <div class="order-item-total">
+                    @Helper.ToEuro(item.TotalPrice).ToString("0.00") €
+                </div>
+            </div>
+        }
+    </div>
+
+    <div class="text-end mt-4 text-center">
+       <a asp-action="Index" class="btn btn-lg">← Back to Orders</a>
+    </div>
+</div>
