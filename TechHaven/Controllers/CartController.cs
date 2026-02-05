@@ -89,7 +89,7 @@ public class CartController : Controller
     }
 
     [HttpPost]
-    public async Task<IActionResult> CheckoutConfirm(List<CartItemDto> dtos)
+    public async Task<IActionResult> CheckoutConfirm()
     {
         var cartItems = _cart.GetCart();
         if (cartItems is null || !cartItems.Any())
@@ -98,13 +98,7 @@ public class CartController : Controller
             return RedirectToAction(nameof(Index));
         };
 
-        var orderItems = cartItems.Select(dto => new OrderItemDto
-        (
-           dto.ProductId,
-           dto.Quantity
-        ));
-               
-        var success = await _orderService.CreateOrderAsync(orderItems, User);
+        var success = await _orderService.CreateOrderAsync(cartItems, User);
         if (!success)
         {
             return RedirectToAction("Error", "Home");
