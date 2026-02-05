@@ -47,16 +47,13 @@
                                 View
                             </a>
 
-                            <form asp-action="Cancel"
-                                  asp-route-id="@order.OrderId"
-                                  method="post"
-                                  class="cancel-form">
-                                <button type="submit"
+                                <button type="button"
                                         class="btn btn-danger"
-                                        onclick="return confirm('Cancel this order?');">
+                                        data-bs-toggle="modal"
+                                        data-bs-target="#cancelModal"
+                                        data-order-id="@order.OrderId">
                                     Cancel
                                 </button>
-                            </form>
                         </div>
                     </div>
                   </div>
@@ -90,6 +87,7 @@
         </div>
     }
 </div>
+<partial name="_CancelOrderPartial" />
 @section Scripts {
     <script src="~/js/toast.js"></script>
     <script src="~/js/orders.js"></script>
