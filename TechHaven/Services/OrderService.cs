@@ -107,6 +107,7 @@ public class OrderService : IOrderService
        .Where(o => o.UserId == userId)
        .Include(o => o.OrderItems)
            .ThenInclude(oi => oi.Product)
+           .OrderByDescending(o => o.OrderDate)
        .Select(o => new OrderListDto(
            o.Id,
            o.Id.ToString().Substring(0, 8),
@@ -117,7 +118,7 @@ public class OrderService : IOrderService
                oi.Quantity,
                oi.Product.ImageUrl
            )).ToList()
-       ))
+       ))       
        .ToListAsync();
     }
 }
