@@ -1,12 +1,17 @@
 ﻿enum ToastType {
     Cart,
-    Wishlist
+    Wishlist,
+    Order
 }
-type ToastOptions = (WishlistToastOptions | CartToastOptions) & { delay?: number }; // Extendable for other toast types in the future
+type ToastOptions = (WishlistToastOptions | CartToastOptions | OrderToastOptions) & { delay?: number }; // Extendable for other toast types in the future
 
 type CartToastOptions = {
     type: ToastType.Cart,
 }
+type OrderToastOptions = {
+    type: ToastType.Order,
+}
+
 type WishlistToastOptions = {
     type: ToastType.Wishlist,
     added: boolean
