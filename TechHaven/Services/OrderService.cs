@@ -1,8 +1,10 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using Humanizer;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using System.Security.Claims;
 using TechHaven.Data;
 using TechHaven.Data.Models;
+using TechHaven.DTOs.Cart;
 using TechHaven.DTOs.Order;
 using TechHaven.Services.Contracts;
 
@@ -32,7 +34,7 @@ public class OrderService : IOrderService
         return true;
     }
 
-    public async Task<bool> CreateOrderAsync(IEnumerable<OrderItemDto> orderItems, ClaimsPrincipal principal)
+    public async Task<bool> CreateOrderAsync(IEnumerable<CartItemDto> cartItems, ClaimsPrincipal principal)
     {
         var userId = _userManager.GetUserId(principal);
         if (userId is null)
@@ -44,6 +46,11 @@ public class OrderService : IOrderService
             UserId = userId,
             OrderDate = DateTime.UtcNow,
         };
+        var orderItems = cartItems.Select(dto => new OrderItemDto
+        (
+           dto.ProductId,
+           dto.Quantity
+        ));
         foreach (var item in orderItems)
         {
             var product = await _context.Products.FindAsync(item.ProductId);
