@@ -33,6 +33,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="Areas\Admin\Controllers\" />
+    <Folder Include="Areas\Admin\ViewModels\" />
+    <Folder Include="Areas\Admin\Views\" />
     <Folder Include="wwwroot\images\categories\" />
     <Folder Include="wwwroot\js\" />
   </ItemGroup>
