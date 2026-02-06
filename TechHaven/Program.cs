@@ -1,15 +1,17 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using TechHaven.Common;
 using TechHaven.Data;
 using TechHaven.Data.Models;
+using TechHaven.Data.Seeders;
 using TechHaven.Services;
 using TechHaven.Services.Contracts;
-
+// TODO: Add Admin Services and Controllers with Views etc.
 namespace TechHaven
 {
     public class Program
     {
-        public static void Main(string[] args)
+        public static async Task Main(string[] args)
         {
             var builder = WebApplication.CreateBuilder(args);
 
@@ -28,6 +30,16 @@ namespace TechHaven
             builder.Services.AddControllersWithViews();
             builder.Services.AddRazorPages();
             var app = builder.Build();
+
+            using (var scope = app.Services.CreateScope())
+            {
+                var services = scope.ServiceProvider;
+                var roleManager = services.GetRequiredService<RoleManager<IdentityRole>>();
+                var userManager = services.GetRequiredService<UserManager<ApplicationUser>>();
+
+                await AdminSeeder.SeedAdminRoleAsync(roleManager);
+                await AdminSeeder.EnsureAdminUserAsync(userManager);
+            }
 
             // Configure the HTTP request pipeline.
             if (app.Environment.IsDevelopment())
