@@ -30,5 +30,6 @@ public class Product
     [MaxLength(ImageUrlMaxLength)]
     public string ImageUrl { get; set; } = null!;
 
+    public bool IsActive { get; set; }
     public virtual ICollection<ProductSale> ProductSales { get; set; } = new HashSet<ProductSale>();
 }
