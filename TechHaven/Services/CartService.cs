@@ -45,13 +45,18 @@ public class CartService : ICartService
 
     public void Add(int productId, int quantity = 1)
     {
-        var cartItems = ReadCartCookie();
-
-        var item = cartItems.FirstOrDefault(ci => ci.ProductId == productId);
         if (quantity <= 0)
         {
             return;
         }
+
+        var product = _context.Products.FirstOrDefault(p => p.Id == productId && p.IsActive);
+        if (product is null) return;
+
+        var cartItems = ReadCartCookie();
+
+        var item = cartItems.FirstOrDefault(ci => ci.ProductId == productId);
+        
         if (item is not null)
         {
             item.Quantity += quantity;
@@ -74,7 +79,7 @@ public class CartService : ICartService
         var productIds = cookieItems.Select(ci => ci.ProductId).ToList();
 
         var products = _context.Products
-            .Where(p => productIds.Contains(p.Id))
+            .Where(p => productIds.Contains(p.Id) && p.IsActive)
             .ToDictionary(p => p.Id, p => p);
 
         var cartItems = cookieItems
@@ -121,6 +126,7 @@ public class CartService : ICartService
     public bool IsInCart(int productId)
     {
         var cart = ReadCartCookie();
-        return cart.Any(i => i.ProductId == productId);
+        var product = _context.Products.FirstOrDefault(p => p.Id == productId && p.IsActive);
+        return product is not null && cart.Any(i => i.ProductId == productId);
     }
 }

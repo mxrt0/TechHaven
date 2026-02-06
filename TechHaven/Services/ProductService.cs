@@ -17,6 +17,7 @@ public class ProductService : IProductService
     {
         return await _dbContext
             .Products
+            .Where(p => p.IsActive)
              .Include(p => p.Category)
               .AsNoTracking()
                .Select(p => new ProductListDto(
@@ -33,7 +34,7 @@ public class ProductService : IProductService
     {
         return await _dbContext
             .Products
-             .Where(p => p.CategoryId == categoryId)
+             .Where(p => p.CategoryId == categoryId && p.IsActive)
               .Include(p => p.Category)
                .AsNoTracking()
                 .Select(p => new ProductListDto(
@@ -48,7 +49,11 @@ public class ProductService : IProductService
 
     public async Task<ProductDetailsDto?> GetByIdAsync(int id)
     {
-        var product = await _dbContext.Products.Include(p => p.Category).FirstOrDefaultAsync(p => p.Id == id);
+        var product = await _dbContext.Products.
+            Where(p => p.IsActive)
+            .Include(p => p.Category)
+            .FirstOrDefaultAsync(p => p.Id == id);
+
         return product is null
             ? null
             : new ProductDetailsDto(

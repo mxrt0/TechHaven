@@ -28,6 +28,7 @@ public class WishlistService : IWishlistService
         return await _context.WishlistItems
             .Where(wi => wi.UserId == userId)
             .Include(wi => wi.Product)
+            .Where(wi => wi.Product.IsActive)
             .OrderByDescending(wi => wi.AddedAt)
             .Select(wi => new WishlistProductDto
             (
@@ -45,13 +46,21 @@ public class WishlistService : IWishlistService
     {
         var userId = _userManager.GetUserId(principal);
         var item = await _context.WishlistItems
-            .FindAsync(userId, productId);
+            .Include(wi => wi.Product)
+             .FirstOrDefaultAsync(wi => wi.UserId == userId && wi.ProductId == productId && wi.Product.IsActive);
         return item is not null;
     }
 
     public async Task<bool> ToggleAsync(int productId, ClaimsPrincipal principal)
     {
         var userId = _userManager.GetUserId(principal);
+
+        var product = await _context.Products
+            .Where(p => p.Id == productId && p.IsActive)
+            .FirstOrDefaultAsync();
+
+        if (product is null)
+            return false;
 
         var item = await _context.WishlistItems
             .FindAsync(userId, productId);

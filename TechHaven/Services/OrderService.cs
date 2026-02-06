@@ -67,8 +67,12 @@ public class OrderService : IOrderService
         ));
         foreach (var item in orderItems)
         {
-            var product = await _context.Products.FindAsync(item.ProductId);
+            var product = await _context.Products
+                .Where(p => p.Id == item.ProductId && p.IsActive)
+                .FirstOrDefaultAsync();
+
             if (product is null || product.StockQuantity < item.Quantity) return false;
+
             var productSale = new ProductSale
             {
                 ProductId = item.ProductId,
@@ -100,13 +104,15 @@ public class OrderService : IOrderService
             OrderId: order.Id,
             OrderNumber: order.Id.ToString().Substring(0, 8),
             OrderDate: order.OrderDate,
-            OrderItems: order.OrderItems.Select(oi => new ProductSaleListDto
-            (
-                ProductName: oi.Product.Name,
-                UnitPrice: oi.Product.Price,
-                Quantity: oi.Quantity,
-                ImageUrl: oi.Product.ImageUrl
-            )).ToList()
+            OrderItems: order.OrderItems
+                        .Where(oi => oi.Product.IsActive)
+                        .Select(oi => new ProductSaleListDto
+                        (
+                            ProductName: oi.Product.Name,
+                            UnitPrice: oi.Product.Price,
+                            Quantity: oi.Quantity,
+                            ImageUrl: oi.Product.ImageUrl
+                        )).ToList()
         );
         return orderDto;
     }
@@ -127,7 +133,9 @@ public class OrderService : IOrderService
            o.Id,
            o.Id.ToString().Substring(0, 8),
            o.OrderDate,
-           o.OrderItems.Select(oi => new ProductSaleListDto(
+           o.OrderItems
+           .Where(oi => oi.Product.IsActive)
+           .Select(oi => new ProductSaleListDto(
                oi.Product.Name,
                oi.Product.Price,
                oi.Quantity,
