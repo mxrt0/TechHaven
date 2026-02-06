@@ -24,11 +24,25 @@ public class OrderService : IOrderService
     public async Task<bool> CancelOrderAsync(Guid orderId, ClaimsPrincipal principal)
     {
         var userId = _userManager.GetUserId(principal);
-        var order = await _context.Orders.FindAsync(orderId);
+        var order = await _context.Orders
+            .Include(o => o.OrderItems)
+            .FirstOrDefaultAsync(o => o.Id == orderId);
+
         if (order is null || userId is null || order.UserId != userId)
         {
             return false;
         }
+        
+        var productSales = order.OrderItems.ToList();
+        foreach (var ps in productSales)
+        {
+            var product = await _context.Products.FindAsync(ps.ProductId);
+            if (product is not null)
+            {
+                product.StockQuantity += ps.Quantity;
+            }
+        };
+
         _context.Orders.Remove(order);
         await _context.SaveChangesAsync();
         return true;
@@ -61,6 +75,7 @@ public class OrderService : IOrderService
                 Quantity = item.Quantity,
             };
             order.OrderItems.Add(productSale);
+            product.StockQuantity -= item.Quantity;
         }
         await _context.Orders.AddAsync(order);
         await _context.SaveChangesAsync();
