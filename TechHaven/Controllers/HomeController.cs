@@ -1,7 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 using TechHaven.Models;
-using TechHaven.Services.Contracts;
+using TechHaven.Services.Contracts.Public;
 
 namespace TechHaven.Controllers
 {
