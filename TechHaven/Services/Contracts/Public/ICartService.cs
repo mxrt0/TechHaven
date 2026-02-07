@@ -1,6 +1,6 @@
-﻿using TechHaven.DTOs.Cart;
+﻿using TechHaven.DTOs.Public.Cart;
 
-namespace TechHaven.Services.Contracts;
+namespace TechHaven.Services.Contracts.Public;
 
 public interface ICartService
 {

@@ -1,8 +1,8 @@
 ﻿using System.Security.Claims;
-using TechHaven.DTOs.Order;
-using TechHaven.DTOs.Cart;
+using TechHaven.DTOs.Public.Cart;
+using TechHaven.DTOs.Public.Order;
 
-namespace TechHaven.Services.Contracts;
+namespace TechHaven.Services.Contracts.Public;
 
 public interface IOrderService
 {

@@ -1,7 +1,7 @@
 ﻿using System.Security.Claims;
-using TechHaven.DTOs.Wishlist;
+using TechHaven.DTOs.Public.Wishlist;
 
-namespace TechHaven.Services.Contracts;
+namespace TechHaven.Services.Contracts.Public;
 
 public interface IWishlistService
 {

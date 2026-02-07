@@ -1,6 +1,6 @@
-﻿using TechHaven.DTOs.Products;
+﻿using TechHaven.DTOs.Public.Products;
 
-namespace TechHaven.Services.Contracts;
+namespace TechHaven.Services.Contracts.Public;
 
 public interface IProductService
 {

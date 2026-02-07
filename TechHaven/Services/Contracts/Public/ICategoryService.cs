@@ -1,6 +1,6 @@
-﻿using TechHaven.DTOs.Categories;
+﻿using TechHaven.DTOs.Public.Categories;
 
-namespace TechHaven.Services.Contracts;
+namespace TechHaven.Services.Contracts.Public;
 
 public interface ICategoryService
 {
