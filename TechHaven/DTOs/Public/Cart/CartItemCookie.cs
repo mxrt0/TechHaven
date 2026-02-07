@@ -1,4 +1,4 @@
-﻿namespace TechHaven.DTOs.Cart;
+﻿namespace TechHaven.DTOs.Public.Cart;
 
 public sealed record CartItemCookie(
     int ProductId,

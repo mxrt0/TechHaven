@@ -1,4 +1,4 @@
-﻿namespace TechHaven.DTOs.Order;
+﻿namespace TechHaven.DTOs.Public.Order;
 
 public sealed record ProductSaleListDto(
 string ProductName,

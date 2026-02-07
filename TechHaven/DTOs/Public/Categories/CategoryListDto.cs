@@ -1,4 +1,4 @@
-﻿namespace TechHaven.DTOs.Categories;
+﻿namespace TechHaven.DTOs.Public.Categories;
 
 public sealed record CategoryListDto(int Id,
     string Name,

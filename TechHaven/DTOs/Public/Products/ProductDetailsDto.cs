@@ -1,4 +1,4 @@
-﻿namespace TechHaven.DTOs.Products;
+﻿namespace TechHaven.DTOs.Public.Products;
 
 public sealed record ProductDetailsDto(
     int Id,

@@ -1,4 +1,4 @@
-﻿namespace TechHaven.DTOs.Wishlist;
+﻿namespace TechHaven.DTOs.Public.Wishlist;
 
 public sealed record WishlistProductDto(
     int Id,
