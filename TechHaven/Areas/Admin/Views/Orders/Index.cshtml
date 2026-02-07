@@ -1,0 +1,42 @@
+﻿@model OrdersIndexViewModel
+@{
+    ViewData["Title"] = "Orders";
+}
+
+<h2>Orders</h2>
+
+@if (!Model.Orders.Any())
+{
+    <p>No orders yet.</p>
+}
+else
+{
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Order #</th>
+                <th>Date</th>
+                <th>Total</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var order in Model.Orders)
+            {
+                <tr>
+                    <td>@order.OrderNumber</td>
+                    <td>@order.OrderDate.ToString("dd/MM/yyyy hh:mm", CultureInfo.InvariantCulture)</td>
+                    <td>@order.OrderItems.Sum(i => i.TotalPrice).ToString("0.00") €</td>
+                    <td>
+                        <a asp-action="Details" asp-route-id="@order.OrderId" class="btn btn-sm btn-info">View</a>
+
+                        <form asp-action="Cancel" asp-route-id="@order.OrderId" method="post" style="display:inline">
+                            <button type="submit" class="btn btn-sm btn-danger">Cancel</button>
+                        </form>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
