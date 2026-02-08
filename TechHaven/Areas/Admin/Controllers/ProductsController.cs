@@ -74,8 +74,17 @@ public class ProductsController : Controller
         {
             var vm = new ProductCreateViewModel
             {
-                Categories = new SelectList(await _categoryService.GetAllAsync(), "Id", "Name")
-            };
+                Categories = new SelectList(await _categoryService.GetAllAsync(), "Id", "Name", selectedValue: model.Product.CategoryId)
+            }
+        ;
+            var errors = ModelState
+            .Where(x => x.Value?.Errors.Count > 0)
+            .Select(x => new { x.Key, x.Value?.Errors });
+
+            foreach (var e in errors)
+            {
+                Console.WriteLine($"{e.Key}: {string.Join(", ", e.Errors?.Select(er => er.ErrorMessage) ?? Enumerable.Empty<string>())}");
+            }
             return View(vm);
         }
 
