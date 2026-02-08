@@ -15,9 +15,7 @@ public class AdminProductCreateDto
     [Display(Name = "Description")]
     public string Description { get; set; } = null!;
 
-    [Required]
-    [StringLength(SpecsJsonMaxLength)]
-    [Display(Name = "Specifications (JSON)")]
+    [Required(ErrorMessage = "Specs are required.")]
     public string SpecsJson { get; set; } = null!;
 
     [Required]
@@ -38,6 +36,7 @@ public class AdminProductCreateDto
     [Required]
     [StringLength(ImageUrlMaxLength)]
     [Display(Name = "Image URL")]
+    [RegularExpression("^[\\w./-]+\\.(?:jpg|jpeg|png|gif|webp|bmp)$", ErrorMessage = "Unsupported or invalid file format.")]
     public string ImageUrl { get; set; } = null!;
 }
 
