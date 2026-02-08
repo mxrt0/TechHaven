@@ -57,7 +57,7 @@ public class AdminProductService : IAdminProductService
             {
                 Name = dto.Name,
                 Description = dto.Description,
-                SpecsJson = JsonConvert.SerializeObject(dto.SpecsJson) ?? "{}",
+                SpecsJson = dto.SpecsJson ?? "{}",
                 Price = dto.Price,
                 StockQuantity = dto.StockQuantity,
                 CategoryId = dto.CategoryId,
