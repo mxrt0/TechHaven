@@ -4,18 +4,15 @@
     Layout = "_AdminLayout";
 }
 
-<h2 class="mb-4">Add New Product</h2>
+<h2 class="mb-4 text-center">Add New Product</h2>
 
 <form asp-action="Create" method="post">
+    <input type="hidden" asp-for="Product.SpecsJson" class="form-control" />
+    <div asp-validation-summary="All" class="text-danger"></div>
     <div class="mb-3">
         <label asp-for="Product.Name" class="form-label"></label>
         <input asp-for="Product.Name" class="form-control" />
         <span asp-validation-for="Product.Name" class="text-danger"></span>
-    </div>
-    <div class="mb-3">
-        <label asp-for="Product.CategoryId" class="form-label"></label>
-        <select asp-for="Product.CategoryId" class="form-select" asp-items="Model.Categories"></select>
-        <span asp-validation-for="Product.CategoryId" class="text-danger"></span>
     </div>
     <div class="mb-3">
         <label asp-for="Product.Description" class="form-label"></label>
@@ -23,10 +20,11 @@
         <span asp-validation-for="Product.Description" class="text-danger"></span>
     </div>
     <div class="mb-3">
-        <label asp-for="Product.SpecsJson" class="form-label"></label>
-        <input asp-for="Product.SpecsJson" class="form-control" placeholder="Enter content matching schema of selected category..." />
-        <span asp-validation-for="Product.SpecsJson" class="text-danger"></span>
-    </div>
+        <label asp-for="Product.CategoryId" class="form-label"></label>
+        <select asp-for="Product.CategoryId" class="form-select" asp-items="Model.Categories"></select>
+        <span asp-validation-for="Product.CategoryId" class="text-danger"></span>
+    </div>   
+        
     <div class="mb-3">
         <label asp-for="Product.Price" class="form-label"></label>
         <input asp-for="Product.Price" class="form-control" />
@@ -50,6 +48,6 @@
 
 @section Scripts {
     <partial name="_ValidationScriptsPartial" />
-    <script src="js/validateSpecsJson.js"></script>
+    <script src="~/js/validateSpecsJson.js"></script>
 }
 
