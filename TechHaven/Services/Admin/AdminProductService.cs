@@ -32,6 +32,7 @@ public class AdminProductService : IAdminProductService
 
     public async Task<AdminProductEditDto?> GetByIdAsync(int id)
         => await _context.Products
+        .Include(p => p.Category)
             .Where(p => p.Id == id)
             .Select(p => new AdminProductEditDto
             {
@@ -41,8 +42,10 @@ public class AdminProductService : IAdminProductService
                 Price = p.Price,
                 StockQuantity = p.StockQuantity,
                 CategoryId = p.CategoryId,
+                CategoryName = p.Category.Name,
                 ImageUrl = p.ImageUrl,
-                IsActive = p.IsActive
+                IsActive = p.IsActive,
+                SpecsJson = p.SpecsJson
             })
             .FirstOrDefaultAsync();
 
@@ -87,6 +90,7 @@ public class AdminProductService : IAdminProductService
         product.CategoryId = dto.CategoryId;
         product.ImageUrl = dto.ImageUrl;
         product.IsActive = dto.IsActive;
+        product.SpecsJson = dto.SpecsJson;
 
         await _context.SaveChangesAsync();
         return true;
