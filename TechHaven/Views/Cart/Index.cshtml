@@ -5,7 +5,7 @@
 @section PageCss {
     <link rel="stylesheet" href="~/css/cart-shared.css" />
 }
-<div id="temp-message" data-msg="@TempData["SuccessMessage"]"></div>
+<div id="temp-message" data-temp-Msg="@TempData["SuccessMessage"]"></div>
 
 <div class="container my-5 cart-page">
     <h2 class="mb-5 neon-title text-center">🛒 Your Cart</h2>
@@ -87,5 +87,6 @@
 </div>
 @section Scripts {
     <script src="~/js/toast.js"></script>
+    <script src="~/js/readTempMsg.js"></script>
     <script src="~/js/cart.js"></script>
 }
