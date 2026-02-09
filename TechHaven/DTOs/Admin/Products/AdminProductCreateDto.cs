@@ -19,7 +19,7 @@ public class AdminProductCreateDto
     public string SpecsJson { get; set; } = null!;
 
     [Required]
-    [Range(0.01, 9999, ErrorMessage = "Price must be greater than zero.")]
+    [Range(0.01, 9999.99, ErrorMessage = "Price must be greater than zero and less than 10000.")]
     [Display(Name = "Price")]
     public decimal Price { get; set; }
 
