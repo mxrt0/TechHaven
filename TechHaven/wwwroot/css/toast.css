@@ -1,0 +1,79 @@
+﻿.toast-container {
+    z-index: 1200;
+    position: fixed;
+    bottom: 2rem;
+    right: 2rem;
+}
+
+#wishlistToast {
+    background: rgba(10, 10, 20, 0.95);
+    border: 2px solid #0ff;
+    border-radius: 12px;
+    box-shadow: 0 0 5px #0ff, 0 0 10px #0ff;
+    color: #0ff;
+    font-weight: bold;
+    text-shadow: 0 0 1px #0ff;
+    animation: glow 2s ease-in-out infinite alternate;
+    transform: translateX(100%);
+    opacity: 0;
+    transition: transform 0.3s ease, opacity 0.3s ease;
+    padding-right: 2.5rem;
+}
+
+    #wishlistToast.show {
+        transform: translateX(0);
+        opacity: 1;
+    }
+
+#wishlistToastBody {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 1rem;
+}
+
+#wishlistToast .btn-close {
+    position: absolute;
+    top: 0.3rem;
+    right: 0.3rem;
+    color: #0ff;
+    opacity: 1;
+    filter: none;
+    z-index: 20;
+    background: none;
+    border: none;
+}
+
+    #wishlistToast .btn-close:hover {
+        color: #0ff;
+        text-shadow: 0 0 3px #0ff;
+    }
+
+.neon-timer {
+    height: 4px;
+    background: #0ff;
+    width: 100%;
+    margin-top: 0.5rem;
+    border-radius: 2px;
+    box-shadow: 0 0 5px #0ff, 0 0 10px #0ff;
+    animation: shrink 2s linear forwards;
+    transform-origin: left;
+}
+
+@keyframes shrink {
+    from {
+        width: 100%;
+    }
+
+    to {
+        width: 0%;
+    }
+}
+
+@keyframes glow {
+    from {
+        box-shadow: 0 0 5px #0ff, 0 0 10px #0ff;
+    }
+
+    to {
+        box-shadow: 0 0 7px #0ff, 0 0 12px #0ff;
+    }
+}
