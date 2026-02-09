@@ -33,5 +33,8 @@ public class AdminProductEditDto
 
     [Required(ErrorMessage = "Specs are required.")]
     public string SpecsJson { get; set; } = null!;
+
+    public int CategoryId { get; set; }
+    public string CategoryName { get; set; } = null!;
 }
 
