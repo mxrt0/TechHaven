@@ -24,13 +24,15 @@ public class ProductsController : Controller
         string? searchTerm,
         int? categoryId,
         decimal? minPrice,
-        decimal? maxPrice)
+        decimal? maxPrice,
+        bool lockCategory)
     {
         var products = await _productService.SearchAsync(
         searchTerm,
         categoryId,
         minPrice,
         maxPrice);
+
         var categories = await _categoryService.GetAllAsync();
 
         var vm = new ProductsIndexViewModel
@@ -40,16 +42,12 @@ public class ProductsController : Controller
             MinPrice = minPrice,
             MaxPrice = maxPrice,
             Products = products,
-            Categories = categories
+            Categories = categories,
+            IsCategoryLocked = lockCategory
         };
         return View(vm);
     }
 
-    public async Task<IActionResult> Category(int id)
-    {
-        var products = await _productService.GetByCategoryAsync(id);
-        return View(nameof(Index), products);
-    }
     public async Task<IActionResult> Details(int id)
     {
         var product = await _productService.GetByIdAsync(id);
