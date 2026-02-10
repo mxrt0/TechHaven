@@ -14,6 +14,75 @@
         <h1 class="fw-bold text-center">Products</h1>
     </div>
 
+    <form method="get" class="mb-4">
+        @if (Model.IsCategoryLocked)
+        {
+            <input type="hidden" name="lockCategory" value="true" />
+        }
+        <div class="row g-2 align-items-end">
+
+            <div class="col-md-4">
+                <label class="form-label">Search</label>
+                <input type="text"
+                       name="searchTerm"
+                       value="@Model.SearchTerm"
+                       class="form-control"
+                       placeholder="Search products..." />
+            </div>
+
+            <div class="col-md-3">
+                <label class="form-label">Category</label>
+                <select name="categoryId" class="form-select">
+                    @if (Model.IsCategoryLocked)
+                    {
+                        <option value="@Model.CategoryId" selected>@Model.Categories.First(c => c.Id == Model.CategoryId).Name</option>
+                    }
+                    else
+                    {
+                        <option value="">All categories</option>
+                        @foreach (var c in Model.Categories)
+                        {
+                            if (Model.CategoryId == c.Id)
+                            {
+                                <option value="@c.Id" selected>@c.Name</option>
+                            }
+                            else
+                            {
+                                <option value="@c.Id">@c.Name</option>
+                            }
+                        }
+                    }
+                        
+                </select>
+            </div>
+
+            <div class="col-md-2">
+                <label class="form-label">Min Price (&euro;)</label>
+                <input type="number"
+                       step="1"
+                       min="1"
+                       name="minPrice"
+                       value="@Model.MinPrice"
+                       class="form-control" />
+            </div>
+
+            <div class="col-md-2">
+                <label class="form-label">Max Price (&euro;)</label>
+                <input type="number"
+                       step="1"
+                       min="1"
+                       name="maxPrice"
+                       value="@Model.MaxPrice"
+                       class="form-control" />
+            </div>
+
+            <div class="col-md-1 d-grid">
+                <button type="submit" class="btn btn-primary">Go</button>
+            </div>
+
+        </div>
+    </form>
+
     @if (!Model.Products.Any())
     {
         <div class="alert alert-secondary">
