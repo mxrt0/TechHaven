@@ -9,17 +9,40 @@ public class ProductsController : Controller
     private readonly IProductService _productService;
     private readonly IWishlistService _wishlistService;
     private readonly ICartService _cartService;
-    public ProductsController(IProductService productService, IWishlistService wishlistService, ICartService cartService)
+    private readonly ICategoryService _categoryService;
+    public ProductsController(IProductService productService,
+        IWishlistService wishlistService,
+        ICartService cartService, ICategoryService categoryService)
     {
         _productService = productService;
         _wishlistService = wishlistService;
         _cartService = cartService;
+        _categoryService = categoryService;
     }
 
-    public async Task<IActionResult> Index()
+    public async Task<IActionResult> Index(
+        string? searchTerm,
+        int? categoryId,
+        decimal? minPrice,
+        decimal? maxPrice)
     {
-        var products = await _productService.GetAllAsync();
-        return View(products);
+        var products = await _productService.SearchAsync(
+        searchTerm,
+        categoryId,
+        minPrice,
+        maxPrice);
+        var categories = await _categoryService.GetAllAsync();
+
+        var vm = new ProductsIndexViewModel
+        {
+            SearchTerm = searchTerm,
+            CategoryId = categoryId,
+            MinPrice = minPrice,
+            MaxPrice = maxPrice,
+            Products = products,
+            Categories = categories
+        };
+        return View(vm);
     }
 
     public async Task<IActionResult> Category(int id)
