@@ -1,5 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using TechHaven.DTOs.Order;
+using TechHaven.DTOs.Public.Order;
 
 namespace TechHaven.Models;
 

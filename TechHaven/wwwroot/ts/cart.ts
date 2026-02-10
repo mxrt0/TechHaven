@@ -3,14 +3,6 @@
     message: string
 };
 
-const msgDiv = document.getElementById('temp-message');
-const msg = msgDiv?.dataset.msg;
-if (msg) {
-    showToast(msg, {
-        type: ToastType.Cart,
-    });
-};
-
 const addBtn = document.querySelector<HTMLButtonElement>('.btn-cart');
 const removeBtns = document.querySelectorAll<HTMLButtonElement>('.btn-remove'); 
 const updateBtns = document.querySelectorAll<HTMLButtonElement>('.btn-update');

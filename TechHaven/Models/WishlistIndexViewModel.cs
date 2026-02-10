@@ -1,4 +1,4 @@
-﻿using TechHaven.DTOs.Wishlist;
+﻿using TechHaven.DTOs.Public.Wishlist;
 
 namespace TechHaven.Models;
 

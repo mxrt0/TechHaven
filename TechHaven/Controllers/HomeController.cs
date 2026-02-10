@@ -1,7 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 using TechHaven.Models;
-using TechHaven.Services.Contracts;
+using TechHaven.Services.Contracts.Public;
 
 namespace TechHaven.Controllers
 {
@@ -25,9 +25,11 @@ namespace TechHaven.Controllers
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-        public IActionResult Error()
+        public IActionResult Error(string message)
         {
-            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier,
+                Message = message ?? "Unknown error."
+            });
         }
     }
 }

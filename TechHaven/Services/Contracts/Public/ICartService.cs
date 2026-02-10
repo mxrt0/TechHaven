@@ -1,0 +1,13 @@
+﻿using TechHaven.DTOs.Public.Cart;
+
+namespace TechHaven.Services.Contracts.Public;
+
+public interface ICartService
+{
+    void Add(int productId, int quantity = 1);
+    void Remove(int productId);
+    void UpdateQuantity(int productId, int quantity);
+    IEnumerable<CartItemDto>? GetCart();
+    void Clear();
+    bool IsInCart(int productId);
+}

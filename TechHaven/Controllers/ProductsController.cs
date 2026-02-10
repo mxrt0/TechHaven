@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using TechHaven.Models;
-using TechHaven.Services.Contracts;
+using TechHaven.Services.Contracts.Public;
 
 namespace TechHaven.Controllers;
 

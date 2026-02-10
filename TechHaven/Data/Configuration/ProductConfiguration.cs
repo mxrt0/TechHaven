@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using System.Reflection.Emit;
 using TechHaven.Data.Models;
 
 namespace TechHaven.Data.Configuration;
@@ -369,5 +370,8 @@ public class ProductConfiguration : IEntityTypeConfiguration<Product>
             .Property(p => p.Price)
             .HasPrecision(10, 2);
 
+        builder
+            .Property(p => p.IsActive)
+            .HasDefaultValue(true);
     }
 }

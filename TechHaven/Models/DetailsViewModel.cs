@@ -1,4 +1,4 @@
-﻿using TechHaven.DTOs.Products;
+﻿using TechHaven.DTOs.Public.Products;
 
 namespace TechHaven.Models;
 

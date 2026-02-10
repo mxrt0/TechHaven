@@ -1,10 +1,8 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using System.Reflection.Metadata.Ecma335;
-using TechHaven.DTOs.Cart;
-using TechHaven.DTOs.Order;
+using TechHaven.DTOs.Public.Cart;
 using TechHaven.Models;
-using TechHaven.Services.Contracts;
+using TechHaven.Services.Contracts.Public;
 
 namespace TechHaven.Controllers;
 

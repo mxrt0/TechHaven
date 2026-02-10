@@ -1,4 +1,4 @@
-﻿using TechHaven.DTOs.Cart;
+﻿using TechHaven.DTOs.Public.Cart;
 
 namespace TechHaven.Models;
 

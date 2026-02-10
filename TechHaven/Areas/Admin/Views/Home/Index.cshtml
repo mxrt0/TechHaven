@@ -1,0 +1,114 @@
+﻿@model AdminDashboardViewModel
+@{
+    ViewData["Title"] = "Admin Dashboard";
+}
+
+<h2>Admin Dashboard</h2>
+
+<div class="row my-4">
+    <div class="col-md-3">
+        <div class="card text-center text-white bg-primary mb-3">
+            <div class="card-body">
+                <h3 class="card-title">@Model.TotalProducts</h3>
+                <p class="card-text">Total Products</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="card text-center text-white bg-success mb-3">
+            <div class="card-body">
+                <h3 class="card-title">@Model.ActiveProducts</h3>
+                <p class="card-text">Active Products</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="card text-center text-white bg-info mb-3">
+            <div class="card-body">
+                <h3 class="card-title">@Model.TotalOrders</h3>
+                <p class="card-text">Total Orders</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="card text-center text-white bg-warning mb-3">
+            <div class="card-body">
+                <h3 class="card-title">@Model.LowStockProducts.Count</h3>
+                <p class="card-text">Low Stock Items</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row mt-5">
+    <div class="col-md-6">
+        <h4>Recent Orders</h4>
+        @if (!Model.RecentOrders.Any())
+        {
+            <p>No recent orders.</p>
+        }
+        else
+        {
+            <table class="table table-bordered table-sm">
+                <thead>
+                    <tr>
+                        <th>Order #</th>
+                        <th>Date</th>
+                        <th>Total</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var order in Model.RecentOrders)
+                    {
+                        <tr>
+                            <td>@order.OrderNumber</td>
+                            <td>@order.OrderDate.ToString("dd/MM/yyyy hh:mm", CultureInfo.InvariantCulture)</td>
+                            <td>@order.OrderTotal.ToString("0.00") €</td>
+                            <td>
+                                <a asp-area="Admin" asp-controller="Orders" asp-action="Details" asp-route-id="@order.OrderId" class="btn btn-sm btn-info">View</a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        }
+    </div>
+
+    <div class="col-md-6">
+        <h4>Low Stock Products</h4>
+        @if (!Model.LowStockProducts.Any())
+        {
+            <p>All products are well-stocked.</p>
+        }
+        else
+        {
+            <table class="table table-bordered table-sm">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Stock</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var product in Model.LowStockProducts)
+                    {
+                        <tr>
+                            <td>@product.Name</td>
+                            <td>@product.StockQuantity</td>
+                            <td>
+                                <a asp-area="Admin" asp-controller="Products" asp-action="Edit" asp-route-id="@product.Id" class="btn btn-sm btn-warning">Edit</a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        }
+    </div>
+</div>
+
+<div class="mt-4">
+    <a asp-area="Admin" asp-controller="Products" asp-action="Index" class="btn btn-outline-primary me-2">Manage Products</a>
+    <a asp-area="Admin" asp-controller="Orders" asp-action="Index" class="btn btn-outline-info me-2">Manage Orders</a>
+</div>

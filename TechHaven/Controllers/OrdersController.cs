@@ -1,8 +1,8 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using TechHaven.DTOs.Order;
+using TechHaven.DTOs.Public.Order;
 using TechHaven.Models;
-using TechHaven.Services.Contracts;
+using TechHaven.Services.Contracts.Public;
 
 namespace TechHaven.Controllers;
 
