@@ -1,4 +1,4 @@
-﻿@model IReadOnlyList<ProductListDto>
+﻿@model ProductsIndexViewModel
 @{
     ViewData["Title"] = "Products";
 }
@@ -14,7 +14,7 @@
         <h1 class="fw-bold text-center">Products</h1>
     </div>
 
-    @if (!Model.Any())
+    @if (!Model.Products.Any())
     {
         <div class="alert alert-secondary">
             No products found.
@@ -23,7 +23,7 @@
     else
     {
         <div class="row g-4">
-            @foreach (var p in Model)
+            @foreach (var p in Model.Products)
             {
                 <div class="col-12 col-sm-6 col-lg-3">
                     <div class="card product-card h-100">
