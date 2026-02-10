@@ -102,7 +102,7 @@ public class OrderService : IOrderService
         var orderDto = new OrderListDto
         (
             OrderId: order.Id,
-            OrderNumber: order.Id.ToString().Substring(0, 8),
+            OrderNumber: order.Id.ToString().Substring(0, 8).ToUpper(),
             OrderDate: order.OrderDate,
             OrderItems: order.OrderItems
                         .Where(oi => oi.Product.IsActive)
