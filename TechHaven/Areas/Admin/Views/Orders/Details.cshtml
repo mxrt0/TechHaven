@@ -1,0 +1,96 @@
+﻿@model OrderDetailsViewModel
+
+@{
+    ViewData["Title"] = $"Order #{Model.Order.OrderNumber}";
+}
+
+<div class="container-fluid">
+
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <div>
+            <h2 class="mb-1">Order #@Model.Order.OrderNumber</h2>
+            <div class="text-muted">
+                Placed on @Model.Order.OrderDate.ToString("dd/MM/yyyy, HH:mm", CultureInfo.InvariantCulture)
+            </div>
+        </div>
+
+        <div class="text-end">
+            <div class="fs-5 fw-semibold">Total</div>
+            <div class="fs-3 fw-bold text-success">
+                @Model.Order.OrderTotal.ToString("0.00") &euro;
+            </div>
+        </div>
+    </div>
+
+    <div class="card shadow-sm">
+        <div class="card-header fw-semibold">
+            Order Items (@Model.Order.OrderItems.Count)
+        </div>
+
+        <div class="table-responsive">
+            <table class="table align-middle mb-0">
+                <thead class="table-light">
+                    <tr>
+                        <th style="width: 80px;"></th>
+                        <th>Product</th>
+                        <th class="text-end">Unit Price</th>
+                        <th class="text-center">Quantity</th>
+                        <th class="text-end">Total</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    @foreach (var item in Model.Order.OrderItems)
+                    {
+                        <tr>
+                            <td>
+                                <img src="@item.ImageUrl"
+                                     alt="@item.ProductName"
+                                     class="img-thumbnail"
+                                     style="max-width: 60px;" />
+                            </td>
+
+                            <td class="fw-semibold">
+                                @item.ProductName
+                            </td>
+
+                            <td class="text-end">
+                                @item.UnitPrice.ToString("0.00") &euro;
+                            </td>
+
+                            <td class="text-center">
+                                @item.Quantity
+                            </td>
+
+                            <td class="text-end fw-semibold">
+                                @item.TotalPrice.ToString("0.00") &euro;
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+
+                <tfoot class="table-light">
+                    <tr>
+                        <td colspan="4" class="text-end fw-bold">
+                            Grand Total
+                        </td>
+                        <td class="text-end fs-5 fw-bold">
+                            @Model.Order.OrderTotal.ToString("0.00") &euro;
+                        </td>
+                    </tr>
+                </tfoot>
+            </table>
+        </div>
+    </div>
+
+    <div class="mt-4 d-flex justify-content-between">
+        <a asp-area="Admin"
+           asp-controller="Orders"
+           asp-action="Index"
+           class="btn btn-outline-secondary">
+            ← Back to Orders
+        </a>
+    </div>
+
+</div>
+
