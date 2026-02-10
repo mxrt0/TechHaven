@@ -8,7 +8,9 @@ using TechHaven.Services.Admin;
 using TechHaven.Services.Contracts.Admin;
 using TechHaven.Services.Contracts.Public;
 using TechHaven.Services.Public;
-// TODO: Validate JSON Schema for product specs when creating/editing products in the admin panel
+// TODO: Add identity options for password etc.
+// TODO: Add Order Status
+// TODO: Polish UI
 namespace TechHaven
 {
     public class Program
