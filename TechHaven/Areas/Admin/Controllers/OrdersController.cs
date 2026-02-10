@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using TechHaven.Areas.Admin.ViewModels;
 using TechHaven.Services.Contracts.Admin;
 
 namespace TechHaven.Areas.Admin.Controllers;
@@ -20,7 +21,11 @@ public class OrdersController : Controller
         var orders = await _orderService.GetAllAsync();
 
         ViewData["ActivePage"] = "Orders";
-        return View(orders);
+        var vm = new OrdersIndexViewModel
+        {
+            Orders = orders
+        };
+        return View(vm);
     }
 
     public async Task<IActionResult> Details(Guid id)
@@ -28,7 +33,11 @@ public class OrdersController : Controller
         var order = await _orderService.GetByIdAsync(id);
         if (order is null) return NotFound();
 
-        return View(order);
+        var vm = new OrderDetailsViewModel
+        {
+            Order = order
+        };
+        return View(vm);
     }
 
     [HttpPost]
