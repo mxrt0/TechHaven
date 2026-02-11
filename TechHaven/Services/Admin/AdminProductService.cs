@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
+using TechHaven.Areas.Admin.ViewModels.Enums;
 using TechHaven.Data;
 using TechHaven.Data.Models;
 using TechHaven.DTOs.Admin.Products;
@@ -116,5 +117,54 @@ public class AdminProductService : IAdminProductService
         await _context.SaveChangesAsync();
 
         return true;
+    }
+
+    public async Task<IReadOnlyList<AdminProductListDto>> SearchAsync(string? searchTerm, int? categoryId, StockFilter stockFilter, ProductSort sortBy)
+    {
+        var products = _context.Products
+                .Include(p => p.Category)
+                .AsQueryable();
+
+        if (!string.IsNullOrWhiteSpace(searchTerm))
+        {
+            products = products
+                .Where(p => EF.Functions.Like(p.Name, $"%{searchTerm}%"));
+        }
+
+        if (categoryId.HasValue)
+        {
+            products = products
+                .Where(p => p.CategoryId == categoryId);
+        }
+
+        products = stockFilter switch
+        {
+            StockFilter.InStock => products.Where(p => p.StockQuantity > 5),
+            StockFilter.LowStock => products.Where(p => p.StockQuantity > 0 && p.StockQuantity <= 5),
+            StockFilter.OutOfStock => products.Where(p => p.StockQuantity == 0),
+            _ => products
+        };
+
+        products = sortBy switch
+        {
+            ProductSort.NameAsc => products.OrderBy(p => p.Name),
+            ProductSort.PriceAsc => products.OrderBy(p => p.Price),
+            ProductSort.PriceDesc => products.OrderByDescending(p => p.Price),
+            ProductSort.StockAsc => products.OrderBy(p => p.StockQuantity),
+            ProductSort.StockDesc => products.OrderByDescending(p => p.StockQuantity),
+            _ => products.OrderByDescending(p => p.Id)
+        };
+
+        return await 
+            products
+            .Select(p => new AdminProductListDto(
+                p.Id,
+                p.Name,
+                p.Price,
+                p.StockQuantity,
+                p.IsActive,
+                p.Category.Name
+            ))
+            .ToListAsync();
     }
 }
