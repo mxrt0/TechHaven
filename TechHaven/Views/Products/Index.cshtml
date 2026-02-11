@@ -19,9 +19,9 @@
         {
             <input type="hidden" name="lockCategory" value="true" />
         }
-        <div class="row g-2 align-items-end">
-
+        <div class="row g-2 align-items-end">            
             <div class="col-md-4">
+                
                 <label class="form-label">Search</label>
                 <input type="text"
                        name="searchTerm"
@@ -30,7 +30,7 @@
                        placeholder="Search products..." />
             </div>
 
-            <div class="col-md-3">
+            <div class="col-md-2">
                 <label class="form-label">Category</label>
                 <select name="categoryId" class="form-select">
                     @if (Model.IsCategoryLocked)
@@ -67,7 +67,7 @@
             </div>
 
             <div class="col-md-2">
-                <label class="form-label">Max Price (&euro;)</label>
+                <label class="form-label text-center">Max Price (&euro;)</label>
                 <input type="number"
                        step="1"
                        min="1"
@@ -76,10 +76,15 @@
                        class="form-control" />
             </div>
 
-            <div class="col-md-1 d-grid">
-                <button type="submit" class="btn btn-primary">Go</button>
-            </div>
+            <div class="col-md-2 d-flex gap-2 align-items-center">
+                <button type="submit" class="btn btn-primary w-100">
+                    Search
+                </button>
 
+                <a asp-action="Index" asp-route-categoryId="@Model.CategoryId" asp-route-lockCategory="@Model.IsCategoryLocked" class="btn btn-outline-secondary w-100">
+                    Reset
+                </a>
+            </div>
         </div>
     </form>
 
