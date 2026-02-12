@@ -2,10 +2,9 @@
 @model LogoutModel
 @{
     ViewData["Title"] = "Logout";
-    Layout = User.IsInRole("Admin") ? "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml" : "~/Views/Shared/_Layout.cshtml";
 }
 
-@section Styles {
+@section PageCss {
     <link rel="stylesheet" href="~/css/auth.css" asp-append-version="true" />
 }
 <div class="auth-page">
