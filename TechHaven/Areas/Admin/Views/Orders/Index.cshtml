@@ -5,10 +5,17 @@
 
 <h2>Orders</h2>
 <form method="get" asp-action="Index">
-    <div class="row">
+    <div class="row align-items-end">
         <div class="col-md-2">
+            
+            <input type="text"
+                   name="searchTerm"
+                   value="@Model.SearchTerm"
+                   class="form-control"
+                   placeholder="Search by #..." />
+        </div>
+            <div class="col-md-2">   
             <label class="form-label">Sort</label>
-            <div class="d-flex gap-2">                
                 <select name="SortBy" class="form-select">
                     @foreach (var sort in Enum.GetValues<OrderSort>())
                     {
@@ -21,12 +28,16 @@
                             <option value="@sort">@sort</option>
                         }
                     }
-                </select>            
-                <button type="submit" class="btn btn-primary">
-                     Go
-                </button>   
+                </select>  
             </div>
-        </div>        
+        <div class="col-md-2 d-flex gap-2 align-items-center">
+                <button type="submit" class="btn btn-primary">
+                        Go
+                </button>
+                <a asp-action="Index" class="btn btn-outline-secondary">
+                    Reset
+                </a>
+            </div>      
     </div>
 </form>
 @if (!Model.Orders.Any())

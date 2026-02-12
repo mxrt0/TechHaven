@@ -79,12 +79,16 @@ public class AdminOrderService : IAdminOrderService
         return true;
     }
 
-    public async Task<IReadOnlyList<OrderListDto>> SearchAsync(OrderSort sort)
+    public async Task<IReadOnlyList<OrderListDto>> SearchAsync(string? searchTerm, OrderSort sort)
     {
         var orders = _context.Orders
             .Include(o => o.OrderItems)
                 .ThenInclude(oi => oi.Product).AsQueryable();
 
+        if (!string.IsNullOrWhiteSpace(searchTerm)) 
+        {
+            orders = orders.Where(o => EF.Functions.Like(o.Id.ToString(), searchTerm + "%"));
+        }
         orders = sort switch
         {
             OrderSort.Newest => orders.OrderByDescending(o => o.OrderDate),

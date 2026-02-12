@@ -8,6 +8,7 @@ public interface IAdminOrderService
 {
     Task<IReadOnlyList<OrderListDto>> GetAllAsync();
     Task<IReadOnlyList<OrderListDto>> SearchAsync(
+    string? searchTerm,
     OrderSort sort);
     Task<OrderListDto?> GetByIdAsync(Guid orderId);
 
