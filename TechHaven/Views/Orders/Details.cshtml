@@ -10,7 +10,7 @@
     <div class="order-summary mb-4">
         <div><strong>Order Date:</strong> @Model.Order.OrderDate.ToString("dd/MM/yyyy HH:mm", CultureInfo.InvariantCulture)</div>
         <div><strong>Total Items:</strong> @Model.Order.OrderItems.Count</div>
-        <div><strong>Order Total:</strong> @Helper.ToEuro(Model.Order.OrderTotal).ToString("0.00") €</div>
+        <div><strong>Order Total:</strong> @Model.Order.OrderTotal.ToString("0.00") &euro;</div>
     </div>
 
     <div class="order-items">
@@ -22,12 +22,12 @@
                 <div class="order-item-info">
                     <div class="order-item-name">@item.ProductName</div>
                     <div class="order-item-meta">
-                        @item.Quantity × @Helper.ToEuro(item.UnitPrice).ToString("0.00") €
+                        @item.Quantity × @item.UnitPrice.ToString("0.00") &euro;
                     </div>
                 </div>
 
                 <div class="order-item-total">
-                    @Helper.ToEuro(item.TotalPrice).ToString("0.00") €
+                    @item.TotalPrice.ToString("0.00") &euro;
                 </div>
             </div>
         }

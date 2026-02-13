@@ -29,7 +29,7 @@
                         <div class="cart-item-info">
                             <h5 class="cart-item-name">@item.Name</h5>
                             <div class="cart-item-price">
-                                @Helper.ToEuro(item.Price).ToString("0.00") € × @item.Quantity
+                                @item.Price.ToString("0.00") &euro; × @item.Quantity
                             </div>
                         </div>
                     </div>
@@ -37,7 +37,7 @@
                     <div class="cart-item-subtotal">
                         Subtotal:
                         <strong>
-                            @Helper.ToEuro(item.Total).ToString("0.00") €
+                            @item.Total.ToString("0.00") &euro;
                         </strong>
                     </div>
                 </div>
@@ -48,7 +48,7 @@
             <div class="cart-total">
                 <span>Total</span>
                 <strong class="neon-price">
-                    @Helper.ToEuro(Model.TotalPrice).ToString("0.00") €
+                    @Model.TotalPrice.ToString("0.00") €
                 </strong>
             </div>
         </div>

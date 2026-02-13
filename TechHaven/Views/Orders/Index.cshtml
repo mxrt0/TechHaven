@@ -37,7 +37,7 @@
 
                     <div class="order-header-actions">
                         <div class="order-total">
-                            @Helper.ToEuro(order.OrderTotal).ToString("0.00") €
+                            @order.OrderTotal.ToString("0.00") &euro;
                         </div>
 
                         <div class="order-actions">
@@ -72,12 +72,12 @@
 
                                     <div class="order-item-meta">
                                         @item.Quantity ×
-                                        @Helper.ToEuro(item.UnitPrice).ToString("0.00") €
+                                        @item.UnitPrice.ToString("0.00") &euro;
                                     </div>
                                 </div>
 
                                 <div class="order-item-total">
-                                    @Helper.ToEuro(item.TotalPrice).ToString("0.00") €
+                                    @item.TotalPrice.ToString("0.00") &euro;
                                 </div>
                             </div>
                         }
