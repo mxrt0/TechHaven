@@ -119,7 +119,10 @@ public class AdminProductService : IAdminProductService
         return true;
     }
 
-    public async Task<IReadOnlyList<AdminProductListDto>> SearchAsync(string? searchTerm, int? categoryId, StockFilter stockFilter, ProductSort sortBy)
+    public async Task<(IReadOnlyList<AdminProductListDto>, int totalItems)> SearchAsync(string? searchTerm,
+        int? categoryId,
+        StockFilter stockFilter, ProductSort sortBy,
+        int? page = 1, int? pageSize = 10)
     {
         var products = _context.Products
                 .Include(p => p.Category)
@@ -154,9 +157,12 @@ public class AdminProductService : IAdminProductService
             ProductSort.StockDesc => products.OrderByDescending(p => p.StockQuantity),
             _ => products.OrderByDescending(p => p.Id)
         };
+        var totalItems = await products.CountAsync();
 
-        return await 
+        return (await 
             products
+            .Skip(((page ?? 1) - 1) * (pageSize ?? 10))
+            .Take(pageSize.HasValue ? pageSize.Value : 10)
             .Select(p => new AdminProductListDto(
                 p.Id,
                 p.Name,
@@ -165,6 +171,6 @@ public class AdminProductService : IAdminProductService
                 p.IsActive,
                 p.Category.Name
             ))
-            .ToListAsync();
+            .ToListAsync(), totalItems);
     }
 }
