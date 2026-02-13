@@ -102,7 +102,7 @@ public class ProductService : IProductService
 
         return (await query
              .Skip(((page ?? 1) - 1) * (pageSize ?? 10))
-             .Take(totalItems)
+             .Take(pageSize.HasValue ? pageSize.Value : 10)
             .Select(p => new ProductListDto(
                 p.Id,
                 p.Name,
