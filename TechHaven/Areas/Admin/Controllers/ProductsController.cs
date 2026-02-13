@@ -22,14 +22,19 @@ public class ProductsController : Controller
         _categoryService = categoryService;
     }
 
-    public async Task<IActionResult> Index()
+    public async Task<IActionResult> Index(ProductsIndexViewModel filterVm)
     {
-        var products = await _productService.GetAllAsync();
-
+        var products = await _productService.SearchAsync(filterVm.SearchTerm, filterVm.CategoryId, filterVm.Stock, filterVm.SortBy);
+        var categories = await _categoryService.GetAllAsync();
         ViewData["ActivePage"] = "Products";
         var vm = new ProductsIndexViewModel
         {
-            Products = products
+            Products = products,
+            Categories = categories,
+            SearchTerm = filterVm.SearchTerm,
+            CategoryId = filterVm.CategoryId,
+            Stock = filterVm.Stock,
+            SortBy = filterVm.SortBy
         };
         return View(vm);
     }

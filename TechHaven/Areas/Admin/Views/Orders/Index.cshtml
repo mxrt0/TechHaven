@@ -4,7 +4,41 @@
 }
 
 <h2>Orders</h2>
-
+<form method="get" asp-action="Index">
+    <div class="row align-items-end">
+        <div class="col-md-2">
+            
+            <input type="text"
+                   name="searchTerm"
+                   value="@Model.SearchTerm"
+                   class="form-control"
+                   placeholder="Search by #..." />
+        </div>
+            <div class="col-md-2">   
+                <select name="SortBy" class="form-select">
+                    @foreach (var sort in Enum.GetValues<OrderSort>())
+                    {
+                        if (Model.SortBy == sort)
+                        {
+                            <option value="@sort" selected>@sort</option>
+                        }
+                        else
+                        {
+                            <option value="@sort">@sort</option>
+                        }
+                    }
+                </select>  
+            </div>
+        <div class="col-md-2 d-flex gap-2 align-items-center">
+                <button type="submit" class="btn btn-primary">
+                        Go
+                </button>
+                <a asp-action="Index" class="btn btn-outline-secondary">
+                    Reset
+                </a>
+            </div>      
+    </div>
+</form>
 @if (!Model.Orders.Any())
 {
     <p>No orders yet.</p>

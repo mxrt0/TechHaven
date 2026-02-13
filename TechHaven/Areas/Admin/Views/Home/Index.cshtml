@@ -3,7 +3,7 @@
     ViewData["Title"] = "Admin Dashboard";
 }
 
-<h2>Admin Dashboard</h2>
+<h2 class="text-center">Admin Dashboard</h2>
 
 <div class="row my-4">
     <div class="col-md-3">
@@ -42,14 +42,14 @@
 
 <div class="row mt-5">
     <div class="col-md-6">
-        <h4>Recent Orders</h4>
+        <h4 class="text-center">Recent Orders</h4>
         @if (!Model.RecentOrders.Any())
         {
             <p>No recent orders.</p>
         }
         else
         {
-            <table class="table table-bordered table-sm">
+            <table class="table table-bordered table-sm text-center align-middle">
                 <thead>
                     <tr>
                         <th>Order #</th>
@@ -76,14 +76,14 @@
     </div>
 
     <div class="col-md-6">
-        <h4>Low Stock Products</h4>
+        <h4 class="text-center">Low Stock Products</h4>
         @if (!Model.LowStockProducts.Any())
         {
             <p>All products are well-stocked.</p>
         }
         else
         {
-            <table class="table table-bordered table-sm">
+            <table class="table table-bordered table-sm text-center align-middle">
                 <thead>
                     <tr>
                         <th>Name</th>
@@ -108,7 +108,7 @@
     </div>
 </div>
 
-<div class="mt-4">
+<div class="mt-4 justify-content-center align-items-center">
     <a asp-area="Admin" asp-controller="Products" asp-action="Index" class="btn btn-outline-primary me-2">Manage Products</a>
     <a asp-area="Admin" asp-controller="Orders" asp-action="Index" class="btn btn-outline-info me-2">Manage Orders</a>
 </div>

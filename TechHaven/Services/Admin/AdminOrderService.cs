@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using TechHaven.Areas.Admin.ViewModels.Enums;
 using TechHaven.Data;
 using TechHaven.DTOs.Public.Order;
 using TechHaven.Services.Contracts.Admin;
@@ -45,7 +46,7 @@ public class AdminOrderService : IAdminOrderService
 
         return new OrderListDto(
             order.Id,
-            order.Id.ToString().Substring(0, 8),
+            order.Id.ToString().Substring(0, 8).ToUpper(),
             order.OrderDate,
             order.OrderItems.Select(oi => new ProductSaleListDto(
                 oi.Product.Name,
@@ -76,5 +77,39 @@ public class AdminOrderService : IAdminOrderService
         _context.Orders.Remove(order);
         await _context.SaveChangesAsync();
         return true;
+    }
+
+    public async Task<IReadOnlyList<OrderListDto>> SearchAsync(string? searchTerm, OrderSort sort)
+    {
+        var orders = _context.Orders
+            .Include(o => o.OrderItems)
+                .ThenInclude(oi => oi.Product).AsQueryable();
+
+        if (!string.IsNullOrWhiteSpace(searchTerm)) 
+        {
+            orders = orders.Where(o => EF.Functions.Like(o.Id.ToString(), searchTerm + "%"));
+        }
+        orders = sort switch
+        {
+            OrderSort.Newest => orders.OrderByDescending(o => o.OrderDate),
+            OrderSort.Oldest => orders.OrderBy(o => o.OrderDate),
+            OrderSort.TotalAsc => orders.OrderBy(o => o.OrderItems.Sum(oi => oi.Quantity * oi.Product.Price)),
+            OrderSort.TotalDesc => orders.OrderByDescending(o => o.OrderItems.Sum(oi => oi.Quantity * oi.Product.Price)),
+            _ => orders
+        };
+
+        return await orders
+            .Select(o => new OrderListDto(
+                o.Id,
+                o.Id.ToString().Substring(0, 8).ToUpper(),
+                o.OrderDate,
+                o.OrderItems.Select(oi => new ProductSaleListDto(
+                    oi.Product.Name,
+                    oi.Product.Price,
+                    oi.Quantity,
+                    oi.Product.ImageUrl
+                )).ToList()
+            ))
+            .ToListAsync();
     }
 }

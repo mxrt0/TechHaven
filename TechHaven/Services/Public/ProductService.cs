@@ -68,4 +68,44 @@ public class ProductService : IProductService
                 product.Category.Name
               );
     }
+
+    public async Task<IReadOnlyList<ProductListDto>> SearchAsync(string? searchTerm, int? categoryId,
+        decimal? minPrice, decimal? maxPrice)
+    {
+        var query = _dbContext.Products
+            .Where(p => p.IsActive)
+            .Include(p => p.Category)
+            .AsNoTracking();
+
+        if (!string.IsNullOrWhiteSpace(searchTerm))
+        {
+            query = query.Where(p =>
+                p.Name.Contains(searchTerm));
+        }
+
+        if (categoryId.HasValue)
+        {
+            query = query.Where(p => p.CategoryId == categoryId);
+        }
+
+        if (minPrice.HasValue)
+        {
+            query = query.Where(p => p.Price >= minPrice.Value);
+        }
+
+        if (maxPrice.HasValue)
+        {
+            query = query.Where(p => p.Price <= maxPrice.Value);
+        }
+
+        return await query
+            .Select(p => new ProductListDto(
+                p.Id,
+                p.Name,
+                p.Price,
+                p.ImageUrl,
+                p.Category.Name))
+            .ToListAsync();
+
+    }
 }

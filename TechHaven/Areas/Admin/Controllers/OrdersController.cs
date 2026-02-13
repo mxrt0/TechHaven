@@ -16,14 +16,16 @@ public class OrdersController : Controller
         _orderService = orderService;
     }
 
-    public async Task<IActionResult> Index()
+    public async Task<IActionResult> Index(OrdersIndexViewModel filterVm)
     {
-        var orders = await _orderService.GetAllAsync();
+        var orders = await _orderService.SearchAsync(filterVm.SearchTerm, filterVm.SortBy);
 
         ViewData["ActivePage"] = "Orders";
         var vm = new OrdersIndexViewModel
         {
-            Orders = orders
+            Orders = orders,
+            SearchTerm = filterVm.SearchTerm,
+            SortBy = filterVm.SortBy
         };
         return View(vm);
     }

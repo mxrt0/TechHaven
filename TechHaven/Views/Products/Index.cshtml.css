@@ -70,3 +70,7 @@
     height: 220px;
     object-fit: contain;
 }
+
+.category-inactive {
+    color: gray;
+}

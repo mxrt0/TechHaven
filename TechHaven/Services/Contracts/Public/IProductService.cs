@@ -7,4 +7,10 @@ public interface IProductService
     Task<IReadOnlyList<ProductListDto>> GetAllAsync();
     Task<IReadOnlyList<ProductListDto>> GetByCategoryAsync(int categoryId);
     Task<ProductDetailsDto?> GetByIdAsync(int id);
+    Task<IReadOnlyList<ProductListDto>> SearchAsync(
+    string? searchTerm,
+    int? categoryId,
+    decimal? minPrice,
+    decimal? maxPrice);
+
 }
