@@ -7,9 +7,11 @@ namespace TechHaven.Services.Contracts.Admin;
 public interface IAdminOrderService
 {
     Task<IReadOnlyList<OrderListDto>> GetAllAsync();
-    Task<IReadOnlyList<OrderListDto>> SearchAsync(
+    Task<(IReadOnlyList<OrderListDto>, int totalItems)> SearchAsync(
     string? searchTerm,
-    OrderSort sort);
+    OrderSort sort,
+    int? page = 1,
+    int? pageSize = 10);
     Task<OrderListDto?> GetByIdAsync(Guid orderId);
 
     Task<bool> CancelOrderAsync(Guid orderId);

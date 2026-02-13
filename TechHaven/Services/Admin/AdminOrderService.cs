@@ -79,7 +79,8 @@ public class AdminOrderService : IAdminOrderService
         return true;
     }
 
-    public async Task<IReadOnlyList<OrderListDto>> SearchAsync(string? searchTerm, OrderSort sort)
+    public async Task<(IReadOnlyList<OrderListDto>, int totalItems)> SearchAsync(string? searchTerm, OrderSort sort,
+        int? page = 1, int? pageSize = 10)
     {
         var orders = _context.Orders
             .Include(o => o.OrderItems)
@@ -98,7 +99,11 @@ public class AdminOrderService : IAdminOrderService
             _ => orders
         };
 
-        return await orders
+        var totalItems = await orders.CountAsync();
+
+        return (await orders
+            .Skip(((page ?? 1) - 1) * (pageSize ?? 10))
+            .Take(pageSize ?? 10)
             .Select(o => new OrderListDto(
                 o.Id,
                 o.Id.ToString().Substring(0, 8).ToUpper(),
@@ -110,6 +115,6 @@ public class AdminOrderService : IAdminOrderService
                     oi.Product.ImageUrl
                 )).ToList()
             ))
-            .ToListAsync();
+            .ToListAsync(), totalItems);
     }
 }

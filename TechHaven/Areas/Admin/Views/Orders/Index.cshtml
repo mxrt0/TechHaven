@@ -73,4 +73,44 @@ else
         </tbody>
     </table>
 }
+@if (Model.TotalPages > 1)
+{
+    <nav>
+        <ul class="pagination justify-content-center">
 
+            <li class="page-item @(Model.Page == 1 ? "disabled" : "")">
+                <a class="page-link"
+                   asp-action="Index"
+                   asp-route-page="@(Model.Page - 1)"
+                   asp-route-searchTerm="@Model.SearchTerm"
+                   asp-route-sortBy="@Model.SortBy">
+                    Previous
+                </a>
+            </li>
+
+            @for (int i = 1; i <= Model.TotalPages; i++)
+            {
+                <li class="page-item @(Model.Page == i ? "active" : "")">
+                    <a class="page-link"
+                       asp-action="Index"
+                       asp-route-page="@i"
+                       asp-route-searchTerm="@Model.SearchTerm"
+                       asp-route-sortBy="@Model.SortBy">
+                        @i
+                    </a>
+                </li>
+            }
+
+            <li class="page-item @(Model.Page == Model.TotalPages ? "disabled" : "")">
+                <a class="page-link"
+                   asp-action="Index"
+                   asp-route-page="@(Model.Page + 1)"
+                   asp-route-searchTerm="@Model.SearchTerm"
+                   asp-route-sortBy="@Model.SortBy">
+                    Next
+                </a>
+            </li>
+
+        </ul>
+    </nav>
+}
