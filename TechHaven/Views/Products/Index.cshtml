@@ -81,7 +81,7 @@
                     Search
                 </button>
 
-                <a asp-action="Index" asp-route-categoryId="@Model.CategoryId" asp-route-lockCategory="@Model.IsCategoryLocked" class="btn btn-outline-secondary w-100">
+                <a asp-action="Index" asp-route-categoryId="@(Model.IsCategoryLocked ? @Model.CategoryId : "")" asp-route-lockCategory="@Model.IsCategoryLocked" class="btn btn-outline-secondary w-100">
                     Reset
                 </a>
             </div>
