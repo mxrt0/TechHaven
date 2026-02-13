@@ -9,7 +9,7 @@ using TechHaven.Services.Contracts.Admin;
 using TechHaven.Services.Contracts.Public;
 using TechHaven.Services.Public;
 // TODO: Add identity options for password etc.
-// TODO: Add Order Status
+// TODO: Add Mark As Shipped functionality for admins
 // TODO: Polish UI
 namespace TechHaven
 {
