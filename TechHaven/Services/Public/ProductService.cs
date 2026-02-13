@@ -69,8 +69,8 @@ public class ProductService : IProductService
               );
     }
 
-    public async Task<IReadOnlyList<ProductListDto>> SearchAsync(string? searchTerm, int? categoryId,
-        decimal? minPrice, decimal? maxPrice)
+    public async Task<(IReadOnlyList<ProductListDto>, int totalItems)> SearchAsync(string? searchTerm, int? categoryId,
+        decimal? minPrice, decimal? maxPrice, int? page = 1, int? pageSize = 10)
     {
         var query = _dbContext.Products
             .Where(p => p.IsActive)
@@ -98,14 +98,19 @@ public class ProductService : IProductService
             query = query.Where(p => p.Price <= maxPrice.Value);
         }
 
-        return await query
+       var totalItems = await query.CountAsync();
+
+        return (await query
+             .Skip(((page ?? 1) - 1) * (pageSize ?? 10))
+             .Take(pageSize.HasValue ? pageSize.Value : 10)
             .Select(p => new ProductListDto(
                 p.Id,
                 p.Name,
                 p.Price,
                 p.ImageUrl,
                 p.Category.Name))
-            .ToListAsync();
+            .ToListAsync(), totalItems);
 
     }
+
 }

@@ -6,6 +6,7 @@ namespace TechHaven.Controllers;
 
 public class ProductsController : Controller
 {
+    public const int PageSize = 12;
     private readonly IProductService _productService;
     private readonly IWishlistService _wishlistService;
     private readonly ICartService _cartService;
@@ -25,13 +26,22 @@ public class ProductsController : Controller
         int? categoryId,
         decimal? minPrice,
         decimal? maxPrice,
-        bool lockCategory)
+        bool lockCategory,
+        int page = 1
+         )
     {
-        var products = await _productService.SearchAsync(
+        if (page < 1)
+        {
+            page = 1;
+        }
+
+        var (products, totalItems) = await _productService.SearchAsync(
         searchTerm,
         categoryId,
         minPrice,
-        maxPrice);
+        maxPrice,
+        page,
+        PageSize);
 
         var categories = await _categoryService.GetAllAsync();
 
@@ -43,7 +53,10 @@ public class ProductsController : Controller
             MaxPrice = maxPrice,
             Products = products,
             Categories = categories,
-            IsCategoryLocked = lockCategory
+            IsCategoryLocked = lockCategory,
+            Page = page,
+            PageSize = ProductsController.PageSize,
+            TotalItems = totalItems
         };
         return View(vm);
     }

@@ -139,7 +139,53 @@ else
         </tbody>
     </table>
 }
+@if (Model.TotalPages > 1)
+{
+    <nav>
+        <ul class="pagination justify-content-center">
 
+            <li class="page-item @(Model.Page == 1 ? "disabled" : "")">
+                <a class="page-link"
+                   asp-action="Index"
+                   asp-route-page="@(Model.Page - 1)"
+                   asp-route-searchTerm="@Model.SearchTerm"
+                   asp-route-categoryId="@Model.CategoryId"
+                   asp-route-sortBy="@Model.SortBy"
+                   asp-route-stock="@Model.Stock">
+                    Previous
+                </a>
+            </li>
+
+            @for (int i = 1; i <= Model.TotalPages; i++)
+            {
+                <li class="page-item @(Model.Page == i ? "active" : "")">
+                    <a class="page-link"
+                       asp-action="Index"
+                       asp-route-page="@i"
+                       asp-route-searchTerm="@Model.SearchTerm"
+                       asp-route-categoryId="@Model.CategoryId"
+                       asp-route-sortBy="@Model.SortBy"
+                       asp-route-stock="@Model.Stock">
+                        @i
+                    </a>
+                </li>
+            }
+
+            <li class="page-item @(Model.Page == Model.TotalPages ? "disabled" : "")">
+                <a class="page-link"
+                   asp-action="Index"
+                   asp-route-page="@(Model.Page + 1)"
+                   asp-route-searchTerm="@Model.SearchTerm"
+                   asp-route-categoryId="@Model.CategoryId"
+                   asp-route-sortBy="@Model.SortBy"
+                   asp-route-stock="@Model.Stock">
+                    Next
+                </a>
+            </li>
+
+        </ul>
+    </nav>
+}
 @section Scripts {
     <script src="~/js/toast.js" asp-append-version="true"></script>
     <script src="~/js/readTempMsg.js"></script>

@@ -7,11 +7,13 @@ public interface IAdminProductService
 {
     Task<IReadOnlyList<AdminProductListDto>> GetAllAsync();
     Task<AdminProductEditDto?> GetByIdAsync(int id);
-    Task<IReadOnlyList<AdminProductListDto>> SearchAsync(
+    Task<(IReadOnlyList<AdminProductListDto>, int totalItems)> SearchAsync(
     string? searchTerm,
     int? categoryId,
     StockFilter stockFilter,
-    ProductSort sortBy);
+    ProductSort sortBy,
+    int? page = 1,
+    int? pageSize = 10);
     Task<bool> CreateAsync(AdminProductCreateDto dto);
     Task<bool> UpdateAsync(AdminProductEditDto dto);
     Task<bool> ToggleActiveAsync(int id);

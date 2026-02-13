@@ -13,6 +13,7 @@ namespace TechHaven.Areas.Admin.Controllers;
 [Authorize(Roles = "Admin")]
 public class ProductsController : Controller
 {
+    private const int PageSize = 10;
     private readonly IAdminProductService _productService;
     private readonly ICategoryService _categoryService;
 
@@ -22,9 +23,12 @@ public class ProductsController : Controller
         _categoryService = categoryService;
     }
 
-    public async Task<IActionResult> Index(ProductsIndexViewModel filterVm)
+    public async Task<IActionResult> Index(ProductsIndexViewModel filterVm, int page = 1)
     {
-        var products = await _productService.SearchAsync(filterVm.SearchTerm, filterVm.CategoryId, filterVm.Stock, filterVm.SortBy);
+        if (page < 1) page = 1;
+        var (products, totalItems) = await _productService.SearchAsync(filterVm.SearchTerm, filterVm.CategoryId,
+            filterVm.Stock, filterVm.SortBy,
+            page, PageSize);
         var categories = await _categoryService.GetAllAsync();
         ViewData["ActivePage"] = "Products";
         var vm = new ProductsIndexViewModel
@@ -34,7 +38,10 @@ public class ProductsController : Controller
             SearchTerm = filterVm.SearchTerm,
             CategoryId = filterVm.CategoryId,
             Stock = filterVm.Stock,
-            SortBy = filterVm.SortBy
+            SortBy = filterVm.SortBy,
+            Page = page,
+            PageSize = ProductsController.PageSize,
+            TotalItems = totalItems
         };
         return View(vm);
     }
