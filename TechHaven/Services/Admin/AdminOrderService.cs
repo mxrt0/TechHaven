@@ -25,6 +25,7 @@ public class AdminOrderService : IAdminOrderService
                 o.Id,
                 o.Id.ToString().Substring(0, 8),
                 o.OrderDate,
+                o.Status,
                 o.OrderItems.Select(oi => new ProductSaleListDto(
                     oi.Product.Name,
                     oi.Product.Price,
@@ -48,6 +49,7 @@ public class AdminOrderService : IAdminOrderService
             order.Id,
             order.Id.ToString().Substring(0, 8).ToUpper(),
             order.OrderDate,
+            order.Status,
             order.OrderItems.Select(oi => new ProductSaleListDto(
                 oi.Product.Name,
                 oi.Product.Price,
