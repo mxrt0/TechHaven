@@ -33,6 +33,15 @@
                             <div class="order-date">
                                 @order.OrderDate.ToString("dd/MM/yyyy", CultureInfo.InvariantCulture)
                             </div>
+                            <div>
+                                <strong>Order Status:</strong>
+                                <span class="badge
+                                    @(order.Status == OrderStatus.Pending ? "bg-warning" :
+                                                order.Status == OrderStatus.Shipped ? "bg-success" :
+                                                "bg-danger")">
+                                    @order.Status
+                                </span>
+                            </div>
                         </div>
 
                     <div class="order-header-actions">
