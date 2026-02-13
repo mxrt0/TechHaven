@@ -3,7 +3,7 @@ using TechHaven.Areas.Admin.ViewModels.Enums;
 using TechHaven.Data;
 using TechHaven.DTOs.Public.Order;
 using TechHaven.Services.Contracts.Admin;
-
+using TechHaven.Data.Enums;
 namespace TechHaven.Services.Admin;
 
 public class AdminOrderService : IAdminOrderService
@@ -76,7 +76,7 @@ public class AdminOrderService : IAdminOrderService
             }
         }
 
-        _context.Orders.Remove(order);
+        order.Status = OrderStatus.Cancelled;
         await _context.SaveChangesAsync();
         return true;
     }

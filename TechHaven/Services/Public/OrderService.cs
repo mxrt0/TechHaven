@@ -7,6 +7,7 @@ using TechHaven.Data.Models;
 using TechHaven.DTOs.Public.Order;
 using TechHaven.DTOs.Public.Cart;
 using TechHaven.Services.Contracts.Public;
+using TechHaven.Data.Enums;
 
 namespace TechHaven.Services.Public;
 
@@ -43,7 +44,7 @@ public class OrderService : IOrderService
             }
         };
 
-        _context.Orders.Remove(order);
+        order.Status = OrderStatus.Cancelled;
         await _context.SaveChangesAsync();
         return true;
     }
