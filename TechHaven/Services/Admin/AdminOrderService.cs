@@ -108,6 +108,7 @@ public class AdminOrderService : IAdminOrderService
                 o.Id,
                 o.Id.ToString().Substring(0, 8).ToUpper(),
                 o.OrderDate,
+                o.Status,
                 o.OrderItems.Select(oi => new ProductSaleListDto(
                     oi.Product.Name,
                     oi.Product.Price,

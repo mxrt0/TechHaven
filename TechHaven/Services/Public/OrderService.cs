@@ -104,6 +104,7 @@ public class OrderService : IOrderService
             OrderId: order.Id,
             OrderNumber: order.Id.ToString().Substring(0, 8).ToUpper(),
             OrderDate: order.OrderDate,
+            Status: order.Status,
             OrderItems: order.OrderItems
                         .Where(oi => oi.Product.IsActive)
                         .Select(oi => new ProductSaleListDto
