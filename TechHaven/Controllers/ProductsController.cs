@@ -6,7 +6,7 @@ namespace TechHaven.Controllers;
 
 public class ProductsController : Controller
 {
-    public const int PageSize = 10;
+    public const int PageSize = 12;
     private readonly IProductService _productService;
     private readonly IWishlistService _wishlistService;
     private readonly ICartService _cartService;
