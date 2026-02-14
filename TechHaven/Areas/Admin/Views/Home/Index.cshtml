@@ -72,7 +72,7 @@
                                         <td>@order.OrderDate.ToString("dd/MM/yyyy HH:mm", CultureInfo.InvariantCulture)</td>
                                         <td class="text-accent">@order.OrderTotal.ToString("0.00") €</td>
                                         <td>
-                                            <div class="neon-btn btn-sm">
+                                            <div class="neon-btn">
                                                 <a asp-area="Admin" asp-controller="Orders" asp-action="Details" asp-route-id="@order.OrderId" class="neon-btn btn-sm">View</a>
                                             </div>                                            
                                         </td>
@@ -110,7 +110,7 @@
                                         <td>@product.Name</td>
                                         <td class="text-warning fw-bold">@product.StockQuantity</td>
                                         <td>
-                                            <div class="neon-btn btn-sm">
+                                            <div class="neon-btn">
                                                 <a asp-area="Admin" asp-controller="Products" asp-action="Edit" asp-route-id="@product.Id" class="neon-btn btn-amber btn-sm">Edit</a>
                                             </div>
                                             
