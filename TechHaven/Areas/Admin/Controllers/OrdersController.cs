@@ -59,4 +59,14 @@ public class OrdersController : Controller
         return RedirectToAction(nameof(Index));
     }
 
+    [HttpPost]
+    public async Task<IActionResult> MarkAsShipped(Guid id)
+    {
+        var result = await _orderService.MarkAsShippedAsync(id);
+        if (!result) return NotFound();
+
+        TempData["Admin_SuccessMessage"] = Messages.OrderMarkedShippedMessage;
+        return RedirectToAction(nameof(Index));
+    }
+
 }
