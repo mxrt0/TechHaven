@@ -82,6 +82,7 @@ public class AdminOrderService : IAdminOrderService
     }
 
     public async Task<(IReadOnlyList<OrderListDto>, int totalItems)> SearchAsync(string? searchTerm, OrderSort sort,
+        bool showOnlyPending,
         int? page = 1, int? pageSize = 10)
     {
         var orders = _context.Orders
@@ -100,6 +101,10 @@ public class AdminOrderService : IAdminOrderService
             OrderSort.TotalDesc => orders.OrderByDescending(o => o.OrderItems.Sum(oi => oi.Quantity * oi.Product.Price)),
             _ => orders
         };
+        if (showOnlyPending)
+        {
+            orders = orders.Where(o => o.Status == OrderStatus.Pending);
+        }
 
         var totalItems = await orders.CountAsync();
 

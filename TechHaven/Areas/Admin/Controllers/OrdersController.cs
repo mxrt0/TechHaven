@@ -20,7 +20,8 @@ public class OrdersController : Controller
     public async Task<IActionResult> Index(OrdersIndexViewModel filterVm, int page = 1)
     {
         if (page < 1) page = 1;
-        var (orders, totalItems) = await _orderService.SearchAsync(filterVm.SearchTerm, filterVm.SortBy, page, PageSize);
+        var (orders, totalItems) = await _orderService.SearchAsync(filterVm.SearchTerm, filterVm.SortBy,
+            filterVm.OnlyPending, page, PageSize);
 
         ViewData["ActivePage"] = "Orders";
         var vm = new OrdersIndexViewModel
