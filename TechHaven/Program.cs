@@ -8,8 +8,6 @@ using TechHaven.Services.Admin;
 using TechHaven.Services.Contracts.Admin;
 using TechHaven.Services.Contracts.Public;
 using TechHaven.Services.Public;
-// TODO: Add identity options for password etc.
-// TODO: Add Mark As Shipped functionality for admins
 // TODO: Polish UI
 namespace TechHaven
 {
@@ -25,8 +23,22 @@ namespace TechHaven
                 options.UseSqlServer(connectionString));
 
             builder.Services.AddDatabaseDeveloperPageExceptionFilter();
-            builder.Services.AddIdentity<ApplicationUser, IdentityRole>()
-                .AddEntityFrameworkStores<ApplicationDbContext>();
+            builder.Services.AddIdentity<ApplicationUser, IdentityRole>(options =>
+            {
+                options.Password.RequireDigit = false;           
+                options.Password.RequireLowercase = false;      
+                options.Password.RequireUppercase = false;       
+                options.Password.RequireNonAlphanumeric = false; 
+                options.Password.RequiredLength = 6;            
+                options.Password.RequiredUniqueChars = 1;
+                options.User.RequireUniqueEmail = true;
+                options.SignIn.RequireConfirmedEmail = false;
+                options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(5);
+                options.Lockout.MaxFailedAccessAttempts = 5;
+                options.Lockout.AllowedForNewUsers = false;
+
+            })
+              .AddEntityFrameworkStores<ApplicationDbContext>();
 
             builder.Services.AddScoped<IWishlistService, WishlistService>();
 
