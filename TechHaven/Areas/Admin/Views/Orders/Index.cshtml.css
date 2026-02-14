@@ -95,7 +95,6 @@ body {
     .neon-select option {
         background-color: #161b22 !important;
         color: var(--text-main) !important;
-        appearance: none;
     }
 
         .neon-select:focus {
@@ -264,7 +263,7 @@ body {
     opacity: 0.3;
     color: var(--text-dim);
 }
-/* Badge Base Styling */
+
 .neon-badge {
     padding: 6px 14px;
     border-radius: 20px;
