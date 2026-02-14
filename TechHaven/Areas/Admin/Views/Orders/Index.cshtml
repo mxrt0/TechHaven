@@ -2,7 +2,7 @@
 @{
     ViewData["Title"] = "Orders";
 }
-
+<div id="temp-message" data-temp-Msg="@TempData["Admin_SuccessMessage"]"></div>
 <h2>Orders</h2>
 <form method="get" asp-action="Index">
     <div class="row align-items-center mb-2">
@@ -90,7 +90,6 @@ else
                     </td>
                     <td>
                     <div>
-                        <strong>Order Status:</strong>
                         <span class="badge
                                                 @(order.Status == OrderStatus.Pending ? "bg-warning" :
                                                     order.Status == OrderStatus.Shipped ? "bg-success" :
@@ -144,4 +143,8 @@ else
 
         </ul>
     </nav>
+}
+@section Scripts {
+    <script src="~/js/toast.js"></script>
+    <script src="~/js/readTempMsg.js"></script>
 }

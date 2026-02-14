@@ -54,7 +54,7 @@ public class OrdersController : Controller
         var result = await _orderService.CancelOrderAsync(id);
         if (!result) return NotFound();
 
-        TempData["SuccessMessage"] = "Order cancelled successfully.";
+        TempData["Admin_SuccessMessage"] = "Order cancelled successfully.";
         return RedirectToAction(nameof(Index));
     }
 
@@ -66,7 +66,7 @@ public class OrdersController : Controller
         { 
             return RedirectToAction("Error", "Home", new { area = "", message = "Insufficient stock / order already handled." });
         }
-        TempData["SuccessMessage"] = "Order marked as shipped.";
+        TempData["Admin_SuccessMessage"] = "Order marked as shipped.";
         return RedirectToAction(nameof(Index));
     }
 
