@@ -12,6 +12,7 @@ public static class Messages
     public const string OrderPlacedMessage = "Your order has been placed.";
     public const string OrderDoesNotExistOrNoPermissionMessage = "Order does not exist or you have no permission to access it.";
     public const string OrderCancelledMessage = "Order #{0} has been cancelled.";
+    public const string OrderMarkedShippedMessage = "Order marked as shipped.";
 
     public const string AddedToCartMessage = "Item(s) added to cart 🛒";
     public const string RemovedFromCartMessage = "Item removed from cart";
