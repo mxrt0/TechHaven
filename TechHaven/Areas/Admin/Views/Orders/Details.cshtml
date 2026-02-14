@@ -6,46 +6,45 @@
 
 @if (TempData["Admin_ErrorMessage"] is not null)
 {
-    <div class="alert alert-danger text-center">
+    <div class="alert badge-cancelled text-center mb-4" style="background: rgba(255, 77, 77, 0.1);">
         @TempData["Admin_ErrorMessage"]
     </div>
 }
 
-<div class="container-fluid">
-
-    <div class="d-flex justify-content-between align-items-center mb-4">
-        <div>
-            <h2 class="mb-1">Order #@Model.Order.OrderNumber</h2>
-            <div class="text-muted">
-                Placed on @Model.Order.OrderDate.ToString("dd/MM/yyyy, HH:mm", CultureInfo.InvariantCulture)
+<div class="dashboard-container">
+    <div class="data-panel mb-4">
+        <div class="row align-items-center g-3">
+            <div class="col-12 col-md-8">
+                <h2 class="neon-title mb-1">Order #@Model.Order.OrderNumber</h2>
+                <div class="text-dim small uppercase tracking-wider">
+                    Placed on @Model.Order.OrderDate.ToString("dd/MM/yyyy, HH:mm", CultureInfo.InvariantCulture)
+                </div>
+                <div class="text-accent mt-1 uppercase">
+                    Placed by: <span class="text-white fw-bold">@Model.Order.UserName</span>
+                </div>
             </div>
-            <div class="text-info">
-                Placed by: <strong>@Model.Order.UserName</strong>
-            </div>
-        </div>
 
-        <div class="text-end">
-            <div class="fs-5 fw-semibold">Total</div>
-            <div class="fs-3 fw-bold text-success">
-                @Model.Order.OrderTotal.ToString("0.00") &euro;
+            <div class="col-12 col-md-4 text-md-end">
+                <div class="stat-label">Total Amount</div>
+                <div class="stat-value text-neon-green" style="font-size: 2.5rem;">
+                    @Model.Order.OrderTotal.ToString("0.00") &euro;
+                </div>
             </div>
         </div>
     </div>
 
-    <div class="card shadow-sm">
-        <div class="card-header fw-semibold">
-            Order Items (@Model.Order.OrderItems.Count)
-        </div>
+    <div class="data-panel">
+        <h4 class="panel-header">Order Items (@Model.Order.OrderItems.Count)</h4>
 
-        <div class="table-responsive">
-            <table class="table align-middle mb-0">
-                <thead class="table-light">
+        <div class="table-container">
+            <table class="neon-table align-middle">
+                <thead>
                     <tr>
-                        <th style="width: 80px;"></th>
+                        <th style="width: 100px;"></th>
                         <th>Product</th>
                         <th class="text-end">Unit Price</th>
                         <th class="text-center">Quantity</th>
-                        <th class="text-end">Total</th>
+                        <th class="text-end">Subtotal</th>
                     </tr>
                 </thead>
 
@@ -53,39 +52,45 @@
                     @foreach (var item in Model.Order.OrderItems)
                     {
                         <tr>
-                            <td>
-                                <img src="@item.ImageUrl"
-                                     alt="@item.ProductName"
-                                     class="img-thumbnail"
-                                     style="max-width: 60px;" />
+                            <td data-label="Preview">
+                                <div class="position-relative d-inline-block">
+                                    <img src="@item.ImageUrl"
+                                         alt="@item.ProductName"
+                                         class="rounded border border-secondary"
+                                         style="max-width: 70px; height: auto; box-shadow: 0 0 10px rgba(0,0,0,0.5);" />
+                                </div>
                             </td>
 
-                            <td class="fw-semibold">
+                            <td data-label="Product" class="fw-bold text-white">
                                 @item.ProductName
                             </td>
 
-                            <td class="text-end">
+                            <td data-label="Unit Price" class="text-end">
                                 @item.UnitPrice.ToString("0.00") &euro;
                             </td>
 
-                            <td class="text-center">
-                                @item.Quantity
+                            <td data-label="Quantity" class="text-center">
+                                <span class="neon-badge" style="border-color: rgba(255,255,255,0.2); color: white;">
+                                    @item.Quantity
+                                </span>
                             </td>
 
-                            <td class="text-end fw-semibold">
+                            <td data-label="Total" class="text-end text-accent fw-bold">
                                 @item.TotalPrice.ToString("0.00") &euro;
                             </td>
                         </tr>
                     }
                 </tbody>
 
-                <tfoot class="table-light">
-                    <tr>
-                        <td colspan="4" class="text-end fw-bold">
+                <tfoot>
+                    <tr style="background: rgba(255, 255, 255, 0.05);">
+                        <td colspan="4" class="text-end fw-bold text-dim uppercase py-3">
                             Grand Total
                         </td>
-                        <td class="text-end fs-5 fw-bold">
-                            @Model.Order.OrderTotal.ToString("0.00") &euro;
+                        <td class="text-end py-3">
+                            <span class="text-neon-green fw-bold fs-4">
+                                @Model.Order.OrderTotal.ToString("0.00") &euro;
+                            </span>
                         </td>
                     </tr>
                 </tfoot>
@@ -93,14 +98,14 @@
         </div>
     </div>
 
-    <div class="mt-4 d-flex justify-content-between">
-        <a asp-area="Admin"
-           asp-controller="Orders"
-           asp-action="Index"
-           class="btn btn-outline-secondary">
-            ← Back to Orders
-        </a>
+    <div class="mt-5 d-flex justify-content-start">
+        <div class="neon-btn btn-dim">
+            <a asp-area="Admin"
+               asp-controller="Orders"
+               asp-action="Index"
+            >
+                ← Back to Orders
+            </a>
+        </div>        
     </div>
-
 </div>
-
