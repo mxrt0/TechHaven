@@ -29,7 +29,7 @@ public class OrderService : IOrderService
             .Include(o => o.OrderItems)
             .FirstOrDefaultAsync(o => o.Id == orderId);
 
-        if (order is null || userId is null || order.UserId != userId)
+        if (order is null || order.Status != OrderStatus.Pending || userId is null || order.UserId != userId)
         {
             return false;
         }

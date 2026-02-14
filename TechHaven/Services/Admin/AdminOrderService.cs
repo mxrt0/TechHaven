@@ -65,7 +65,7 @@ public class AdminOrderService : IAdminOrderService
             .Include(o => o.OrderItems)
             .FirstOrDefaultAsync(o => o.Id == orderId);
 
-        if (order is null) return false;
+        if (order is null || order.Status != OrderStatus.Pending) return false;
 
         foreach (var oi in order.OrderItems)
         {
