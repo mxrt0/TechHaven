@@ -52,6 +52,7 @@ else
                 <th>Date</th>
                 <th>Total</th>
                 <th>Actions</th>
+                <th>Status</th>
             </tr>
         </thead>
         <tbody>
@@ -73,11 +74,21 @@ else
                                     Mark as Shipped
                                 </button>
                             </form>
-                        }
-
-                        <form asp-action="Cancel" asp-route-id="@order.OrderId" method="post" style="display:inline">
-                            <button type="submit" class="btn btn-sm btn-danger">Cancel</button>
-                        </form>
+                            <form asp-action="Cancel" asp-route-id="@order.OrderId" method="post" style="display:inline">
+                                <button type="submit" class="btn btn-sm btn-danger">Cancel</button>
+                            </form>
+                        }                       
+                    </td>
+                    <td>
+                    <div>
+                        <strong>Order Status:</strong>
+                        <span class="badge
+                                                @(order.Status == OrderStatus.Pending ? "bg-warning" :
+                                                    order.Status == OrderStatus.Shipped ? "bg-success" :
+                                                    "bg-danger")">
+                                @order.Status
+                            </span>
+                        </div>
                     </td>
                 </tr>
             }
