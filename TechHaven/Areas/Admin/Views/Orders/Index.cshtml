@@ -2,151 +2,165 @@
 @{
     ViewData["Title"] = "Orders";
 }
+
 @section Styles {
-    <link rel="stylesheet" href="~/css/toast.css" asp-append-version="true"/>
+    <link rel="stylesheet" href="~/css/toast.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/dashboard.css" asp-append-version="true" />
 }
+
 <div id="temp-message" data-temp-Msg="@TempData["Admin_SuccessMessage"]"></div>
-<h2>Orders</h2>
-<form method="get" asp-action="Index">
-    <div class="row align-items-center mb-2">
-        <div class="col-md-2">
-            
-            <input type="text"
-                   name="searchTerm"
-                   value="@Model.SearchTerm"
-                   class="form-control"
-                   placeholder="Search by #..." />
-        </div>
-            <div class="col-md-2">   
-                <select name="SortBy" class="form-select">
-                    @foreach (var sort in Enum.GetValues<OrderSort>())
-                    {
-                        if (Model.SortBy == sort)
-                        {
-                            <option value="@sort" selected>@sort</option>
-                        }
-                        else
-                        {
-                            <option value="@sort">@sort</option>
-                        }
-                    }
-                </select>  
-            </div>
-        <div class="col-md-2">
-            <div class="form-check form-check-inline">
-                <input class="form-check-input" type="checkbox" asp-for="OnlyPending" />
-                <label class="form-check-label" asp-for="OnlyPending">
-                    Show Only Pending?
-                </label>
-            </div>
-        </div>
 
-        <div class="col-md-2 d-flex gap-2 align-items-center">
-                <button type="submit" class="btn btn-primary">
-                        Go
-                </button>
-                <a asp-action="Index" class="btn btn-outline-secondary">
-                    Reset
-                </a>
-            </div>      
+<div class="dashboard-container">
+    <header class="mb-4">
+        <h2 class="neon-title">Orders</h2>
+        <div class="neon-line"></div>
+    </header>
+
+    <div class="data-panel mb-4">
+        <form method="get" asp-action="Index">
+            <div class="row g-3 align-items-end">
+                <div class="col-12 col-md-3">
+                    <label class="stat-label" for="searchTerm">Search</label>
+                    <input type="text"
+                           id="searchTerm"
+                           name="searchTerm"
+                           value="@Model.SearchTerm"
+                           class="neon-input"
+                           placeholder="Search by #..." />
+                </div>
+                <div class="col-12 col-md-3">
+                    <label class="stat-label">Sort By</label>
+                    <select name="SortBy" class="neon-select">
+                        @foreach (var sort in Enum.GetValues<OrderSort>())
+                        {
+                            if (Model.SortBy == sort)
+                            {
+                                <option value="@sort" selected>@sort</option>
+                            }
+                            else
+                            {
+                                <option value="@sort">@sort</option>
+                            }
+                        }
+                    </select>
+                </div>
+                <div class="col-12 col-md-2">
+                    <div class="form-check custom-neon-check mb-2">
+                        <input class="form-check-input" type="checkbox" asp-for="OnlyPending" />
+                        <label class="form-check-label text-dim" asp-for="OnlyPending">
+                            Show Only Pending?
+                        </label>
+                    </div>
+                </div>
+                <div class="col-12 col-md-4 d-flex gap-2">
+                    <button type="submit" class="neon-btn w-20">Go</button>
+                    <div class ="neon-btn btn-dim text-center">
+                        <a asp-action="Index">Reset</a>
+                    </div>
+                    
+                </div>
+            </div>
+        </form>
     </div>
-</form>
-@if (!Model.Orders.Any())
-{
-    <p class="text-center fw-bold alert-heading">No orders found.</p>
-}
-else
-{
-    <table class="table table-striped">
-        <thead>
-            <tr>
-                <th>Order #</th>
-                <th>Date</th>
-                <th>Total</th>
-                <th>Actions</th>
-                <th>Status</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var order in Model.Orders)
+
+    <div class="data-panel">
+        <div class="table-container">
+            @if (!Model.Orders.Any())
             {
-                <tr>
-                    <td>@order.OrderNumber</td>
-                    <td>@order.OrderDate.ToString("dd/MM/yyyy hh:mm", CultureInfo.InvariantCulture)</td>
-                    <td>@order.OrderItems.Sum(i => i.TotalPrice).ToString("0.00") €</td>
-                    <td>
-                        <a asp-action="Details" asp-route-id="@order.OrderId" class="btn btn-sm btn-info">View</a>
-                        @if (order.Status == OrderStatus.Pending)
-                        {
-                            <form asp-action="MarkAsShipped"
-                                  asp-route-id="@order.OrderId"
-                                  method="post"
-                                  style="display:inline">
-                                <button type="submit" class="btn btn-sm btn-success">
-                                    Mark as Shipped
-                                </button>
-                            </form>
-                            <form asp-action="Cancel" asp-route-id="@order.OrderId" method="post" style="display:inline">
-                                <button type="submit" class="btn btn-sm btn-danger">Cancel</button>
-                            </form>
-                        }                       
-                    </td>
-                    <td>
-                    <div>
-                        <span class="badge
-                                                @(order.Status == OrderStatus.Pending ? "bg-warning" :
-                                                    order.Status == OrderStatus.Shipped ? "bg-success" :
-                                                    "bg-danger")">
-                                @order.Status
-                            </span>
-                        </div>
-                    </td>
-                </tr>
+                <p class="text-center fw-bold alert-heading empty-state">No orders found.</p>
             }
-        </tbody>
-    </table>
-}
-@if (Model.TotalPages > 1)
-{
-    <nav>
-        <ul class="pagination justify-content-center">
-
-            <li class="page-item @(Model.Page == 1 ? "disabled" : "")">
-                <a class="page-link"
-                   asp-action="Index"
-                   asp-route-page="@(Model.Page - 1)"
-                   asp-route-searchTerm="@Model.SearchTerm"
-                   asp-route-sortBy="@Model.SortBy">
-                    Previous
-                </a>
-            </li>
-
-            @for (int i = 1; i <= Model.TotalPages; i++)
+            else
             {
-                <li class="page-item @(Model.Page == i ? "active" : "")">
+                <table class="neon-table">
+                    <thead>
+                        <tr>
+                            <th>Order #</th>
+                            <th>Date</th>
+                            <th>Total</th>
+                            <th>Actions</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var order in Model.Orders)
+                        {
+                            <tr>
+                                <td data-label="Order #">@order.OrderNumber</td>
+                                <td data-label="Date">@order.OrderDate.ToString("dd/MM/yyyy hh:mm", CultureInfo.InvariantCulture)</td>
+                                <td data-label="Total" class="text-accent">@order.OrderItems.Sum(i => i.TotalPrice).ToString("0.00") €</td>
+                                <td data-label="Actions">
+                                    <div class="d-flex gap-2 flex-wrap action-group">
+                                        <div class="neon-btn">
+                                            <a asp-action="Details" asp-route-id="@order.OrderId">View</a>
+                                        </div>                                       
+                                        @if (order.Status == OrderStatus.Pending)
+                                        {
+                                            <form asp-action="MarkAsShipped"
+                                                  asp-route-id="@order.OrderId"
+                                                  method="post"
+                                                  style="display:inline">
+                                                <button type="submit" class="neon-btn btn-green">
+                                                    Mark as Shipped
+                                                </button>
+                                            </form>
+                                            <form asp-action="Cancel" asp-route-id="@order.OrderId" method="post" style="display:inline">
+                                                <button type="submit" class="neon-btn btn-red">Cancel</button>
+                                            </form>
+                                        }
+                                    </div>
+                                </td>
+                                <td data-label="Status">
+                                    <span class="neon-badge @(order.Status == OrderStatus.Pending ? "badge-pending" : order.Status == OrderStatus.Shipped ? "badge-shipped" : "badge-cancelled")">
+                                        @order.Status
+                                    </span>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            }
+        </div>
+    </div>
+
+    @if (Model.TotalPages > 1)
+    {
+        <nav class="mt-4">
+            <ul class="pagination neon-pagination justify-content-center">
+                <li class="page-item @(Model.Page == 1 ? "disabled" : "")">
                     <a class="page-link"
                        asp-action="Index"
-                       asp-route-page="@i"
+                       asp-route-page="@(Model.Page - 1)"
                        asp-route-searchTerm="@Model.SearchTerm"
                        asp-route-sortBy="@Model.SortBy">
-                        @i
+                        Previous
                     </a>
                 </li>
-            }
+                @for (int i = 1; i <= Model.TotalPages; i++)
+                {
+                    <li class="page-item @(Model.Page == i ? "active" : "")">
+                        <a class="page-link"
+                           asp-action="Index"
+                           asp-route-page="@i"
+                           asp-route-searchTerm="@Model.SearchTerm"
+                           asp-route-sortBy="@Model.SortBy">
+                            @i
+                        </a>
+                    </li>
+                }
+                <li class="page-item @(Model.Page == Model.TotalPages ? "disabled" : "")">
+                    <a class="page-link"
+                       asp-action="Index"
+                       asp-route-page="@(Model.Page + 1)"
+                       asp-route-searchTerm="@Model.SearchTerm"
+                       asp-route-sortBy="@Model.SortBy">
+                        Next
+                    </a>
+                </li>
+            </ul>
+        </nav>
+    }
+</div>
 
-            <li class="page-item @(Model.Page == Model.TotalPages ? "disabled" : "")">
-                <a class="page-link"
-                   asp-action="Index"
-                   asp-route-page="@(Model.Page + 1)"
-                   asp-route-searchTerm="@Model.SearchTerm"
-                   asp-route-sortBy="@Model.SortBy">
-                    Next
-                </a>
-            </li>
-
-        </ul>
-    </nav>
-}
 @section Scripts {
     <script src="~/js/toast.js"></script>
     <script src="~/js/readTempMsg.js"></script>
