@@ -79,7 +79,8 @@ public class ProductsController : Controller
         var result = await _productService.UpdateAsync(model.Product);
         if (!result)
         {
-            return RedirectToAction("Error", "Home", new { area = "", message = Messages.ErrorUpdatingProductMessage});
+            TempData["Admin_ErrorMessage"] = Messages.ErrorUpdatingProductMessage;
+            return RedirectToAction(nameof(Index));
         }
         TempData["SuccessMessage"] = Messages.ProductUpdatedMessage;
         return RedirectToAction(nameof(Index));
@@ -88,7 +89,12 @@ public class ProductsController : Controller
     [HttpPost]
     public async Task<IActionResult> ToggleActive(int id)
     {
-        await _productService.ToggleActiveAsync(id);
+        var result = await _productService.ToggleActiveAsync(id);
+        if (!result)
+        {
+            TempData["Admin_ErrorMessage"] = Messages.ErrorTogglingProductActiveMessage;
+            return RedirectToAction(nameof(Index));
+        }
         return RedirectToAction(nameof(Index));
     }
 
@@ -105,20 +111,17 @@ public class ProductsController : Controller
     [ValidateAntiForgeryToken]
     public async Task<IActionResult> Create(ProductCreateViewModel model)
     {
-        if (!ModelState.IsValid) 
+        if (!ModelState.IsValid)
         {
-            var vm = new ProductCreateViewModel
-            {
-                Categories = new SelectList(await _categoryService.GetAllAsync(), "Id", "Name", selectedValue: model.Product.CategoryId)
-            }
-        ;
-            return View(vm);
+            model.Categories = new SelectList(await _categoryService.GetAllAsync(), "Id", "Name", model.Product.CategoryId);
+            return View(model);
         }
 
         var result = await _productService.CreateAsync(model.Product);
         if (!result)
         {
-            return RedirectToAction("Error", "Home");
+            TempData["Admin_ErrorMessage"] = Messages.ErrorCreatingProductMessage;
+            return RedirectToAction(nameof(Index));
         }
 
         TempData["SuccessMessage"] = Messages.ProductCreatedMessage;

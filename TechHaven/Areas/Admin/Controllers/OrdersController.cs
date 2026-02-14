@@ -53,7 +53,11 @@ public class OrdersController : Controller
     public async Task<IActionResult> Cancel(Guid id)
     {
         var result = await _orderService.CancelOrderAsync(id);
-        if (!result) return NotFound();
+        if (!result) 
+        { 
+            TempData["Admin_ErrorMessage"] = Messages.CannotCancelOrderMessage;
+            return RedirectToAction(nameof(Details), new { id });
+        }
 
         TempData["Admin_SuccessMessage"] = string.Format(Messages.OrderCancelledMessage, id.ToString()[..8].ToUpper());
         return RedirectToAction(nameof(Index));
@@ -63,7 +67,11 @@ public class OrdersController : Controller
     public async Task<IActionResult> MarkAsShipped(Guid id)
     {
         var result = await _orderService.MarkAsShippedAsync(id);
-        if (!result) return NotFound();
+        if (!result) 
+        { 
+            TempData["Admin_ErrorMessage"] = Messages.CannotMarkAsShippedMessage;
+            return RedirectToAction(nameof(Details), new { id });
+        }
 
         TempData["Admin_SuccessMessage"] = Messages.OrderMarkedShippedMessage;
         return RedirectToAction(nameof(Index));
