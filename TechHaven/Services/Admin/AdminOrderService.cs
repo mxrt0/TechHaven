@@ -31,7 +31,8 @@ public class AdminOrderService : IAdminOrderService
                     oi.Product.Price,
                     oi.Quantity,
                     oi.Product.ImageUrl
-                )).ToList()
+                )).ToList(),
+                null
             ))
             .ToListAsync();
     }
@@ -41,6 +42,7 @@ public class AdminOrderService : IAdminOrderService
         var order = await _context.Orders
             .Include(o => o.OrderItems)
                 .ThenInclude(oi => oi.Product)
+            .Include(o => o.User)
             .FirstOrDefaultAsync(o => o.Id == orderId);
 
         if (order is null) return null;
@@ -55,7 +57,8 @@ public class AdminOrderService : IAdminOrderService
                 oi.Product.Price,
                 oi.Quantity,
                 oi.Product.ImageUrl
-            )).ToList()
+            )).ToList(),
+            order.User.UserName
         );
     }
 
@@ -87,7 +90,10 @@ public class AdminOrderService : IAdminOrderService
     {
         var orders = _context.Orders
             .Include(o => o.OrderItems)
-                .ThenInclude(oi => oi.Product).AsQueryable();
+                .ThenInclude(oi => oi.Product)
+                .Include(o => o.User)
+                .AsNoTracking()
+                .AsQueryable();
 
         if (!string.IsNullOrWhiteSpace(searchTerm)) 
         {
@@ -107,7 +113,6 @@ public class AdminOrderService : IAdminOrderService
         }
 
         var totalItems = await orders.CountAsync();
-
         return (await orders
             .Skip(((page ?? 1) - 1) * (pageSize ?? 10))
             .Take(pageSize ?? 10)
@@ -121,7 +126,8 @@ public class AdminOrderService : IAdminOrderService
                     oi.Product.Price,
                     oi.Quantity,
                     oi.Product.ImageUrl
-                )).ToList()
+                )).ToList(),
+                o.User.UserName ?? "Unknown User"
             ))
             .ToListAsync(), totalItems);
     }

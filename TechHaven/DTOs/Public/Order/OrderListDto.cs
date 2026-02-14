@@ -7,7 +7,8 @@ Guid OrderId,
 string OrderNumber,
 DateTime OrderDate,
 OrderStatus Status,
-List<ProductSaleListDto> OrderItems
+List<ProductSaleListDto> OrderItems,
+string? UserName
 )
 {
     public decimal OrderTotal => OrderItems.Sum(item => item.TotalPrice);

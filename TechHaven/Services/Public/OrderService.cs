@@ -114,7 +114,8 @@ public class OrderService : IOrderService
                             UnitPrice: oi.Product.Price,
                             Quantity: oi.Quantity,
                             ImageUrl: oi.Product.ImageUrl
-                        )).ToList()
+                        )).ToList(),
+            UserName: null
         );
         return orderDto;
     }
@@ -143,7 +144,8 @@ public class OrderService : IOrderService
                oi.Product.Price,
                oi.Quantity,
                oi.Product.ImageUrl
-           )).ToList()
+           )).ToList(),
+           null
        ))       
        .ToListAsync();
     }

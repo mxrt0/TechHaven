@@ -12,6 +12,9 @@
             <div class="text-muted">
                 Placed on @Model.Order.OrderDate.ToString("dd/MM/yyyy, HH:mm", CultureInfo.InvariantCulture)
             </div>
+            <div class="text-info">
+                Placed by: <strong>@Model.Order.UserName</strong>
+            </div>
         </div>
 
         <div class="text-end">
