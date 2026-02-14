@@ -7,6 +7,12 @@
     <link rel="stylesheet" href="~/css/toast.css" asp-append-version="true"/>
 }
 <div id="temp-message" data-temp-Msg="@TempData["SuccessMessage"]"></div>
+@if (TempData["Admin_ErrorMessage"] is not null)
+{
+    <div class="alert alert-danger text-center">
+        @TempData["Admin_ErrorMessage"]
+    </div>
+}
 
 <h2>Products</h2>
 
