@@ -4,6 +4,13 @@
     ViewData["Title"] = $"Order #{Model.Order.OrderNumber}";
 }
 
+@if (TempData["ErrorMessage"] is not null)
+{
+    <div class="alert alert-danger text-center">
+        @TempData["ErrorMessage"]
+    </div>
+}
+
 <div class="container my-5 orders-page">
     <h2 class="mb-4 neon-title text-center">🧾 Order #@Model.Order.OrderNumber</h2>
 
