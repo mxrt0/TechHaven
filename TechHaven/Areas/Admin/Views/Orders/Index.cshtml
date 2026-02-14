@@ -54,10 +54,7 @@
                 </div>
                 <div class="col-12 col-md-4 d-flex gap-2">
                     <button type="submit" class="neon-btn w-20">Go</button>
-                    <div class ="neon-btn btn-dim text-center">
-                        <a asp-action="Index">Reset</a>
-                    </div>
-                    
+                    <a asp-action="Index" class="neon-btn btn-dim">Reset</a>
                 </div>
             </div>
         </form>
@@ -90,9 +87,7 @@
                                 <td data-label="Total" class="text-accent">@order.OrderItems.Sum(i => i.TotalPrice).ToString("0.00") €</td>
                                 <td data-label="Actions">
                                     <div class="d-flex gap-2 flex-wrap action-group">
-                                        <div class="neon-btn">
-                                            <a asp-action="Details" asp-route-id="@order.OrderId">View</a>
-                                        </div>                                       
+                                            <a asp-action="Details" asp-route-id="@order.OrderId" class="neon-btn">View</a>                                      
                                         @if (order.Status == OrderStatus.Pending)
                                         {
                                             <form asp-action="MarkAsShipped"
