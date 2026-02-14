@@ -94,14 +94,14 @@ public class CartController : Controller
         if (cartItems is null || !cartItems.Any())
         {
             TempData["ErrorMessage"] = Messages.CartEmptyMessage;
-            return RedirectToAction(nameof(Index));
+            return RedirectToAction("Index", "Orders");
         };
 
         var success = await _orderService.CreateOrderAsync(cartItems, User);
         if (!success)
         {
             TempData["ErrorMessage"] = Messages.ErrorCreatingOrderMessage;
-            return RedirectToAction(nameof(Index));
+            return RedirectToAction("Index", "Orders");
         }
 
         _cart.Clear();
