@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using TechHaven.Areas.Admin.ViewModels;
+using TechHaven.Common;
 using TechHaven.Services.Contracts.Admin;
 
 namespace TechHaven.Areas.Admin.Controllers;
@@ -54,19 +55,7 @@ public class OrdersController : Controller
         var result = await _orderService.CancelOrderAsync(id);
         if (!result) return NotFound();
 
-        TempData["Admin_SuccessMessage"] = "Order cancelled successfully.";
-        return RedirectToAction(nameof(Index));
-    }
-
-    [HttpPost]
-    public async Task<IActionResult> MarkAsShipped(Guid id)
-    {
-        var result = await _orderService.MarkAsShippedAsync(id);
-        if (!result) 
-        { 
-            return RedirectToAction("Error", "Home", new { area = "", message = "Insufficient stock / order already handled." });
-        }
-        TempData["Admin_SuccessMessage"] = "Order marked as shipped.";
+        TempData["Admin_SuccessMessage"] = string.Format(Messages.OrderCancelledMessage, id.ToString()[..8].ToUpper());
         return RedirectToAction(nameof(Index));
     }
 

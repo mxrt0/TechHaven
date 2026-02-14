@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using TechHaven.Common;
 using TechHaven.DTOs.Public.Order;
 using TechHaven.Models;
 using TechHaven.Services.Contracts.Public;
@@ -30,7 +31,7 @@ public class OrdersController : Controller
         var order = await _orderService.GetOrderByIdAsync(id, User);
         if (order is null)
         {
-            TempData["ErrorMessage"] = "Order does not exist or you have no permission to access it.";
+            TempData["ErrorMessage"] = Messages.OrderDoesNotExistOrNoPermissionMessage;
             return RedirectToAction("Error", "Home");
         }
         var vm = new OrderDetailsViewModel
@@ -48,7 +49,7 @@ public class OrdersController : Controller
         {
             return RedirectToAction("Error", "Home");
         }
-        TempData["SuccessMessage"] = $"Order #{id.ToString()[..8]} has been cancelled!";
+        TempData["SuccessMessage"] = string.Format(Messages.OrderCancelledMessage, id.ToString()[..8].ToUpper());
         return RedirectToAction(nameof(Index));
     }
 }

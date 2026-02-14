@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
+using TechHaven.Common;
 using TechHaven.Models;
 using TechHaven.Services.Contracts.Public;
 
@@ -28,7 +29,7 @@ namespace TechHaven.Controllers
         public IActionResult Error(string message)
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier,
-                Message = message ?? "Unknown error."
+                Message = message ?? Messages.UnknownErrorMessage
             });
         }
     }

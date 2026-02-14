@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.Build.Tasks.Deployment.Bootstrapper;
 using TechHaven.Areas.Admin.ViewModels;
+using TechHaven.Common;
 using TechHaven.DTOs.Admin.Products;
 using TechHaven.Services.Contracts.Admin;
 using TechHaven.Services.Contracts.Public;
@@ -78,9 +79,9 @@ public class ProductsController : Controller
         var result = await _productService.UpdateAsync(model.Product);
         if (!result)
         {
-            return RedirectToAction("Error", "Home", new { area = "", message = "Error updating product data."});
+            return RedirectToAction("Error", "Home", new { area = "", message = Messages.ErrorUpdatingProductMessage});
         }
-        TempData["SuccessMessage"] = "Product updated successfully.";
+        TempData["SuccessMessage"] = Messages.ProductUpdatedMessage;
         return RedirectToAction(nameof(Index));
     }
 
@@ -120,7 +121,7 @@ public class ProductsController : Controller
             return RedirectToAction("Error", "Home");
         }
 
-        TempData["SuccessMessage"] = "Product created successfully.";
+        TempData["SuccessMessage"] = Messages.ProductCreatedMessage;
         return RedirectToAction(nameof(Index));
     }
 }

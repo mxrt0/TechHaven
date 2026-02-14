@@ -126,12 +126,17 @@ public class AdminProductService : IAdminProductService
     {
         var products = _context.Products
                 .Include(p => p.Category)
+                .AsNoTracking()
                 .AsQueryable();
 
         if (!string.IsNullOrWhiteSpace(searchTerm))
         {
-            products = products
-                .Where(p => EF.Functions.Like(p.Name, $"%{searchTerm}%"));
+            var terms = searchTerm.Split(' ', StringSplitOptions.RemoveEmptyEntries);
+            foreach (var term in terms)
+            {
+                products = products.Where(p => EF.Functions.Like(p.Name, $"%{term}%"));
+            }
+
         }
 
         if (categoryId.HasValue)
