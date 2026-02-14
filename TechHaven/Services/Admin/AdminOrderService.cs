@@ -120,4 +120,16 @@ public class AdminOrderService : IAdminOrderService
             ))
             .ToListAsync(), totalItems);
     }
+
+    public async Task<bool> MarkAsShippedAsync(Guid orderId)
+    {
+        var order = await _context.Orders
+            .FindAsync(orderId);
+
+        if (order is null || order.Status != OrderStatus.Pending) return false;
+
+        order.Status = OrderStatus.Shipped;
+        await _context.SaveChangesAsync();
+        return true;
+    }
 }

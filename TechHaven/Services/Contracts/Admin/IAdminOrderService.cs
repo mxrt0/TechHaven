@@ -15,4 +15,6 @@ public interface IAdminOrderService
     Task<OrderListDto?> GetByIdAsync(Guid orderId);
 
     Task<bool> CancelOrderAsync(Guid orderId);
+
+    Task<bool> MarkAsShippedAsync(Guid orderId);
 }
