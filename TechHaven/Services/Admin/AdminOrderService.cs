@@ -58,7 +58,7 @@ public class AdminOrderService : IAdminOrderService
                 oi.Quantity,
                 oi.Product.ImageUrl
             )).ToList(),
-            order.User.UserName
+            order.User.DisplayName ?? "Unknown User"
         );
     }
 
@@ -127,7 +127,7 @@ public class AdminOrderService : IAdminOrderService
                     oi.Quantity,
                     oi.Product.ImageUrl
                 )).ToList(),
-                o.User.UserName ?? "Unknown User"
+                o.User.DisplayName ?? "Unknown User"
             ))
             .ToListAsync(), totalItems);
     }
