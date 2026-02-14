@@ -26,7 +26,14 @@ public class CartService : ICartService
             return new List<CartItemCookie>();
         }
 
-        return JsonConvert.DeserializeObject<List<CartItemCookie>>(cookie) ?? new List<CartItemCookie>();
+        try
+        {
+            return JsonConvert.DeserializeObject<List<CartItemCookie>>(cookie) ?? new();
+        }
+        catch (JsonException)
+        {
+            return new();
+        }
     }
 
     private void WriteCartCookie(List<CartItemCookie> cartItems)
