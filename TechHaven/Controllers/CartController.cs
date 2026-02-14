@@ -76,6 +76,7 @@ public class CartController : Controller
         var cart = _cart.GetCart();
         if (cart is null || !cart.Any())
         {
+            TempData["ErrorMessage"] = Messages.CartEmptyMessage;
             return RedirectToAction(nameof(Index));
         }
         var vm = new CartIndexViewModel
@@ -92,13 +93,14 @@ public class CartController : Controller
         var cartItems = _cart.GetCart();
         if (cartItems is null || !cartItems.Any())
         {
+            TempData["ErrorMessage"] = Messages.CartEmptyMessage;
             return RedirectToAction(nameof(Index));
         };
 
         var success = await _orderService.CreateOrderAsync(cartItems, User);
         if (!success)
         {
-            return RedirectToAction("Error", "Home");
+            return RedirectToAction("Error", "Home", new {area = "", message = Messages.ErrorCreatingOrderMessage});
         }
 
         _cart.Clear();
