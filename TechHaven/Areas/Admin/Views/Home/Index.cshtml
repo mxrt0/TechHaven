@@ -3,112 +3,134 @@
     ViewData["Title"] = "Admin Dashboard";
 }
 
-<h2 class="text-center">Admin Dashboard</h2>
+<div class="dashboard-container">
+    <header class="mb-5 text-center">
+        <h2 class="neon-title">Admin Dashboard</h2>
+        <div class="neon-line mx-auto"></div>
+    </header>
 
-<div class="row my-4">
-    <div class="col-md-3">
-        <div class="card text-center text-white bg-primary mb-3">
-            <div class="card-body">
-                <h3 class="card-title">@Model.TotalProducts</h3>
-                <p class="card-text">Total Products</p>
+    <div class="row g-4">
+        <div class="col-6 col-md-3">
+            <div class="neon-card accent-blue">
+                <div class="card-content">
+                    <span class="stat-label">Total Products</span>
+                    <h3 class="stat-value">@Model.TotalProducts</h3>
+                </div>
+            </div>
+        </div>
+        <div class="col-6 col-md-3">
+            <div class="neon-card accent-green">
+                <div class="card-content">
+                    <span class="stat-label">Active Products</span>
+                    <h3 class="stat-value">@Model.ActiveProducts</h3>
+                </div>
+            </div>
+        </div>
+        <div class="col-6 col-md-3">
+            <div class="neon-card accent-purple">
+                <div class="card-content">
+                    <span class="stat-label">Total Orders</span>
+                    <h3 class="stat-value">@Model.TotalOrders</h3>
+                </div>
+            </div>
+        </div>
+        <div class="col-6 col-md-3">
+            <div class="neon-card accent-amber">
+                <div class="card-content">
+                    <span class="stat-label">Low Stock</span>
+                    <h3 class="stat-value">@Model.LowStockProducts.Count</h3>
+                </div>
             </div>
         </div>
     </div>
-    <div class="col-md-3">
-        <div class="card text-center text-white bg-success mb-3">
-            <div class="card-body">
-                <h3 class="card-title">@Model.ActiveProducts</h3>
-                <p class="card-text">Active Products</p>
-            </div>
-        </div>
-    </div>
-    <div class="col-md-3">
-        <div class="card text-center text-white bg-info mb-3">
-            <div class="card-body">
-                <h3 class="card-title">@Model.TotalOrders</h3>
-                <p class="card-text">Total Orders</p>
-            </div>
-        </div>
-    </div>
-    <div class="col-md-3">
-        <div class="card text-center text-white bg-warning mb-3">
-            <div class="card-body">
-                <h3 class="card-title">@Model.LowStockProducts.Count</h3>
-                <p class="card-text">Low Stock Items</p>
-            </div>
-        </div>
-    </div>
-</div>
 
-<div class="row mt-5">
-    <div class="col-md-6">
-        <h4 class="text-center">Recent Orders</h4>
-        @if (!Model.RecentOrders.Any())
-        {
-            <p>No recent orders.</p>
-        }
-        else
-        {
-            <table class="table table-bordered table-sm text-center align-middle">
-                <thead>
-                    <tr>
-                        <th>Order #</th>
-                        <th>Date</th>
-                        <th>Total</th>
-                        <th>Actions</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach (var order in Model.RecentOrders)
+    <div class="row mt-5 g-4">
+        <div class="col-12 col-lg-6">
+            <div class="data-panel">
+                <h4 class="panel-header">Recent Orders</h4>
+                <div class="table-container">
+                    @if (!Model.RecentOrders.Any())
                     {
-                        <tr>
-                            <td>@order.OrderNumber</td>
-                            <td>@order.OrderDate.ToString("dd/MM/yyyy hh:mm", CultureInfo.InvariantCulture)</td>
-                            <td>@order.OrderTotal.ToString("0.00") €</td>
-                            <td>
-                                <a asp-area="Admin" asp-controller="Orders" asp-action="Details" asp-route-id="@order.OrderId" class="btn btn-sm btn-info">View</a>
-                            </td>
-                        </tr>
+                        <p class="empty-state">No recent orders found.</p>
                     }
-                </tbody>
-            </table>
-        }
-    </div>
-
-    <div class="col-md-6">
-        <h4 class="text-center">Low Stock Products</h4>
-        @if (!Model.LowStockProducts.Any())
-        {
-            <p>All products are well-stocked.</p>
-        }
-        else
-        {
-            <table class="table table-bordered table-sm text-center align-middle">
-                <thead>
-                    <tr>
-                        <th>Name</th>
-                        <th>Stock</th>
-                        <th>Actions</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach (var product in Model.LowStockProducts)
+                    else
                     {
-                        <tr>
-                            <td>@product.Name</td>
-                            <td>@product.StockQuantity</td>
-                            <td>
-                                <a asp-area="Admin" asp-controller="Products" asp-action="Edit" asp-route-id="@product.Id" class="btn btn-sm btn-warning">Edit</a>
-                            </td>
-                        </tr>
+                        <table class="neon-table">
+                            <thead>
+                                <tr>
+                                    <th>Order #</th>
+                                    <th>Date</th>
+                                    <th>Total</th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var order in Model.RecentOrders)
+                                {
+                                    <tr>
+                                        <td>@order.OrderNumber</td>
+                                        <td>@order.OrderDate.ToString("dd/MM/yyyy HH:mm", CultureInfo.InvariantCulture)</td>
+                                        <td class="text-accent">@order.OrderTotal.ToString("0.00") €</td>
+                                        <td>
+                                            <div class="neon-btn btn-sm">
+                                                <a asp-area="Admin" asp-controller="Orders" asp-action="Details" asp-route-id="@order.OrderId" class="neon-btn btn-sm">View</a>
+                                            </div>                                            
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
                     }
-                </tbody>
-            </table>
-        }
-    </div>
-</div>
+                </div>
+            </div>
+        </div>
 
-<div class="mt-4 justify-content-center align-items-center">
-    <a asp-area="Admin" asp-controller="Products" asp-action="Index" class="btn btn-outline-primary me-2">Manage Products</a>
-    <a asp-area="Admin" asp-controller="Orders" asp-action="Index" class="btn btn-outline-info me-2">Manage Orders</a>
+        <div class="col-12 col-lg-6">
+            <div class="data-panel">
+                <h4 class="panel-header">Low Stock Products</h4>
+                <div class="table-container">
+                    @if (!Model.LowStockProducts.Any())
+                    {
+                        <p class="empty-state">Inventory is healthy.</p>
+                    }
+                    else
+                    {
+                        <table class="neon-table">
+                            <thead>
+                                <tr>
+                                    <th>Name</th>
+                                    <th>Stock</th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var product in Model.LowStockProducts)
+                                {
+                                    <tr>
+                                        <td>@product.Name</td>
+                                        <td class="text-warning fw-bold">@product.StockQuantity</td>
+                                        <td>
+                                            <div class="neon-btn btn-sm">
+                                                <a asp-area="Admin" asp-controller="Products" asp-action="Edit" asp-route-id="@product.Id" class="neon-btn btn-amber btn-sm">Edit</a>
+                                            </div>
+                                            
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="dashboard-actions mt-5">
+        <div class="neon-btn">
+            <a asp-area="Admin" asp-controller="Products" asp-action="Index">Manage Products</a>
+        </div>
+        <div class="neon-btn">
+            <a asp-area="Admin" asp-controller="Orders" asp-action="Index" class="neon-btn">Manage Orders</a>
+        </div>       
+    </div>
 </div>
