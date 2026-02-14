@@ -63,6 +63,17 @@ else
                     <td>@order.OrderItems.Sum(i => i.TotalPrice).ToString("0.00") €</td>
                     <td>
                         <a asp-action="Details" asp-route-id="@order.OrderId" class="btn btn-sm btn-info">View</a>
+                        @if (order.Status == OrderStatus.Pending)
+                        {
+                            <form asp-action="MarkAsShipped"
+                                  asp-route-id="@order.OrderId"
+                                  method="post"
+                                  style="display:inline">
+                                <button type="submit" class="btn btn-sm btn-success">
+                                    Mark as Shipped
+                                </button>
+                            </form>
+                        }
 
                         <form asp-action="Cancel" asp-route-id="@order.OrderId" method="post" style="display:inline">
                             <button type="submit" class="btn btn-sm btn-danger">Cancel</button>
