@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using TechHaven.Common;
 using TechHaven.DTOs.Public.Cart;
 using TechHaven.Models;
 using TechHaven.Services.Contracts.Public;
@@ -35,7 +36,7 @@ public class CartController : Controller
         return Json(new
         {
             success = true,
-            message = "Item(s) added to cart 🛒"
+            message = Messages.AddedToCartMessage
         });
     }
 
@@ -46,7 +47,7 @@ public class CartController : Controller
         return Json(new
         {
             success = true,
-            message = "Item removed from cart"
+            message = Messages.RemovedFromCartMessage
         });
     }
 
@@ -57,7 +58,7 @@ public class CartController : Controller
         return Json(new
         {
             success = true,
-            message = "Cart updated"
+            message = Messages.CartUpdatedMessage
         });
     }
 
@@ -65,7 +66,7 @@ public class CartController : Controller
     public IActionResult Clear()
     {
         _cart.Clear();
-        TempData["SuccessMessage"] = "Cart cleared";
+        TempData["SuccessMessage"] = Messages.CartClearedMessage;
         return RedirectToAction(nameof(Index));
     }
 
@@ -75,7 +76,6 @@ public class CartController : Controller
         var cart = _cart.GetCart();
         if (cart is null || !cart.Any())
         {
-            TempData["ErrorMessage"] = "Shopping cart is empty.";
             return RedirectToAction(nameof(Index));
         }
         var vm = new CartIndexViewModel
@@ -92,7 +92,6 @@ public class CartController : Controller
         var cartItems = _cart.GetCart();
         if (cartItems is null || !cartItems.Any())
         {
-            TempData["ErrorMessage"] = "Shopping cart is empty.";
             return RedirectToAction(nameof(Index));
         };
 
@@ -103,7 +102,7 @@ public class CartController : Controller
         }
 
         _cart.Clear();
-        TempData["SuccessMessage"] = "Your order has been placed.";
+        TempData["SuccessMessage"] = Messages.OrderPlacedMessage;
         return RedirectToAction("Index", "Orders");
     }
 }
