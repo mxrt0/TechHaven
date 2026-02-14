@@ -49,7 +49,7 @@ public class OrdersController : Controller
         {
             return RedirectToAction("Error", "Home");
         }
-        TempData["SuccessMessage"] = string.Format(Messages.OrderCancelledMessage, id.ToString()[..8]);
+        TempData["SuccessMessage"] = string.Format(Messages.OrderCancelledMessage, id.ToString()[..8].ToUpper());
         return RedirectToAction(nameof(Index));
     }
 }

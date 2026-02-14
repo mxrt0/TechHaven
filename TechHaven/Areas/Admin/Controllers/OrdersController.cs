@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using TechHaven.Areas.Admin.ViewModels;
+using TechHaven.Common;
 using TechHaven.Services.Contracts.Admin;
 
 namespace TechHaven.Areas.Admin.Controllers;
@@ -53,7 +54,7 @@ public class OrdersController : Controller
         var result = await _orderService.CancelOrderAsync(id);
         if (!result) return NotFound();
 
-        TempData["SuccessMessage"] = "Order cancelled successfully.";
+        TempData["Admin_SuccessMessage"] = string.Format(Messages.OrderCancelledMessage, id.ToString()[..8].ToUpper());
         return RedirectToAction(nameof(Index));
     }
 
