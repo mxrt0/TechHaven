@@ -13,39 +13,6 @@ public class ProductService : IProductService
     {
         _dbContext = dbContext;
     }
-    public async Task<IReadOnlyList<ProductListDto>> GetAllAsync()
-    {
-        return await _dbContext
-            .Products
-            .Where(p => p.IsActive)
-             .Include(p => p.Category)
-              .AsNoTracking()
-               .Select(p => new ProductListDto(
-                    p.Id,
-                    p.Name,
-                    p.Price,
-                    p.ImageUrl,
-                    p.Category.Name
-                    ))
-                      .ToListAsync();
-    }
-
-    public async Task<IReadOnlyList<ProductListDto>> GetByCategoryAsync(int categoryId)
-    {
-        return await _dbContext
-            .Products
-             .Where(p => p.CategoryId == categoryId && p.IsActive)
-              .Include(p => p.Category)
-               .AsNoTracking()
-                .Select(p => new ProductListDto(
-                    p.Id,
-                    p.Name,
-                    p.Price,
-                    p.ImageUrl,
-                    p.Category.Name
-                    ))
-                      .ToListAsync();
-    }
 
     public async Task<ProductDetailsDto?> GetByIdAsync(int id)
     {
