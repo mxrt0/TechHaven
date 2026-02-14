@@ -79,8 +79,12 @@ public class ProductService : IProductService
 
         if (!string.IsNullOrWhiteSpace(searchTerm))
         {
-            query = query.Where(p =>
-                p.Name.Contains(searchTerm));
+            var terms = searchTerm.Split(' ', StringSplitOptions.RemoveEmptyEntries);
+            foreach (var term in terms)
+            {
+                query = query.Where(p => EF.Functions.Like(p.Name, $"%{term}%"));
+            }
+
         }
 
         if (categoryId.HasValue)
