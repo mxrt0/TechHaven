@@ -22,8 +22,8 @@
         <div class="neon-line"></div>
     </header>
 
-    <div class="neon-btn mb-4">
-        <a asp-action="Create" >+ Add New Product</a>
+    <div class="mb-4">
+        <a asp-action="Create" class="neon-btn">+ Add New Product</a>
     </div>
 
     <div class="data-panel mb-4">
@@ -120,8 +120,8 @@
                                 </td>
                                 <td data-label="Actions" class="text-end">
                                     <div class="d-flex gap-2 justify-content-end">
-                                        <div class="neon-btn">
-                                            <a asp-action="Edit" asp-route-id="@product.Id">Edit</a>
+                                        <div>
+                                            <a asp-action="Edit" asp-route-id="@product.Id" class="neon-btn">Edit</a>
                                         </div>                                        
                                         <form asp-action="ToggleActive" asp-route-id="@product.Id" method="post" class="d-inline">
                                             <button type="submit" class="neon-btn @(product.IsActive ? "btn-red" : "btn-green")">
