@@ -3,7 +3,7 @@ using TechHaven.Areas.Admin.ViewModels.Enums;
 using TechHaven.Data;
 using TechHaven.DTOs.Public.Order;
 using TechHaven.Services.Contracts.Admin;
-
+using TechHaven.Data.Enums;
 namespace TechHaven.Services.Admin;
 
 public class AdminOrderService : IAdminOrderService
@@ -25,12 +25,14 @@ public class AdminOrderService : IAdminOrderService
                 o.Id,
                 o.Id.ToString().Substring(0, 8),
                 o.OrderDate,
+                o.Status,
                 o.OrderItems.Select(oi => new ProductSaleListDto(
                     oi.Product.Name,
                     oi.Product.Price,
                     oi.Quantity,
                     oi.Product.ImageUrl
-                )).ToList()
+                )).ToList(),
+                null
             ))
             .ToListAsync();
     }
@@ -40,6 +42,7 @@ public class AdminOrderService : IAdminOrderService
         var order = await _context.Orders
             .Include(o => o.OrderItems)
                 .ThenInclude(oi => oi.Product)
+            .Include(o => o.User)
             .FirstOrDefaultAsync(o => o.Id == orderId);
 
         if (order is null) return null;
@@ -48,12 +51,14 @@ public class AdminOrderService : IAdminOrderService
             order.Id,
             order.Id.ToString().Substring(0, 8).ToUpper(),
             order.OrderDate,
+            order.Status,
             order.OrderItems.Select(oi => new ProductSaleListDto(
                 oi.Product.Name,
                 oi.Product.Price,
                 oi.Quantity,
                 oi.Product.ImageUrl
-            )).ToList()
+            )).ToList(),
+            order.User.UserName
         );
     }
 
@@ -63,7 +68,7 @@ public class AdminOrderService : IAdminOrderService
             .Include(o => o.OrderItems)
             .FirstOrDefaultAsync(o => o.Id == orderId);
 
-        if (order is null) return false;
+        if (order is null || order.Status != OrderStatus.Pending) return false;
 
         foreach (var oi in order.OrderItems)
         {
@@ -74,17 +79,21 @@ public class AdminOrderService : IAdminOrderService
             }
         }
 
-        _context.Orders.Remove(order);
+        order.Status = OrderStatus.Cancelled;
         await _context.SaveChangesAsync();
         return true;
     }
 
     public async Task<(IReadOnlyList<OrderListDto>, int totalItems)> SearchAsync(string? searchTerm, OrderSort sort,
+        bool showOnlyPending,
         int? page = 1, int? pageSize = 10)
     {
         var orders = _context.Orders
             .Include(o => o.OrderItems)
-                .ThenInclude(oi => oi.Product).AsQueryable();
+                .ThenInclude(oi => oi.Product)
+                .Include(o => o.User)
+                .AsNoTracking()
+                .AsQueryable();
 
         if (!string.IsNullOrWhiteSpace(searchTerm)) 
         {
@@ -98,9 +107,12 @@ public class AdminOrderService : IAdminOrderService
             OrderSort.TotalDesc => orders.OrderByDescending(o => o.OrderItems.Sum(oi => oi.Quantity * oi.Product.Price)),
             _ => orders
         };
+        if (showOnlyPending)
+        {
+            orders = orders.Where(o => o.Status == OrderStatus.Pending);
+        }
 
         var totalItems = await orders.CountAsync();
-
         return (await orders
             .Skip(((page ?? 1) - 1) * (pageSize ?? 10))
             .Take(pageSize ?? 10)
@@ -108,13 +120,27 @@ public class AdminOrderService : IAdminOrderService
                 o.Id,
                 o.Id.ToString().Substring(0, 8).ToUpper(),
                 o.OrderDate,
+                o.Status,
                 o.OrderItems.Select(oi => new ProductSaleListDto(
                     oi.Product.Name,
                     oi.Product.Price,
                     oi.Quantity,
                     oi.Product.ImageUrl
-                )).ToList()
+                )).ToList(),
+                o.User.UserName ?? "Unknown User"
             ))
             .ToListAsync(), totalItems);
+    }
+
+    public async Task<bool> MarkAsShippedAsync(Guid orderId)
+    {
+        var order = await _context.Orders
+            .FindAsync(orderId);
+
+        if (order is null || order.Status != OrderStatus.Pending) return false;
+        if (order.OrderItems.Any(oi => oi.Product.StockQuantity < oi.Quantity)) return false;
+        order.Status = OrderStatus.Shipped;
+        await _context.SaveChangesAsync();
+        return true;
     }
 }

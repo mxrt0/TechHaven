@@ -10,9 +10,12 @@ public interface IAdminOrderService
     Task<(IReadOnlyList<OrderListDto>, int totalItems)> SearchAsync(
     string? searchTerm,
     OrderSort sort,
+    bool showOnlyPending,
     int? page = 1,
     int? pageSize = 10);
     Task<OrderListDto?> GetByIdAsync(Guid orderId);
 
     Task<bool> CancelOrderAsync(Guid orderId);
+
+    Task<bool> MarkAsShippedAsync(Guid orderId);
 }

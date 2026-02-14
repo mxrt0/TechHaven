@@ -7,6 +7,7 @@ using TechHaven.Data.Models;
 using TechHaven.DTOs.Public.Order;
 using TechHaven.DTOs.Public.Cart;
 using TechHaven.Services.Contracts.Public;
+using TechHaven.Data.Enums;
 
 namespace TechHaven.Services.Public;
 
@@ -28,7 +29,7 @@ public class OrderService : IOrderService
             .Include(o => o.OrderItems)
             .FirstOrDefaultAsync(o => o.Id == orderId);
 
-        if (order is null || userId is null || order.UserId != userId)
+        if (order is null || order.Status != OrderStatus.Pending || userId is null || order.UserId != userId)
         {
             return false;
         }
@@ -43,7 +44,7 @@ public class OrderService : IOrderService
             }
         };
 
-        _context.Orders.Remove(order);
+        order.Status = OrderStatus.Cancelled;
         await _context.SaveChangesAsync();
         return true;
     }
@@ -104,6 +105,7 @@ public class OrderService : IOrderService
             OrderId: order.Id,
             OrderNumber: order.Id.ToString().Substring(0, 8).ToUpper(),
             OrderDate: order.OrderDate,
+            Status: order.Status,
             OrderItems: order.OrderItems
                         .Where(oi => oi.Product.IsActive)
                         .Select(oi => new ProductSaleListDto
@@ -112,7 +114,8 @@ public class OrderService : IOrderService
                             UnitPrice: oi.Product.Price,
                             Quantity: oi.Quantity,
                             ImageUrl: oi.Product.ImageUrl
-                        )).ToList()
+                        )).ToList(),
+            UserName: null
         );
         return orderDto;
     }
@@ -133,6 +136,7 @@ public class OrderService : IOrderService
            o.Id,
            o.Id.ToString().Substring(0, 8),
            o.OrderDate,
+           o.Status,
            o.OrderItems
            .Where(oi => oi.Product.IsActive)
            .Select(oi => new ProductSaleListDto(
@@ -140,7 +144,8 @@ public class OrderService : IOrderService
                oi.Product.Price,
                oi.Quantity,
                oi.Product.ImageUrl
-           )).ToList()
+           )).ToList(),
+           null
        ))       
        .ToListAsync();
     }

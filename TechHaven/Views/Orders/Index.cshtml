@@ -33,6 +33,15 @@
                             <div class="order-date">
                                 @order.OrderDate.ToString("dd/MM/yyyy", CultureInfo.InvariantCulture)
                             </div>
+                            <div>
+                                <strong>Order Status:</strong>
+                                <span class="badge
+                                    @(order.Status == OrderStatus.Pending ? "bg-warning" :
+                                                order.Status == OrderStatus.Shipped ? "bg-success" :
+                                                "bg-danger")">
+                                    @order.Status
+                                </span>
+                            </div>
                         </div>
 
                     <div class="order-header-actions">
@@ -41,19 +50,25 @@
                         </div>
 
                         <div class="order-actions">
-                            <a asp-action="Details"
-                               asp-route-id="@order.OrderId"
-                               class="btn btn-info">
-                                View
-                            </a>
-
-                                <button type="button"
-                                        class="btn btn-danger"
-                                        data-bs-toggle="modal"
-                                        data-bs-target="#cancelModal"
-                                        data-order-id="@order.OrderId">
-                                    Cancel
-                                </button>
+                            @if (order.Status == OrderStatus.Pending || order.Status == OrderStatus.Shipped)
+                            {
+                            
+                                    <a asp-action="Details"
+                                        asp-route-id="@order.OrderId"
+                                        class="btn btn-info">
+                                        View
+                                    </a>
+                            }
+                            @if (order.Status == OrderStatus.Pending)
+                            {
+                                    <button type="button"
+                                            class="btn btn-danger"
+                                            data-bs-toggle="modal"
+                                            data-bs-target="#cancelModal"
+                                            data-order-id="@order.OrderId">
+                                        Cancel
+                                    </button>                        
+                            } 
                         </div>
                     </div>
                   </div>

@@ -11,6 +11,15 @@
         <div><strong>Order Date:</strong> @Model.Order.OrderDate.ToString("dd/MM/yyyy HH:mm", CultureInfo.InvariantCulture)</div>
         <div><strong>Total Items:</strong> @Model.Order.OrderItems.Count</div>
         <div><strong>Order Total:</strong> @Model.Order.OrderTotal.ToString("0.00") &euro;</div>
+        <div>
+            <strong>Order Status:</strong>
+            <span class="badge
+                @(Model.Order.Status == OrderStatus.Pending ? "bg-warning" :
+                    Model.Order.Status == OrderStatus.Shipped ? "bg-success" :
+                    "bg-danger")">
+                @Model.Order.Status
+            </span>
+        </div>
     </div>
 
     <div class="order-items">

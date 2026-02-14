@@ -2,10 +2,10 @@
 @{
     ViewData["Title"] = "Orders";
 }
-
+<div id="temp-message" data-temp-Msg="@TempData["Admin_SuccessMessage"]"></div>
 <h2>Orders</h2>
 <form method="get" asp-action="Index">
-    <div class="row align-items-end">
+    <div class="row align-items-center mb-2">
         <div class="col-md-2">
             
             <input type="text"
@@ -29,6 +29,15 @@
                     }
                 </select>  
             </div>
+        <div class="col-md-2">
+            <div class="form-check form-check-inline">
+                <input class="form-check-input" type="checkbox" asp-for="OnlyPending" />
+                <label class="form-check-label" asp-for="OnlyPending">
+                    Show Only Pending?
+                </label>
+            </div>
+        </div>
+
         <div class="col-md-2 d-flex gap-2 align-items-center">
                 <button type="submit" class="btn btn-primary">
                         Go
@@ -41,7 +50,7 @@
 </form>
 @if (!Model.Orders.Any())
 {
-    <p>No orders yet.</p>
+    <p class="text-center fw-bold alert-heading">No orders found.</p>
 }
 else
 {
@@ -52,6 +61,7 @@ else
                 <th>Date</th>
                 <th>Total</th>
                 <th>Actions</th>
+                <th>Status</th>
             </tr>
         </thead>
         <tbody>
@@ -63,10 +73,30 @@ else
                     <td>@order.OrderItems.Sum(i => i.TotalPrice).ToString("0.00") €</td>
                     <td>
                         <a asp-action="Details" asp-route-id="@order.OrderId" class="btn btn-sm btn-info">View</a>
-
-                        <form asp-action="Cancel" asp-route-id="@order.OrderId" method="post" style="display:inline">
-                            <button type="submit" class="btn btn-sm btn-danger">Cancel</button>
-                        </form>
+                        @if (order.Status == OrderStatus.Pending)
+                        {
+                            <form asp-action="MarkAsShipped"
+                                  asp-route-id="@order.OrderId"
+                                  method="post"
+                                  style="display:inline">
+                                <button type="submit" class="btn btn-sm btn-success">
+                                    Mark as Shipped
+                                </button>
+                            </form>
+                            <form asp-action="Cancel" asp-route-id="@order.OrderId" method="post" style="display:inline">
+                                <button type="submit" class="btn btn-sm btn-danger">Cancel</button>
+                            </form>
+                        }                       
+                    </td>
+                    <td>
+                    <div>
+                        <span class="badge
+                                                @(order.Status == OrderStatus.Pending ? "bg-warning" :
+                                                    order.Status == OrderStatus.Shipped ? "bg-success" :
+                                                    "bg-danger")">
+                                @order.Status
+                            </span>
+                        </div>
                     </td>
                 </tr>
             }
@@ -113,4 +143,8 @@ else
 
         </ul>
     </nav>
+}
+@section Scripts {
+    <script src="~/js/toast.js"></script>
+    <script src="~/js/readTempMsg.js"></script>
 }

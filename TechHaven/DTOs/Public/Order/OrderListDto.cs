@@ -1,10 +1,14 @@
-﻿namespace TechHaven.DTOs.Public.Order;
+﻿using TechHaven.Data.Enums;
+
+namespace TechHaven.DTOs.Public.Order;
 
 public sealed record OrderListDto(
 Guid OrderId,
 string OrderNumber,
 DateTime OrderDate,
-List<ProductSaleListDto> OrderItems
+OrderStatus Status,
+List<ProductSaleListDto> OrderItems,
+string? UserName
 )
 {
     public decimal OrderTotal => OrderItems.Sum(item => item.TotalPrice);
