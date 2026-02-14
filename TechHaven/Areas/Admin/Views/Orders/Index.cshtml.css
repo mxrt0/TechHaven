@@ -121,7 +121,7 @@ body {
     }
 
 .table-container {
-    overflow-x: auto;
+    overflow-x: hidden;
 }
 
 .neon-table {
@@ -129,7 +129,9 @@ body {
     border-collapse: separate;
     border-spacing: 0 8px;
 }
-
+.neon-table {
+    overflow: hidden;
+}
     .neon-table th {
         color: var(--text-dim);
         font-size: 0.8rem;
@@ -356,3 +358,17 @@ body {
 a:hover, button:hover {
     transform: scale(1.02);
 }
+.neon-btn.btn-dim {
+    transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1), background-color 0.3s ease, box-shadow 0.3s ease, color 0.3s ease;
+}
+
+    .neon-btn.btn-dim:hover {
+        transform: scale(1.05);
+        background-color: rgba(139, 148, 158, 0.1);
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        color: var(--text-main) !important;
+    }
+
+    .neon-btn.btn-dim:active {
+        transform: scale(0.95);
+    }
