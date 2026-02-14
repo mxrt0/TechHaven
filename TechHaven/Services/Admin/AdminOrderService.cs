@@ -127,7 +127,7 @@ public class AdminOrderService : IAdminOrderService
             .FindAsync(orderId);
 
         if (order is null || order.Status != OrderStatus.Pending) return false;
-
+        if (order.OrderItems.Any(oi => oi.Product.StockQuantity < oi.Quantity)) return false;
         order.Status = OrderStatus.Shipped;
         await _context.SaveChangesAsync();
         return true;

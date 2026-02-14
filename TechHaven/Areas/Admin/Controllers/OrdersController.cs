@@ -63,7 +63,7 @@ public class OrdersController : Controller
         var result = await _orderService.MarkAsShippedAsync(id);
         if (!result) 
         { 
-            return RedirectToAction("Error", "Home", new { area = "", message = "Error marking order as shipped." });
+            return RedirectToAction("Error", "Home", new { area = "", message = "Insufficient stock / order already handled." });
         }
         TempData["SuccessMessage"] = "Order marked as shipped.";
         return RedirectToAction(nameof(Index));
