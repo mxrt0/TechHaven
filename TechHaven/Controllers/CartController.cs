@@ -100,7 +100,8 @@ public class CartController : Controller
         var success = await _orderService.CreateOrderAsync(cartItems, User);
         if (!success)
         {
-            return RedirectToAction("Error", "Home", new {area = "", message = Messages.ErrorCreatingOrderMessage});
+            TempData["ErrorMessage"] = Messages.ErrorCreatingOrderMessage;
+            return RedirectToAction(nameof(Index));
         }
 
         _cart.Clear();

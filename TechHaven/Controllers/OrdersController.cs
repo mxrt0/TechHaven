@@ -32,7 +32,7 @@ public class OrdersController : Controller
         if (order is null)
         {
             TempData["ErrorMessage"] = Messages.OrderDoesNotExistOrNoPermissionMessage;
-            return RedirectToAction("Error", "Home");
+            return RedirectToAction(nameof(Index));
         }
         var vm = new OrderDetailsViewModel
         {
@@ -47,7 +47,8 @@ public class OrdersController : Controller
         var success = await _orderService.CancelOrderAsync(id, User);
         if (!success)
         {
-            return RedirectToAction("Error", "Home");
+            TempData["ErrorMessage"] = "You cannot cancel this order.";
+            return RedirectToAction(nameof(Details), new { id });
         }
         TempData["SuccessMessage"] = string.Format(Messages.OrderCancelledMessage, id.ToString()[..8].ToUpper());
         return RedirectToAction(nameof(Index));
