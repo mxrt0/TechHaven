@@ -153,27 +153,6 @@ body {
     padding: 2rem;
 }
 
-.neon-btn {
-    text-decoration: none !important;
-    display: inline-block;
-    padding: 8px 18px;
-    border-radius: 6px;
-    font-size: 0.85rem;
-    font-weight: 600;
-    text-transform: uppercase;
-    transition: all 0.3s ease;
-    background: rgba(0, 210, 255, 0.05);
-    color: var(--neon-blue);
-    border: 1px solid rgba(0, 210, 255, 0.3);
-    cursor: pointer;
-}
-
-    .neon-btn:hover {
-        background: var(--neon-blue);
-        box-shadow: 0 0 15px var(--neon-blue);
-        scale: 1.02;
-    }
-
     .neon-btn.btn-amber {
         color: var(--neon-amber);
         border-color: var(--neon-amber);
@@ -223,22 +202,6 @@ body {
     border-radius: 12px;
 }
 
-    .neon-card::before {
-        content: "";
-        position: absolute;
-        top: 0;
-        left: 0;
-        right: 0;
-        bottom: 0;
-        border-radius: 12px;
-        padding: 1px;
-        background: linear-gradient(135deg, rgba(255,255,255,0.1), transparent);
-        -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-        mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-        -webkit-mask-composite: xor;
-        mask-composite: exclude;
-    }
-
 .accent-blue:hover {
     border-color: var(--neon-blue);
     box-shadow: 0 0 20px rgba(0, 210, 255, 0.3), inset 0 0 10px rgba(0, 210, 255, 0.1);
@@ -275,31 +238,6 @@ body {
         transform: scale(1.01);
     }
 
-.neon-table a,
-.dashboard-actions a {
-    text-decoration: none !important;
-    display: inline-block;
-    padding: 6px 16px;
-    border-radius: 6px;
-    font-size: 0.85rem;
-    font-weight: 600;
-    letter-spacing: 0.5px;
-    transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
-    text-transform: uppercase;
-}
-
-.neon-table a {
-    color: var(--neon-blue);
-    border: 1px solid rgba(0, 210, 255, 0.3);
-    background: rgba(0, 210, 255, 0.05);
-}
-
-    .neon-table a:hover {
-        background: var(--neon-blue);
-        color: #000 !important;
-        box-shadow: 0 0 15px var(--neon-blue);
-        border-color: var(--neon-blue);
-    }
 
 .neon-table .btn-amber {
     color: var(--neon-amber);
@@ -313,19 +251,3 @@ body {
         border-color: var(--neon-amber);
     }
 
-.dashboard-actions .neon-btn {
-    font-size: 1rem;
-    padding: 12px 24px;
-    border: 1px solid var(--neon-blue);
-    box-shadow: inset 0 0 4px rgba(0, 210, 255, 0.2);
-}
-
-    .dashboard-actions .neon-btn:hover {
-        background: var(--neon-blue);
-        color: #000;
-        box-shadow: 0 0 25px rgba(0, 210, 255, 0.5);
-    }
-
-a:hover, button:hover {
-    transform: scale(1.02);
-}
