@@ -115,3 +115,158 @@
         border: 1px solid rgba(255, 77, 109, 0.4);
     }
 
+/* --- Title & Page --- */
+.wishlist-page {
+    color: #e6edf3;
+}
+
+.wishlist-title {
+    color: #fff !important; /* Fixed from dark blue */
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: -1px;
+    border-left: 4px solid #00d2ff;
+    padding-left: 15px;
+    display: inline-block;
+}
+
+/* --- The Card --- */
+.wishlist-card {
+    display: flex;
+    flex-direction: column;
+    background: #161b22; /* Matches Index cards */
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    border-radius: 4px; /* Sharper edges like Index */
+    overflow: hidden;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    height: 440px;
+}
+
+    .wishlist-card:hover {
+        transform: translateY(-5px);
+        border-color: #00d2ff;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+    }
+
+    /* --- Image Wrap (Consistent with Index) --- */
+    .wishlist-card img {
+        width: 100%;
+        height: 220px;
+        object-fit: contain; /* Don't crop product images */
+        padding: 20px;
+    }
+
+.wishlist-card-body {
+    padding: 1.25rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    flex-grow: 1;
+}
+
+    .wishlist-card-body h5 {
+        color: #fff;
+        font-weight: 700;
+        font-size: 1.1rem;
+        margin: 0;
+        /* Limit title to 2 lines like Index */
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+        height: 2.6em;
+    }
+
+.price {
+    color: #00d2ff;
+    font-family: monospace;
+    font-size: 1.2rem;
+    font-weight: 800;
+    margin: 0.5rem 0;
+}
+
+/* --- Buttons --- */
+.wishlist-actions .btn {
+    border-radius: 4px;
+    text-transform: uppercase;
+    font-weight: bold;
+    font-size: 0.75rem;
+    letter-spacing: 1px;
+    flex: 1;
+}
+
+/* Match the Neon 'GO' style for View */
+.btn-outline-info {
+    border-color: #00d2ff;
+    color: #00d2ff;
+    background: rgba(0, 210, 255, 0.05);
+}
+
+    .btn-outline-info:hover {
+        background: #00d2ff;
+        color: #0d1117;
+    }
+/* --- Fix Image Visibility --- */
+.wishlist-card img {
+    width: 100%;
+    height: 220px;
+    object-fit: contain;
+    background: #ffffff; /* Keep white bg so the product stands out */
+    padding: 15px;
+    /* REMOVED mix-blend-mode to prevent the "blacked out" look */
+    border-bottom: 1px solid rgba(0, 210, 255, 0.2);
+}
+
+/* --- Neon Styled Buttons --- */
+.wishlist-actions .btn {
+    border-radius: 4px;
+    text-transform: uppercase;
+    font-weight: 800;
+    font-size: 0.75rem;
+    letter-spacing: 1px;
+    padding: 10px 15px;
+    transition: all 0.3s ease;
+}
+
+/* View Button: Neon Cyan */
+.wishlist-actions .btn-outline-info {
+    border: 1px solid #00f5ff;
+    color: #00f5ff;
+    background: rgba(0, 245, 255, 0.05);
+    box-shadow: inset 0 0 5px rgba(0, 245, 255, 0.2);
+}
+
+    .wishlist-actions .btn-outline-info:hover {
+        background: #00f5ff;
+        color: #0d1117;
+        box-shadow: 0 0 15px rgba(0, 245, 255, 0.5);
+    }
+
+/* Remove Button: Neon Red/Pink */
+.wishlist-actions .wishlist-btn {
+    border: 1px solid #ff0055;
+    color: #ff0055;
+    background: rgba(255, 0, 85, 0.05);
+    box-shadow: inset 0 0 5px rgba(255, 0, 85, 0.2);
+}
+
+    .wishlist-actions .wishlist-btn:hover {
+        background: #ff0055;
+        color: #fff;
+        box-shadow: 0 0 15px rgba(255, 0, 85, 0.5);
+    }
+
+/* --- Card Polish --- */
+.wishlist-card {
+    background: #0d1117; /* Deeper black for better neon contrast */
+    border: 1px solid rgba(0, 210, 255, 0.2);
+    border-radius: 4px;
+    height: 460px; /* Adjusted for buttons */
+}
+
+.price {
+    color: #00f5ff;
+    text-shadow: 0 0 8px rgba(0, 245, 255, 0.3);
+    font-family: monospace;
+    font-size: 1.3rem;
+}
