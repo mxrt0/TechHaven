@@ -3,61 +3,87 @@
     ViewData["Title"] = "Edit Product";
 }
 
-<h2 class="mb-4 text-center">Edit Product</h2>
+<div class="dashboard-container">
+    <header class="mb-4 text-center">
+        <h2 class="neon-title">Edit Product</h2>
+        <div class="neon-line mx-auto"></div>
+    </header>
 
-<form asp-action="Edit" method="post">
-    <input asp-for="Product.Id" type="hidden" />
-    <input asp-for="Product.CategoryId" type="hidden" />
-    <input asp-for="Product.SpecsJson" type="hidden" data-specs='@Html.Raw(Model.Product.SpecsJson)' />
+    <div class="row justify-content-center">
+        <div class="col-12 col-lg-10">
+            <div class="data-panel">
+                <form asp-action="Edit" method="post">
+                    <input asp-for="Product.Id" type="hidden" />
+                    <input asp-for="Product.CategoryId" type="hidden" />
+                    <input asp-for="Product.SpecsJson" type="hidden" data-specs='@Html.Raw(Model.Product.SpecsJson)' />
 
-    <div asp-validation-summary="All" class="text-danger"></div>
+                    <div asp-validation-summary="All" class="mb-4"></div>
 
-    <div class="mb-3">
-        <label asp-for="Product.Name" class="form-label"></label>
-        <input asp-for="Product.Name" class="form-control" />
-        <span asp-validation-for="Product.Name" class="text-danger"></span>
+                    <div class="row g-4">
+                        <div class="col-md-6">
+                            <label asp-for="Product.Name" class="stat-label">Product Name</label>
+                            <input asp-for="Product.Name" class="neon-input" />
+                            <span asp-validation-for="Product.Name" class="text-neon-red"></span>
+                        </div>
+
+                        <div class="col-md-6">
+                            <label class="stat-label">Category</label>
+                            <input class="neon-input" value="@Model.Product.CategoryName" disabled
+                                   style="opacity: 0.6; cursor: not-allowed; border-style: dashed;" />
+                        </div>
+
+                        <div class="col-12">
+                            <label asp-for="Product.Description" class="stat-label">Description</label>
+                            <textarea asp-for="Product.Description" class="neon-input" rows="4"></textarea>
+                            <span asp-validation-for="Product.Description" class="text-neon-red"></span>
+                        </div>
+
+                        <div class="col-12">
+                            <div id="specs-container" class="mt-2 p-3 rounded" style="background: rgba(0,0,0,0.2);">
+                            </div>
+                            <span asp-validation-for="Product.SpecsJson" class="text-neon-red"></span>
+                        </div>
+
+                        <div class="col-md-4">
+                            <label asp-for="Product.Price" class="stat-label">Price</label>
+                            <div class="input-group-custom">
+                                <input asp-for="Product.Price" class="neon-input" />
+                                <span class="currency-addon">€</span>
+                            </div>
+                            <span asp-validation-for="Product.Price" class="text-neon-red"></span>
+                        </div>
+
+                        <div class="col-md-4">
+                            <label asp-for="Product.StockQuantity" class="stat-label">Stock Quantity</label>
+                            <input asp-for="Product.StockQuantity" class="neon-input" />
+                            <span asp-validation-for="Product.StockQuantity" class="text-neon-red"></span>
+                        </div>
+
+                        <div class="col-md-4 d-flex align-items-end">
+                            <div class="form-check custom-neon-check mb-2">
+                                <input asp-for="Product.IsActive" class="form-check-input" />
+                                <label asp-for="Product.IsActive" class="form-check-label text-dim">
+                                    Product is Active
+                                </label>
+                            </div>
+                        </div>
+
+                        <div class="col-12">
+                            <label asp-for="Product.ImageUrl" class="stat-label">Image URL</label>
+                            <input asp-for="Product.ImageUrl" class="neon-input" />
+                            <span asp-validation-for="Product.ImageUrl" class="text-neon-red"></span>
+                        </div>
+                    </div>
+
+                    <div class="d-flex gap-3 mt-5">
+                        <button type="submit" class="neon-btn">Save Changes</button>
+                        <a asp-action="Index" class="neon-btn btn-dim">Cancel</a>
+                    </div>
+                </form>
+            </div>
+        </div>
     </div>
-
-    <div class="mb-3">
-        <label class="form-label">Category</label>
-        <input class="form-control" value="@Model.Product.CategoryName" disabled />
-    </div>
-
-    <div class="mb-3">
-        <label asp-for="Product.Description" class="form-label"></label>
-        <textarea asp-for="Product.Description" class="form-control"></textarea>
-        <span asp-validation-for="Product.Description" class="text-danger"></span>
-    </div>
-
-    <div id="specs-container" class="mt-4"></div>
-    <span asp-validation-for="Product.SpecsJson" class="text-danger"></span>
-
-    <div class="mb-3">
-        <label asp-for="Product.ImageUrl" class="form-label"></label>
-        <input asp-for="Product.ImageUrl" class="form-control" />
-        <span asp-validation-for="Product.ImageUrl" class="text-danger"></span>
-    </div>
-
-    <div class="mb-3">
-        <label asp-for="Product.Price" class="form-label"></label>
-        <input asp-for="Product.Price" class="form-control" />
-        <span asp-validation-for="Product.Price" class="text-danger"></span>
-    </div>
-
-    <div class="mb-3">
-        <label asp-for="Product.StockQuantity" class="form-label"></label>
-        <input asp-for="Product.StockQuantity" class="form-control" />
-        <span asp-validation-for="Product.StockQuantity" class="text-danger"></span>
-    </div>
-
-    <div class="form-check mb-3">
-        <input asp-for="Product.IsActive" class="form-check-input" />
-        <label asp-for="Product.IsActive" class="form-check-label"></label>
-    </div>
-
-    <button type="submit" class="btn btn-primary">Save Changes</button>
-    <a asp-action="Index" class="btn btn-secondary ms-2">Cancel</a>
-</form>
+</div>
 
 @section Scripts {
     <partial name="_ValidationScriptsPartial" />
