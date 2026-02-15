@@ -82,7 +82,7 @@ public class ProductsController : Controller
             TempData["Admin_ErrorMessage"] = Messages.ErrorUpdatingProductMessage;
             return RedirectToAction(nameof(Index));
         }
-        TempData["SuccessMessage"] = Messages.ProductUpdatedMessage;
+        TempData["Admin_SuccessMessage"] = Messages.ProductUpdatedMessage;
         return RedirectToAction(nameof(Index));
     }
 
@@ -124,7 +124,7 @@ public class ProductsController : Controller
             return RedirectToAction(nameof(Index));
         }
 
-        TempData["SuccessMessage"] = Messages.ProductCreatedMessage;
+        TempData["Admin_SuccessMessage"] = Messages.ProductCreatedMessage;
         return RedirectToAction(nameof(Index));
     }
 }
