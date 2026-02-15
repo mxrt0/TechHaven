@@ -70,10 +70,8 @@
                 </div>
 
                 <div class="col-12 col-md-3 d-flex gap-2">
-                    <button type="submit" class="neon-btn w-70">Search</button>
-                    <div class="neon-btn btn-dim text-center">
-                        <a asp-action="Index" class="w-100">Reset</a>
-                    </div>                   
+                    <button type="submit" class="neon-btn w-75">Search</button>
+                        <a asp-action="Index" class="neon-btn btn-dim w-50 text-center">Reset</a>                  
                 </div>
             </div>
         </form>
@@ -120,9 +118,7 @@
                                 </td>
                                 <td data-label="Actions" class="text-end">
                                     <div class="d-flex gap-2 justify-content-end">
-                                        <div>
-                                            <a asp-action="Edit" asp-route-id="@product.Id" class="neon-btn">Edit</a>
-                                        </div>                                        
+                                            <a asp-action="Edit" asp-route-id="@product.Id" class="neon-btn">Edit</a>                                      
                                         <form asp-action="ToggleActive" asp-route-id="@product.Id" method="post" class="d-inline">
                                             <button type="submit" class="neon-btn @(product.IsActive ? "btn-red" : "btn-green")">
                                                 @(product.IsActive ? "Deactivate" : "Activate")
