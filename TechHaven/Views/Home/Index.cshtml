@@ -3,19 +3,15 @@
     ViewData["Title"] = "Home";
 }
 
-<div class="hero-section">
-    <div class="container">
-        <div class="hero-content">
-            <h1 class="hero-title">Build Your Perfect PC</h1>
-            <p class="hero-subtitle">Browse our collection of premium components</p>
+<div class="public-wrapper">
+    <div class="hero-section">
+        <div class="container text-center">
+            <h1 class="glitch-title">Build Your <span class="neon-glow">Dream PC</span></h1>
+            <p class="hero-tagline">// High-Performance Components. Zero Compromise.</p>
         </div>
     </div>
-</div>
 
-<div class="categories-section">
     <div class="container">
-        <h2 class="section-title">Shop by Category</h2>
-
         <div class="row g-4">
             @foreach (var category in Model.Categories)
             {
@@ -24,15 +20,18 @@
                        asp-action="Index"
                        asp-route-categoryId="@category.Id"
                        asp-route-lockCategory="true"
-                       class="category-card text-decoration-none">
-                        <div class="category-image-wrapper">
-                            <img src="@category.ImageUrl"
-                                 alt="@category.Name"
-                                 class="category-image" />
+                       class="spec-card">
+
+                        <div class="spec-img-wrap">
+                            <img src="@category.ImageUrl" alt="@category.Name" />
                         </div>
-                        <div class="category-info">
-                            <h3 class="category-name">@category.Name</h3>
-                            <span class="category-arrow text-decoration-underline">→</span>
+
+                        <div class="spec-details">   
+                            <h3 class="category-display-name">@category.Name</h3>
+                            <div class="action-indicator">
+                                <span class="line"></span>
+                                <span class="txt">BROWSE</span>
+                            </div>
                         </div>
                     </a>
                 </div>
