@@ -3,6 +3,10 @@
 @{
     ViewData["Title"] = "My Orders";
 }
+@section Styles {
+    <link rel="stylesheet" href="~/css/toast.css" asp-append-version="true" />
+}
+
 <div id="temp-message" data-temp-Msg="@TempData["SuccessMessage"]"></div>
 @if (TempData["ErrorMessage"] is not null)
 {
