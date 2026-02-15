@@ -141,9 +141,8 @@ body {
         border-color: #8b949e;
     }
 
-/* Sidebar Background and Border */
 .admin-body {
-    background-color: #0d0d0d; /* Deep black */
+    background-color: #0d0d0d; 
     color: #e0e0e0;
 }
 
@@ -154,7 +153,6 @@ body {
     box-shadow: 4px 0 15px rgba(0, 0, 0, 0.5);
 }
 
-/* Custom Nav Links */
 .admin-nav-link {
     color: #888;
     padding: 0.8rem 1rem;
@@ -174,7 +172,6 @@ body {
         border-left: 3px solid #00f2fe;
     }
 
-/* Neon Text Accent */
 .neon-text-blue {
     color: #00f2fe;
     text-shadow: 0 0 10px rgba(0, 242, 254, 0.5);
@@ -182,12 +179,10 @@ body {
     letter-spacing: 1px;
 }
 
-/* Main Content styling to match */
 .main-content {
     background: radial-gradient(circle at top left, #1a1a1a, #0d0d0d);
 }
 
-/* Section Titles (Quick Actions / Main Menu) */
 .sidebar-section-title {
     color: #00f2fe;
     font-size: 0.75rem;
@@ -198,7 +193,6 @@ body {
     text-shadow: 0 0 5px rgba(0, 242, 254, 0.3);
 }
 
-/* Admin Badge */
 .admin-badge {
     font-size: 0.8rem;
     background: rgba(0, 242, 254, 0.1);
@@ -208,8 +202,6 @@ body {
     border: 1px solid rgba(0, 242, 254, 0.3);
 }
 
-
-/* Pushed-to-bottom Logout */
 .logout-link {
     background: transparent;
     border: none;
@@ -228,12 +220,10 @@ body {
         text-shadow: 0 0 5px #ff3333;
     }
 
-/* Background refinement for bottom section */
 .bg-dark-soft {
     background: rgba(0, 0, 0, 0.2);
 }
 
-/* Sidebar structure fix */
 .admin-sidebar {
     height: 100vh;
     position: fixed;
