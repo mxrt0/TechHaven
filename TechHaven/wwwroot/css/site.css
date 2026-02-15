@@ -230,6 +230,24 @@ body {
     .back-button {
         left: 1rem;
     }
+
+    .glitch-title {
+        font-size: 2.2rem !important; /* Shrink hero title so it doesn't wrap weirdly */
+    }
+
+    .data-panel {
+        padding: 1.5rem !important; /* Reduce padding on mobile */
+    }
+
+    .neon-btn {
+        width: 100%; /* Make buttons full-width on mobile for easier tapping */
+        text-align: center;
+    }
+
+    /* Ensure the search row doesn't get too squashed */
+    .row.g-3 > .col-12 {
+        margin-bottom: 0.5rem;
+    }
 }
 
 /* Apply this to the base of your public layout */
@@ -246,6 +264,57 @@ body {
     font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
 }
 
+.neon-input, .neon-select {
+    display: block;
+    width: 100%;
+    background-color: #161b22 !important;
+    border: 1px solid rgba(255, 255, 255, 0.1) !important;
+    border-radius: 6px !important;
+    padding: 10px 12px !important;
+    color: #e6edf3 !important;
+    box-sizing: border-box;
+}
+
+    .neon-input:focus, .neon-select:focus {
+        outline: none !important;
+        border-color: #00d2ff !important;
+        box-shadow: 0 0 10px rgba(0, 210, 255, 0.2) !important;
+    }
+
+.neon-btn {
+    padding: 10px 24px;
+    border-radius: 6px;
+    font-weight: 700;
+    text-transform: uppercase;
+    transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+    background: rgba(0, 210, 255, 0.1);
+    color: #00d2ff;
+    border: 1px solid #00d2ff;
+    cursor: pointer;
+    text-decoration: none;
+    outline: none !important;
+    box-shadow: none;
+}
+
+    .neon-btn:hover {
+        transform: scale(1.05);
+        background: #00d2ff;
+        color: #0d1117;
+        box-shadow: 0 0 20px rgba(0, 210, 255, 0.4);
+    }
+
+.btn-dim {
+    background: transparent;
+    color: #8b949e;
+    border-color: #484f58;
+}
+
+    .btn-dim:hover {
+        transform: scale(1.05);
+        background: rgba(139, 148, 158, 0.1);
+        color: #fff;
+        border-color: #8b949e;
+    }
 /* ================= */
      /* Toast */
 /* ================= */
