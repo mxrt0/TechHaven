@@ -6,7 +6,11 @@
 @section Styles {
     <link rel="stylesheet" href="~/css/toast.css" asp-append-version="true" />
 }
-
+@section Back {
+    <button class="neon-btn btn-dim btn-sm me-4 mb-2" onclick="history.back()">
+        <i class="bi bi-arrow-left"></i> BACK
+    </button>
+}
 <div id="temp-message" data-temp-Msg="@TempData["SuccessMessage"]"></div>
 @if (TempData["ErrorMessage"] is not null)
 {

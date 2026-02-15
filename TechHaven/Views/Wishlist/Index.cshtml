@@ -10,16 +10,18 @@
 <div class="container py-4 wishlist-page">
 
     <div class="d-flex align-items-center mb-4">
-        <button class="neon-btn btn-dim btn-sm me-2" onclick="history.back()">
+        <button class="neon-btn btn-dim btn-sm me-4 mb-2" onclick="history.back()">
             <i class="bi bi-arrow-left"></i> BACK
         </button>
-        <h2 class="wishlist-title">My Wishlist</h2>
+        <div class="flex-grow-1">
+            <h2 class="wishlist-title text-center">My Wishlist</h2>
+        </div>       
     </div>
 
     <div class="wishlist-empty text-center p-5" style="@(products.Any() ? "display: none;" : "display: block;")">
             <i class="bi bi-heart-break neon-icon"></i>
-            <p class="mt-3 font-monospace">// YOUR WISHLIST IS CURRENTLY EMPTY</p>
-            <a asp-controller="Products" asp-action="Index" class="btn btn-outline-info mt-2">
+            <p class="mt-3 font-monospace">YOUR WISHLIST IS CURRENTLY EMPTY</p>
+            <a asp-controller="Products" asp-action="Index" class="neon-btn btn-sm">
                 Browse products
             </a>
     </div>
