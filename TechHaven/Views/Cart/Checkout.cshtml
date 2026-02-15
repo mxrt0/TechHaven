@@ -6,7 +6,7 @@
     <link rel="stylesheet" href="~/css/cart-shared.css" />
 }
 <div class="container my-5 cart-page checkout-page">
-    <h2 class="mb-5 neon-title text-center">✅ Checkout</h2>
+    <h2 class="mb-5 neon-title text-center">✅ CHECKOUT</h2>
 
     @if (!Model.Items.Any())
     {
@@ -46,7 +46,7 @@
 
         <div class="cart-footer mt-5">
             <div class="cart-total">
-                <span>Total</span>
+                <span>TOTAL:</span>
                 <strong class="neon-price">
                     @Model.TotalPrice.ToString("0.00") €
                 </strong>
