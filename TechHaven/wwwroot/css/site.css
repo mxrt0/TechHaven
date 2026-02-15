@@ -232,6 +232,20 @@ body {
     }
 }
 
+/* Apply this to the base of your public layout */
+html, body {
+    height: 100%;
+    margin: 0;
+}
+
+body {
+    /* Matches the 'depth' of the admin sidebar but adds a techy lean */
+    background: linear-gradient(135deg, #0d1117 0%, #161b22 50%, #0d1117 100%);
+    background-attachment: fixed; /* Keeps the gradient still while scrolling */
+    color: #e6edf3;
+    font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+}
+
 /* ================= */
      /* Toast */
 /* ================= */
