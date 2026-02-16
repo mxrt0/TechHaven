@@ -316,3 +316,23 @@ body {
         border-color: #8b949e;
     }
 
+div.alert.alert-danger {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    border: 1px solid #ccc;
+}
+
+.close-btn {
+    background: none;
+    border: none;
+    font-size: 20px;
+    cursor: pointer;
+    color: #888;
+    margin-left: auto;
+}
+
+    .close-btn:hover {
+        color: red;
+    }
