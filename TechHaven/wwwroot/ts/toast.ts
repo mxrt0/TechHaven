@@ -3,7 +3,7 @@
     Wishlist,
     Order
 }
-type ToastOptions = (WishlistToastOptions | CartToastOptions | OrderToastOptions) & { delay?: number }; // Extendable for other toast types in the future
+type ToastOptions = (WishlistToastOptions | CartToastOptions | OrderToastOptions) & { delay?: number };
 
 type CartToastOptions = {
     type: ToastType.Cart,
@@ -28,21 +28,42 @@ function showToast(message: string, options: ToastOptions) {
 
     void timer.offsetWidth;
 
-    timer.style.transition = `width 2ms linear`;
+    const displayDelay = options.delay || 2000;
+    timer.style.transition = `width ${displayDelay}ms linear`;
     timer.style.width = "0%";
 
+    const cyan = "#0ff";
+    const softBlue = "#38bdf8";
+    const rose = "#f43f5e";
+
     switch (options.type) {
-        case ToastType.Wishlist:           
-            toastEl.style.borderColor = options.added ? "#0ff" : "#f43f5e";
-            toastEl.style.color = options.added ? "#0ff" : "#f43f5e";
-            toastEl.style.textShadow = options.added
-                ? "0 0 2px #0ff, 0 0 5px #0ff, 0 0 10px #0ff"
-                : "0 0 2px #f43f5e, 0 0 4px #f43f5e, 0 0 6px #f43f5e";
+        case ToastType.Wishlist:
+            const isAdded = options.added;
+            const color = isAdded ? cyan : rose;
+
+            toastEl.style.borderColor = color;
+            toastEl.style.color = color;
+
+            toastEl.style.textShadow = `0 0 2px ${color}, 0 0 8px ${isAdded ? 'rgba(0,255,255,0.5)' : 'rgba(244,63,94,0.5)'}`;
+            toastEl.style.boxShadow = `0 0 15px ${isAdded ? 'rgba(0,255,255,0.15)' : 'rgba(244,63,94,0.15)'}`;
+
+            break;
+
         case ToastType.Cart:
-            toastEl.style.borderColor = "#0ff"; 
-            toastEl.style.color = "#38bdf8";    
-            toastEl.style.textShadow = "0 0 4px #38bdf8, 0 0 10px #0ff, 0 0 20px #0ff70"; 
+            toastEl.style.borderColor = cyan;
+            toastEl.style.color = softBlue;
+
+            toastEl.style.textShadow = `0 0 2px ${softBlue}, 0 0 10px rgba(56,189,248,0.6)`;
+            toastEl.style.boxShadow = `0 0 15px rgba(0,255,255,0.15)`;
+            break;
+
+        case ToastType.Order:
+            toastEl.style.borderColor = "#00ff9e";
+            toastEl.style.color = "#00ff9e";
+            toastEl.style.textShadow = `0 0 2px #00ff9e, 0 0 10px rgba(0,255,158,0.5)`;
+            toastEl.style.boxShadow = `0 0 15px rgba(0,255,158,0.15)`;
+            break;
     }
-    const toast = new bootstrap.Toast(toastEl, { delay: options.delay || 2000 });
+    const toast = new bootstrap.Toast(toastEl, { delay: displayDelay });
     toast.show();
 }
