@@ -2,7 +2,11 @@
 @{
     ViewData["Title"] = "Edit Product";
 }
-
+@section Back {
+    <button class="neon-btn btn-dim btn-sm me-4 mb-2" onclick="history.back()">
+        <i class="bi bi-arrow-left"></i> BACK
+    </button>
+}
 <div class="dashboard-container">
     <header class="mb-4 text-center">
         <h2 class="neon-title">Edit Product</h2>
