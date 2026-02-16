@@ -32,7 +32,8 @@
                 Browse products
              </a>
         </div>
-
+    @if (Model.Items.Any())
+    {
         <div class="cart-items">
             @foreach (var item in Model.Items)
             {
@@ -46,18 +47,18 @@
                         </div>
 
                         <div class="cart-item-actions">
-                                <input type="hidden" name="productId" value="@item.ProductId" />
-                                <input type="number"
-                                       name="quantity"
-                                       value="@item.Quantity"
-                                       min="1"
-                                       class="quantity-input" />
-                                <button class="btn btn-outline-neon btn-sm btn-update">
-                                    Update
-                                </button>
-                                <button class="btn btn-remove" title="Remove">
-                                    ✕
-                                </button>
+                            <input type="hidden" name="productId" value="@item.ProductId" />
+                            <input type="number"
+                                   name="quantity"
+                                   value="@item.Quantity"
+                                   min="1"
+                                   class="quantity-input" />
+                            <button class="btn btn-outline-neon btn-sm btn-update">
+                                Update
+                            </button>
+                            <button class="btn btn-remove" title="Remove">
+                                ✕
+                            </button>
                         </div>
                     </div>
 
@@ -68,10 +69,10 @@
                         </strong>
                     </div>
                 </div>
-           }
-    </div>
+            }
+        </div>
 
-        
+
         <div class="cart-footer mt-5">
             <form method="post" asp-action="Clear">
                 <button class="btn btn-outline-warning">
@@ -92,6 +93,8 @@
                 Proceed to Checkout <i class="bi bi-arrow-right ms-2"></i>
             </a>
         </div>
+    }
+    
 </div>
 @section Scripts {
     <script src="~/js/toast.js"></script>
