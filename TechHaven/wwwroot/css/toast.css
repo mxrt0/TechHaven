@@ -18,6 +18,9 @@
     opacity: 0;
     transition: transform 0.3s ease, opacity 0.3s ease;
     padding-right: 2.5rem;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
     #wishlistToast.show {
