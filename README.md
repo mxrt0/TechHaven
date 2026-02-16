@@ -11,18 +11,18 @@
 ---
 ## 📋 Table of Contents
 
-- [About the Project](#about-the-project)
-- [Technologies Used](#technologies-used)
-- [Prerequisites](#prerequisites)
-- [Getting Started](#getting-started)
-- [Project Structure](#project-structure)
-- [Features](#features)
-- [Usage](#usage)
-- [Database Setup](#database-setup)
-- [Configuration](#configuration)
-- [Contributing](#contributing)
-- [License](#license)
-- [Contact](#contact)
+- [About the Project](#-about-the-project)
+- [Technologies Used](#%EF%B8%8F-technologies-used)
+- [Prerequisites](#-prerequisites)
+- [Getting Started](#-getting-started)
+- [Project Structure](#-project-structure)
+- [Features](#-features)
+- [Usage](#-usage)
+- [Database Setup](#-database-setup)
+- [Configuration](#-configuration)
+- [Contributing](#-contributing)
+- [License](#-license)
+- [Contact](#-contact)
 
 ---
 
