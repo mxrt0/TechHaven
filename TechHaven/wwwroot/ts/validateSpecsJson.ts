@@ -69,7 +69,6 @@ const schemas: CategorySchema = {
     ]
 };
 
-// ---------- DOM Elements ----------
 document.addEventListener("DOMContentLoaded", () => {
     const categorySelect = document.querySelector<HTMLInputElement | HTMLSelectElement>("#Product_CategoryId");
     const specsInput = document.querySelector<HTMLInputElement>("#Product_SpecsJson")!;
@@ -102,17 +101,20 @@ document.addEventListener("DOMContentLoaded", () => {
 
             const label = document.createElement("label");
             label.className = "form-label";
+            label.classList.add("stat-label");
             label.textContent = field.name + (field.required ? " *" : "");
             wrapper.appendChild(label);
 
             const input = document.createElement("input");
             input.type = "text";
             input.className = "form-control";
+            input.classList.add("neon-input");
             input.dataset.specField = field.name;
             input.value = existingSpecs[field.name] ?? "";
 
             const errorSpan = document.createElement("span");
             errorSpan.className = "text-danger d-block";
+            errorSpan.classList.add("text-neon-red");
 
             input.addEventListener("input", () => {
                 validateSingleField(input, field, errorSpan);
@@ -128,10 +130,9 @@ document.addEventListener("DOMContentLoaded", () => {
             specsContainer.appendChild(wrapper);
         }
 
-        syncJson(); // Initial sync
+        syncJson();
     }
 
-    // ---------- Single Field Validation ----------
     function validateSingleField(input: HTMLInputElement, field: SchemaField, errorSpan: HTMLSpanElement): boolean {
         const value = input.value.trim();
 
@@ -155,7 +156,6 @@ document.addEventListener("DOMContentLoaded", () => {
         return true;
     }
 
-    // ---------- Collect Specs ----------
     function collectSpecs(): Record<string, string> {
         const specs: Record<string, string> = {};
         specsContainer.querySelectorAll<HTMLInputElement>("input[data-spec-field]").forEach(input => {
@@ -164,7 +164,6 @@ document.addEventListener("DOMContentLoaded", () => {
         return specs;
     }
 
-    // ---------- Validate All Specs ----------
     function validateSpecs(schema: SchemaField[]): boolean {
         let valid = true;
         specsContainer.querySelectorAll<HTMLInputElement>("input[data-spec-field]").forEach(input => {
@@ -181,18 +180,16 @@ document.addEventListener("DOMContentLoaded", () => {
         return valid;
     }
 
-    // ---------- Sync JSON ----------
     function syncJson() {
         specsInput.value = JSON.stringify(collectSpecs());
     }
 
-    // ---------- Handle Category Change ----------
     if (categorySelect instanceof HTMLSelectElement) {
         categorySelect.addEventListener("change", () => {
             generateSpecsForm(Number(categorySelect.value));
         });
     }
-    // ---------- Handle Form Submit ----------
+
     form.addEventListener("submit", (e) => {
         const categoryId = Number(categorySelect.value);
         const schema = schemas[categoryId];
@@ -204,10 +201,9 @@ document.addEventListener("DOMContentLoaded", () => {
             return;
         }
 
-        syncJson(); // ensure hidden input is updated
+        syncJson(); 
     });
 
-    // ---------- Initial Load ----------
     generateSpecsForm(Number(categorySelect.value));
     syncJson();
 });

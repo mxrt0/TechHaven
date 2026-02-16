@@ -3,7 +3,15 @@
 @{
     ViewData["Title"] = "My Orders";
 }
-<div id="temp-message" data-temp-Msg="@TempData["SuccessMessage"]"></div>
+@section Styles {
+    <link rel="stylesheet" href="~/css/toast.css" asp-append-version="true" />
+}
+@section Back {
+    <button class="neon-btn btn-dim btn-sm me-4 mb-2" onclick="history.back()">
+        <i class="bi bi-arrow-left"></i> BACK
+    </button>
+}
+<div id="temp-message" data-temp-Msg="@TempData["SuccessMessage"]" data-type="order"></div>
 @if (TempData["ErrorMessage"] is not null)
 {
     <div class="alert alert-danger text-center">
@@ -11,7 +19,7 @@
     </div>
 }
 <div class="container my-5 orders-page">
-    <h2 class="mb-5 neon-title text-center">🧾 My Orders</h2>
+    <h2 class="mb-5 neon-title text-center">🧾 MY ORDERS</h2>
 
     @if (!Model.Orders.Any())
     {
@@ -32,19 +40,18 @@
                 <div class="order-card">
                   <div class="order-header">
                         <div>
-                            <h5 class="order-number">
+                            <h5 class="order-number text-uppercase">
                                 Order #@order.OrderNumber
                             </h5>
-                            <div class="order-date">
+                            <div class="order-date font-monospace">
                                 @order.OrderDate.ToString("dd/MM/yyyy", CultureInfo.InvariantCulture)
                             </div>
-                            <div>
-                                <strong>Order Status:</strong>
+                            <div class="mt-2">
                                 <span class="badge
                                     @(order.Status == OrderStatus.Pending ? "bg-warning" :
                                                 order.Status == OrderStatus.Shipped ? "bg-success" :
                                                 "bg-danger")">
-                                    @order.Status
+                                    ● @order.Status
                                 </span>
                             </div>
                         </div>
@@ -60,7 +67,7 @@
                             
                                     <a asp-action="Details"
                                         asp-route-id="@order.OrderId"
-                                        class="btn btn-info">
+                                        class="neon-btn btn-sm">
                                         View
                                     </a>
                             }

@@ -4,194 +4,181 @@
 }
 
 @section Styles {
-    <link rel="stylesheet" href="~/css/toast.css" asp-append-version="true"/>
+    <link rel="stylesheet" href="~/css/toast.css" asp-append-version="true" />
 }
-<div id="temp-message" data-temp-Msg="@TempData["SuccessMessage"]"></div>
+
+<div id="temp-message" data-temp-Msg="@TempData["Admin_SuccessMessage"]"></div>
+
 @if (TempData["Admin_ErrorMessage"] is not null)
 {
-    <div class="alert alert-danger text-center">
+    <div class="alert badge-cancelled text-center mb-4" style="background: rgba(255, 77, 77, 0.1);">
         @TempData["Admin_ErrorMessage"]
     </div>
 }
 
-<h2>Products</h2>
+<div class="dashboard-container">
+    <header class="mb-4">
+        <h2 class="neon-title">Products</h2>
+        <div class="neon-line"></div>
+    </header>
 
-<div class="mb-3">
-    <a asp-action="Create" class="btn btn-primary">+ Add New Product</a>
-</div>
-<form method="get" class="card p-3 mb-4 shadow-sm w-75 justify-content-center">
-    <div class="row g-2 align-items-end">
-
-        <div class="col-md-4">
-            <label class="form-label">Search</label>
-            <input type="text"
-                   name="SearchTerm"
-                   value="@Model.SearchTerm"
-                   class="form-control"
-                   placeholder="Search by product name..." />
-        </div>
-
-        <div class="col-md-2">
-            <label class="form-label">Category</label>
-            <select name="CategoryId" class="form-select">
-                <option value="">All</option>
-                @foreach (var c in Model.Categories)
-                {
-                    if (Model.CategoryId == c.Id)
-                    {
-                        <option value="@c.Id" selected>@c.Name</option>
-                    }
-                    else
-                    {
-                        <option value="@c.Id">@c.Name</option>
-                    }
-                }
-            </select>
-        </div>
-
-        <div class="col-md-2">
-            <label class="form-label">Stock</label>
-            <select name="Stock" class="form-select">
-                @foreach (var stock in Enum.GetValues<StockFilter>())
-                {
-                    if (Model.Stock == stock)
-                    {
-                        <option value="@stock" selected>@stock</option>
-                    }
-                    else
-                    {
-                        <option value="@stock">@stock</option>
-                    }
-                }
-            </select>
-        </div>
-
-        <div class="col-md-2">
-            <label class="form-label">Sort</label>
-            <select name="SortBy" class="form-select">
-                @foreach (var sort in Enum.GetValues<ProductSort>())
-                {
-                    if (Model.SortBy == sort)
-                    {
-                        <option value="@sort" selected>@sort</option>
-                    }
-                    else
-                    {
-                        <option value="@sort">@sort</option>
-                    }
-                }
-            </select>
-        </div>
-
-        <div class="col-md-2 d-flex gap-2 align-items-center">
-            <button type="submit" class="btn btn-primary">
-                Search
-            </button>
-            <a asp-action="Index" class="btn btn-outline-secondary">
-                Reset
-            </a>
-        </div>        
+    <div class="mb-4">
+        <a asp-action="Create" class="neon-btn">+ Add New Product</a>
     </div>
-</form>
 
-@if (!Model.Products.Any())
-{
-    <div class="alert alert-secondary">
-        No products found.
+    <div class="data-panel mb-4">
+        <form method="get" asp-action="Index">
+            <div class="row g-3 align-items-end">
+                <div class="col-12 col-md-3">
+                    <label class="stat-label">Search</label>
+                    <input type="text"
+                           name="SearchTerm"
+                           value="@Model.SearchTerm"
+                           class="neon-input"
+                           placeholder="Search by product name..." />
+                </div>
+
+                <div class="col-12 col-md-2">
+                    <label class="stat-label">Category</label>
+                    <select name="CategoryId" class="neon-select">
+                        <option value="">All</option>
+                        @foreach (var c in Model.Categories)
+                        {
+                            <option value="@c.Id" selected="@(Model.CategoryId == c.Id)">@c.Name</option>
+                        }
+                    </select>
+                </div>
+
+                <div class="col-12 col-md-2">
+                    <label class="stat-label">Stock</label>
+                    <select name="Stock" class="neon-select">
+                        @foreach (var stock in Enum.GetValues<StockFilter>())
+                        {
+                            <option value="@stock" selected="@(Model.Stock == stock)">@stock</option>
+                        }
+                    </select>
+                </div>
+
+                <div class="col-12 col-md-2">
+                    <label class="stat-label">Sort</label>
+                    <select name="SortBy" class="neon-select">
+                        @foreach (var sort in Enum.GetValues<ProductSort>())
+                        {
+                            <option value="@sort" selected="@(Model.SortBy == sort)">@sort</option>
+                        }
+                    </select>
+                </div>
+
+                <div class="col-12 col-md-3 d-flex gap-2">
+                    <button type="submit" class="neon-btn w-75">Search</button>
+                        <a asp-action="Index" class="neon-btn btn-dim w-50 text-center">Reset</a>                  
+                </div>
+            </div>
+        </form>
     </div>
-}
-else
-{
-    <table class="table table-striped table-hover">
-        <thead>
-            <tr>
-                <th>Name</th>
-                <th>Price</th>
-                <th>Stock</th>
-                <th>Category</th>
-                <th>Status</th>
-                <th>Actions</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var product in Model.Products)
+
+    <div class="data-panel">
+        <div class="table-container">
+            @if (!Model.Products.Any())
             {
-                <tr>
-                    <td>@product.Name</td>
-                    <td>@product.Price.ToString("0.00") €</td>
-                    <td>@product.StockQuantity</td>
-                    <td>@product.CategoryName</td>
-                    <td>
-                        @if (product.IsActive)
-                        {
-                            <span class="badge bg-success">Active</span>
-                        }
-                        else
-                        {
-                            <span class="badge bg-secondary">Inactive</span>
-                        }
-                    </td>
-                    <td>
-                        <a asp-action="Edit" asp-route-id="@product.Id" class="btn btn-sm btn-info">Edit</a>
-
-                        <form asp-action="ToggleActive" asp-route-id="@product.Id" method="post" style="display:inline">
-                            <button type="submit" class="btn btn-sm @(product.IsActive ? "btn-warning" : "btn-success")">
-                                @(product.IsActive ? "Deactivate" : "Activate")
-                            </button>
-                        </form>
-                    </td>
-                </tr>
+                <div class="alert alert-secondary bg-transparent border-secondary text-dim text-center">
+                    No products found.
+                </div>
             }
-        </tbody>
-    </table>
-}
-@if (Model.TotalPages > 1)
-{
-    <nav>
-        <ul class="pagination justify-content-center">
-
-            <li class="page-item @(Model.Page == 1 ? "disabled" : "")">
-                <a class="page-link"
-                   asp-action="Index"
-                   asp-route-page="@(Model.Page - 1)"
-                   asp-route-searchTerm="@Model.SearchTerm"
-                   asp-route-categoryId="@Model.CategoryId"
-                   asp-route-sortBy="@Model.SortBy"
-                   asp-route-stock="@Model.Stock">
-                    Previous
-                </a>
-            </li>
-
-            @for (int i = 1; i <= Model.TotalPages; i++)
+            else
             {
-                <li class="page-item @(Model.Page == i ? "active" : "")">
+                <table class="neon-table">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Price</th>
+                            <th>Stock</th>
+                            <th>Category</th>
+                            <th>Status</th>
+                            <th class="text-end">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var product in Model.Products)
+                        {
+                            <tr>
+                                <td data-label="Name" class="fw-bold text-white">@product.Name</td>
+                                <td data-label="Price" class="text-accent">@product.Price.ToString("0.00") €</td>
+                                <td data-label="Stock">@product.StockQuantity</td>
+                                <td data-label="Category" class="text-dim">@product.CategoryName</td>
+                                <td data-label="Status">
+                                    @if (product.IsActive)
+                                    {
+                                        <span class="neon-badge badge-shipped">Active</span>
+                                    }
+                                    else
+                                    {
+                                        <span class="neon-badge btn-dim" style="border: 1px solid var(--text-dim);">Inactive</span>
+                                    }
+                                </td>
+                                <td data-label="Actions" class="text-end">
+                                    <div class="d-flex gap-2 justify-content-end">
+                                            <a asp-action="Edit" asp-route-id="@product.Id" class="neon-btn">Edit</a>                                      
+                                        <form asp-action="ToggleActive" asp-route-id="@product.Id" method="post" class="d-inline">
+                                            <button type="submit" class="neon-btn @(product.IsActive ? "btn-red" : "btn-green")">
+                                                @(product.IsActive ? "Deactivate" : "Activate")
+                                            </button>
+                                        </form>
+                                    </div>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            }
+        </div>
+    </div>
+
+    @if (Model.TotalPages > 1)
+    {
+        <nav class="mt-4">
+            <ul class="pagination neon-pagination justify-content-center">
+                <li class="page-item @(Model.Page == 1 ? "disabled" : "")">
                     <a class="page-link"
                        asp-action="Index"
-                       asp-route-page="@i"
+                       asp-route-page="@(Model.Page - 1)"
                        asp-route-searchTerm="@Model.SearchTerm"
                        asp-route-categoryId="@Model.CategoryId"
                        asp-route-sortBy="@Model.SortBy"
                        asp-route-stock="@Model.Stock">
-                        @i
+                        Previous
                     </a>
                 </li>
-            }
+                @for (int i = 1; i <= Model.TotalPages; i++)
+                {
+                    <li class="page-item @(Model.Page == i ? "active" : "")">
+                        <a class="page-link"
+                           asp-action="Index"
+                           asp-route-page="@i"
+                           asp-route-searchTerm="@Model.SearchTerm"
+                           asp-route-categoryId="@Model.CategoryId"
+                           asp-route-sortBy="@Model.SortBy"
+                           asp-route-stock="@Model.Stock">
+                            @i
+                        </a>
+                    </li>
+                }
+                <li class="page-item @(Model.Page == Model.TotalPages ? "disabled" : "")">
+                    <a class="page-link"
+                       asp-action="Index"
+                       asp-route-page="@(Model.Page + 1)"
+                       asp-route-searchTerm="@Model.SearchTerm"
+                       asp-route-categoryId="@Model.CategoryId"
+                       asp-route-sortBy="@Model.SortBy"
+                       asp-route-stock="@Model.Stock">
+                        Next
+                    </a>
+                </li>
+            </ul>
+        </nav>
+    }
+</div>
 
-            <li class="page-item @(Model.Page == Model.TotalPages ? "disabled" : "")">
-                <a class="page-link"
-                   asp-action="Index"
-                   asp-route-page="@(Model.Page + 1)"
-                   asp-route-searchTerm="@Model.SearchTerm"
-                   asp-route-categoryId="@Model.CategoryId"
-                   asp-route-sortBy="@Model.SortBy"
-                   asp-route-stock="@Model.Stock">
-                    Next
-                </a>
-            </li>
-
-        </ul>
-    </nav>
-}
 @section Scripts {
     <script src="~/js/toast.js" asp-append-version="true"></script>
     <script src="~/js/readTempMsg.js"></script>

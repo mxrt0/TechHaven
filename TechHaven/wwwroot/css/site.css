@@ -192,13 +192,12 @@ body {
         transform: translateX(1px);
     }
 
-/* Icons inside sidebar nav */
 .sidebar .icon {
-    display: inline-flex; /* ensures it behaves like an element */
-    width: 24px; /* fixed width for all icons */
-    text-align: center; /* center the icon in its box */
-    margin-right: 0.75rem; /* consistent spacing to text */
-    font-size: 1.2rem; /* adjust size if needed */
+    display: inline-flex; 
+    width: 24px;
+    text-align: center;
+    margin-right: 0.75rem;
+    font-size: 1.2rem;
 }
 
 
@@ -230,88 +229,106 @@ body {
     .back-button {
         left: 1rem;
     }
-}
 
-/* ================= */
-     /* Toast */
-/* ================= */
-
-.toast-container {
-    z-index: 1200;
-    position: fixed;
-    bottom: 2rem;
-    right: 2rem;
-}
-
-#wishlistToast {
-    background: rgba(10, 10, 20, 0.95);
-    border: 2px solid #0ff;
-    border-radius: 12px;
-    box-shadow: 0 0 5px #0ff, 0 0 10px #0ff;
-    color: #0ff;
-    font-weight: bold;
-    text-shadow: 0 0 1px #0ff;
-    animation: glow 2s ease-in-out infinite alternate;
-    transform: translateX(100%);
-    opacity: 0;
-    transition: transform 0.3s ease, opacity 0.3s ease;
-    padding-right: 2.5rem;
-}
-
-    #wishlistToast.show {
-        transform: translateX(0);
-        opacity: 1;
+    .glitch-title {
+        font-size: 2.2rem !important;
     }
 
-#wishlistToastBody {
-    font-family: 'Orbitron', sans-serif;
-    font-size: 1rem;
+    .data-panel {
+        padding: 1.5rem !important;
+    }
+
+    .neon-btn {
+        width: 100%;
+        text-align: center;
+    }
+
+    .row.g-3 > .col-12 {
+        margin-bottom: 0.5rem;
+    }
 }
 
-#wishlistToast .btn-close {
-    position: absolute;
-    top: 0.3rem;
-    right: 0.3rem;
-    color: #0ff;
-    opacity: 1;
-    filter: none;
-    z-index: 20;
+html, body {
+    height: 100%;
+    margin: 0;
+}
+
+body {
+    background: linear-gradient(135deg, #0d1117 0%, #161b22 50%, #0d1117 100%);
+    background-attachment: fixed;
+    color: #e6edf3;
+    font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+}
+
+.neon-input, .neon-select {
+    display: block;
+    width: 100%;
+    background-color: #161b22 !important;
+    border: 1px solid rgba(255, 255, 255, 0.1) !important;
+    border-radius: 6px !important;
+    padding: 10px 12px !important;
+    color: #e6edf3 !important;
+    box-sizing: border-box;
+}
+
+    .neon-input:focus, .neon-select:focus {
+        outline: none !important;
+        border-color: #00d2ff !important;
+        box-shadow: 0 0 10px rgba(0, 210, 255, 0.2) !important;
+    }
+
+.neon-btn {
+    padding: 10px 24px;
+    border-radius: 6px;
+    font-weight: 700;
+    text-transform: uppercase;
+    transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+    background: rgba(0, 210, 255, 0.1);
+    color: #00d2ff;
+    border: 1px solid #00d2ff;
+    cursor: pointer;
+    text-decoration: none;
+    outline: none !important;
+    box-shadow: none;
+}
+
+    .neon-btn:hover {
+        transform: scale(1.05);
+        background: #00d2ff;
+        color: #0d1117;
+        box-shadow: 0 0 20px rgba(0, 210, 255, 0.4);
+    }
+
+.btn-dim {
+    background: transparent;
+    color: #8b949e;
+    border-color: #484f58;
+}
+
+    .btn-dim:hover {
+        transform: scale(1.05);
+        background: rgba(139, 148, 158, 0.1);
+        color: #fff;
+        border-color: #8b949e;
+    }
+
+div.alert.alert-danger {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    border: 1px solid #ccc;
+}
+
+.close-btn {
     background: none;
     border: none;
+    font-size: 20px;
+    cursor: pointer;
+    color: #888;
+    margin-left: auto;
 }
 
-    #wishlistToast .btn-close:hover {
-        color: #0ff;
-        text-shadow: 0 0 3px #0ff;
+    .close-btn:hover {
+        color: red;
     }
-
-.neon-timer {
-    height: 4px;
-    background: #0ff;
-    width: 100%;
-    margin-top: 0.5rem;
-    border-radius: 2px;
-    box-shadow: 0 0 5px #0ff, 0 0 10px #0ff;
-    animation: shrink 2s linear forwards;
-    transform-origin: left;
-}
-
-@keyframes shrink {
-    from {
-        width: 100%;
-    }
-
-    to {
-        width: 0%;
-    }
-}
-
-@keyframes glow {
-    from {
-        box-shadow: 0 0 5px #0ff, 0 0 10px #0ff;
-    }
-
-    to {
-        box-shadow: 0 0 7px #0ff, 0 0 12px #0ff;
-    }
-}

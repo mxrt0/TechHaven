@@ -25,7 +25,22 @@ removeBtns.forEach(removeBtn => {
                 }
                 removeBtn.closest('.cart-item-card')?.remove();
                 if (totalText?.textContent === '0.00 €') {
-                    window.location.reload();
+
+                    const container = document.querySelector(".cart-items") as HTMLElement;
+                    if (!container?.querySelector(".cart-item-card")) {
+                        const itemsList = document.querySelector(".cart-items") as HTMLElement;
+                        const footer = document.querySelector(".cart-footer") as HTMLElement;
+                        const checkoutBtn = document.querySelector(".checkout-btn-wrap") as HTMLElement;
+
+                        if (itemsList) itemsList.style.display = "none";
+                        if (footer) footer.style.display = "none";
+                        if (checkoutBtn) checkoutBtn.style.display = "none";
+
+                        const emptyTemplate = document.querySelector(".empty-cart") as HTMLElement;
+                        if (emptyTemplate) {
+                            emptyTemplate.style.display = "block";
+                        }
+                    }
                 }
             }           
         });

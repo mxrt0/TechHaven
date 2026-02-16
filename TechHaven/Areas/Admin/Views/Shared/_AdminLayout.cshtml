@@ -10,53 +10,63 @@
     <link rel="icon" href="~/images/icons/admin.png" type="image/png" />
     @RenderSection("Styles", required: false)
 </head>
-<body>
+<body class="admin-body">
     <div class="container-fluid">
         <div class="row">
+            <nav class="col-md-2 d-md-block admin-sidebar collapse show" id="sidebarMenu">
+                <div class="d-flex flex-column h-100">
 
-            <nav class="col-md-2 col-lg-2 d-md-block bg-dark admin-sidebar collapse show" id="sidebarMenu">
-                <div class="sidebar-header text-center mb-4">
-                    <h4>TechHaven Admin</h4>
-                    <hr class="border-light" />
-                </div>
-                <div class="position-sticky">
-                    <ul class="nav flex-column">
-                        <li class="nav-item mb-2">
-                            <a class="nav-link @(ViewData["ActivePage"] as string == "Dashboard" ? "active" : "")"
-                               asp-area="Admin" asp-controller="Home" asp-action="Index">
-                                Dashboard
-                            </a>
-                        </li>
-                        <li class="nav-item mb-2">
-                            <a class="nav-link @(ViewData["ActivePage"] as string == "Products" ? "active" : "")"
-                               asp-area="Admin" asp-controller="Products" asp-action="Index">
-                                Products
-                            </a>
-                        </li>
-                        <li class="nav-item mb-2">
-                            <a class="nav-link @(ViewData["ActivePage"] as string == "Orders" ? "active" : "")"
-                               asp-area="Admin" asp-controller="Orders" asp-action="Index">
-                                Orders
-                            </a>
-                        </li>
-                    </ul>
-                    <div class="mt-4 px-2">
-                        <a class="btn btn-success btn-sm w-100 mb-2" asp-area="Admin" asp-controller="Products" asp-action="Create">
-                            + Add Product
-                        </a>
-                        <a class="btn btn-info btn-sm w-100 mb-2" asp-area="Admin" asp-controller="Orders" asp-action="Index">
-                            View Orders
-                        </a>
+                    <div class="sidebar-header text-center py-4">
+                        <h2 class="neon-text-blue mb-0">Tech<span class="text-white">Haven</span></h2>
+                        <span class="admin-badge">Admin</span>
+                        <div class="sidebar-divider-glow"></div>
                     </div>
-                    <div class="mt-4">
+
+                    <div class="px-3">
+                        <h6 class="sidebar-section-title">Navigation</h6>
+                        <ul class="nav flex-column mb-4">
+                            <li class="nav-item">
+                                <a class="nav-link admin-nav-link @(ViewData["ActivePage"]?.ToString() == "Dashboard" ? "active" : "")"
+                                   asp-area="Admin" asp-controller="Home" asp-action="Index">
+                                    <i class="bi bi-grid-1x2-fill me-2"></i> Dashboard
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link admin-nav-link @(ViewData["ActivePage"]?.ToString() == "Products" ? "active" : "")"
+                                   asp-area="Admin" asp-controller="Products" asp-action="Index">
+                                    <i class="bi bi-cpu-fill me-2"></i> Products
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link admin-nav-link @(ViewData["ActivePage"]?.ToString() == "Orders" ? "active" : "")"
+                                   asp-area="Admin" asp-controller="Orders" asp-action="Index">
+                                    <i class="bi bi-receipt me-2"></i> Orders
+                                </a>
+                            </li>
+                        </ul>
+
+                        <h6 class="sidebar-section-title">Inventory</h6>
+                        <div class="mb-4">
+                            <a class="neon-btn btn-sm w-100 mb-3 d-flex align-items-center justify-content-center"
+                               style="text-decoration:none; gap: 8px;"
+                               asp-area="Admin" asp-controller="Products" asp-action="Create">
+                                <i class="bi bi-plus-circle-fill"></i>+ CREATE PRODUCT
+                            </a>
+                        </div>                   
+                    </div>
+
+                    <div class="mt-auto p-3 border-top border-secondary bg-dark-soft">
                         <form method="get" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
-                            <button type="submit" class="btn btn-outline-light btn-sm w-100">Logout</button>
+                            <button type="submit" class="logout-link w-100 text-start">
+                                <i class="bi bi-power me-2"></i> LOG OUT
+                            </button>
                         </form>
                     </div>
+
                 </div>
             </nav>
 
-            <main class="col-md-10 ms-sm-auto col-lg-10 px-md-4 py-4">
+            <main class="col-md-10 ms-sm-auto col-lg-10 px-md-4 py-4 main-content">
                 <div class="toast-container position-fixed bottom-0 end-0 p-3">
                     <div id="wishlistToast"
                          class="toast align-items-center text-bg-dark border-0"
@@ -75,6 +85,7 @@
 
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js"></script>
     @RenderSection("Scripts", required: false)
 </body>
 </html>

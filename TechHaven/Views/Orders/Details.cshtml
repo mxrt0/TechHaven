@@ -12,15 +12,15 @@
 }
 
 <div class="container my-5 orders-page">
-    <h2 class="mb-4 neon-title text-center">🧾 Order #@Model.Order.OrderNumber</h2>
+    <h2 class="mb-4 neon-title text-center text-uppercase">🧾 Order #@Model.Order.OrderNumber</h2>
 
-    <div class="order-summary mb-4">
+    <div class="order-summary mb-4 font-monospace">
         <div><strong>Order Date:</strong> @Model.Order.OrderDate.ToString("dd/MM/yyyy HH:mm", CultureInfo.InvariantCulture)</div>
         <div><strong>Total Items:</strong> @Model.Order.OrderItems.Count</div>
         <div><strong>Order Total:</strong> @Model.Order.OrderTotal.ToString("0.00") &euro;</div>
         <div>
             <strong>Order Status:</strong>
-            <span class="badge
+            <span class="badge text-center
                 @(Model.Order.Status == OrderStatus.Pending ? "bg-warning" :
                     Model.Order.Status == OrderStatus.Shipped ? "bg-success" :
                     "bg-danger")">
@@ -49,7 +49,9 @@
         }
     </div>
 
-    <div class="text-end mt-4 text-center">
-       <a asp-action="Index" class="btn btn-lg">← Back to Orders</a>
-    </div>
+   <div class="mt-4">
+        <a asp-action="Index" class="neon-btn mt-4">← Back to Orders</a>
+   </div>
+       
+
 </div>

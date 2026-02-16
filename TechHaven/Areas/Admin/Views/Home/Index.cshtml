@@ -72,8 +72,8 @@
                                         <td>@order.OrderDate.ToString("dd/MM/yyyy HH:mm", CultureInfo.InvariantCulture)</td>
                                         <td class="text-accent">@order.OrderTotal.ToString("0.00") €</td>
                                         <td>
-                                            <div class="neon-btn btn-sm">
-                                                <a asp-area="Admin" asp-controller="Orders" asp-action="Details" asp-route-id="@order.OrderId" class="neon-btn btn-sm">View</a>
+                                            <div>
+                                                <a asp-area="Admin" asp-controller="Orders" asp-action="Details" asp-route-id="@order.OrderId" class="neon-btn btn-amber btn-sm">View</a>
                                             </div>                                            
                                         </td>
                                     </tr>
@@ -110,7 +110,7 @@
                                         <td>@product.Name</td>
                                         <td class="text-warning fw-bold">@product.StockQuantity</td>
                                         <td>
-                                            <div class="neon-btn btn-sm">
+                                            <div>
                                                 <a asp-area="Admin" asp-controller="Products" asp-action="Edit" asp-route-id="@product.Id" class="neon-btn btn-amber btn-sm">Edit</a>
                                             </div>
                                             
@@ -126,11 +126,11 @@
     </div>
 
     <div class="dashboard-actions mt-5">
-        <div class="neon-btn">
-            <a asp-area="Admin" asp-controller="Products" asp-action="Index">Manage Products</a>
+        <div>
+            <a asp-area="Admin" asp-controller="Products" asp-action="Index" class="neon-btn btn-amber btn-sm">Manage Products</a>
         </div>
-        <div class="neon-btn">
-            <a asp-area="Admin" asp-controller="Orders" asp-action="Index" class="neon-btn">Manage Orders</a>
+        <div>
+            <a asp-area="Admin" asp-controller="Orders" asp-action="Index" class="neon-btn btn-amber btn-sm">Manage Orders</a>
         </div>       
     </div>
 </div>

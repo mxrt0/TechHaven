@@ -3,9 +3,16 @@
     ViewData["Title"] = "Cart";
 }
 @section Styles {
+    <link rel="stylesheet" href="~/css/toast.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/css/cart-shared.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" asp-append-version="true" />
 }
-<div id="temp-message" data-temp-Msg="@TempData["SuccessMessage"]"></div>
+@section Back {
+    <button class="neon-btn btn-dim btn-sm me-4 mb-2" onclick="history.back()">
+        <i class="bi bi-arrow-left"></i> BACK
+    </button>
+}
+<div id="temp-message" data-temp-Msg="@TempData["SuccessMessage"]" data-type="cart"></div>
 @if (TempData["ErrorMessage"] is not null)
 {
     <div class="alert alert-danger text-center">
@@ -15,20 +22,17 @@
 
 
 <div class="container my-5 cart-page">
-    <h2 class="mb-5 neon-title text-center">🛒 Your Cart</h2>
+    <h2 class="mb-5 neon-title text-center">🛒 YOUR CART</h2>
 
-    @if (!Model.Items.Any())
-    {
-        <div class="empty-cart text-center">
-            <p>Your cart is empty.</p>
+        <div class="empty-cart text-center" style="@(Model.Items.Any() ? "display:none;" : "display:block;")">
+            <p class="font-monospace text-uppercase">Your cart is empty</p>
             <a asp-controller="Products"
                asp-action="Index"
-               class="btn btn-outline-info mt-2 btn-lg">
+               class="neon-btn btn-sm">
                 Browse products
              </a>
         </div>
-    }
-    else
+    @if (Model.Items.Any())
     {
         <div class="cart-items">
             @foreach (var item in Model.Items)
@@ -43,18 +47,18 @@
                         </div>
 
                         <div class="cart-item-actions">
-                                <input type="hidden" name="productId" value="@item.ProductId" />
-                                <input type="number"
-                                       name="quantity"
-                                       value="@item.Quantity"
-                                       min="1"
-                                       class="quantity-input" />
-                                <button class="btn btn-outline-neon btn-sm btn-update">
-                                    Update
-                                </button>
-                                <button class="btn btn-remove" title="Remove">
-                                    ✕
-                                </button>
+                            <input type="hidden" name="productId" value="@item.ProductId" />
+                            <input type="number"
+                                   name="quantity"
+                                   value="@item.Quantity"
+                                   min="1"
+                                   class="quantity-input" />
+                            <button class="btn btn-outline-neon btn-sm btn-update">
+                                Update
+                            </button>
+                            <button class="btn btn-remove" title="Remove">
+                                ✕
+                            </button>
                         </div>
                     </div>
 
@@ -68,29 +72,29 @@
             }
         </div>
 
-        
+
         <div class="cart-footer mt-5">
             <form method="post" asp-action="Clear">
-                <button class="btn btn-outline-warning btn-lg">
-                    Clear cart
+                <button class="btn btn-outline-warning">
+                    <i class="bi bi-trash3"></i> CLEAR CART
                 </button>
             </form>
+
             <div class="cart-total">
-                <span>Total</span>
+                <span>TOTAL AMOUNT:</span>
                 <strong class="neon-price">
                     @Model.TotalPrice.ToString("0.00") €
                 </strong>
             </div>
         </div>
 
-        <div class="text-end mt-4">
-            <a
-               asp-action="Checkout"
-               class="btn btn-lg">
-                Proceed to Checkout →
+        <div class="checkout-btn-wrap">
+            <a asp-action="Checkout" class="btn-checkout btn-lg">
+                Proceed to Checkout <i class="bi bi-arrow-right ms-2"></i>
             </a>
         </div>
     }
+    
 </div>
 @section Scripts {
     <script src="~/js/toast.js"></script>
