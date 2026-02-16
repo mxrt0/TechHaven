@@ -45,10 +45,10 @@
 .btn-neon-confirm {
     background: linear-gradient(135deg, #22d3ee, #0ff);
     color: #020617;
-    font-weight: 800;
+    font-weight: 650;
     text-transform: uppercase;
     letter-spacing: 1px;
-    padding: 1rem 1.5rem;
+    padding: 0.8rem 1.2rem;
     border-radius: 4px; /* Changed from 999px for consistency */
     border: none;
     box-shadow: 0 0 20px rgba(0, 255, 255, 0.4);
