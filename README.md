@@ -197,7 +197,6 @@ TechHaven/
 
 ### Public Site
 
-```
 1. Navigate to the register page via the 'Register' button in the bottom left to create an account.
 2. Log in via the 'Login' button above 'Register'.
 
@@ -227,11 +226,8 @@ TechHaven/
 
 ![Order-Details](docs/images/order_details.png)
 
-```
-
 ### Admin Site
 
-```
 1. Log Out of your user account by following button at the bottom left below 'Cart' and pressing 'Confirm' on the Logout page.
 
 ![Logout](docs/images/user_logout.png)
@@ -261,8 +257,6 @@ TechHaven/
 ![Admin-Orders-Table](docs/images/admin_orders_table.png)
 
 ![Admin-Orders-View](docs/images/admin_view_order.png)
-
-```
 
 ---
 
