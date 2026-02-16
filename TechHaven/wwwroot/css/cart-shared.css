@@ -182,22 +182,20 @@
     box-shadow: 0 0 14px rgba(34, 211, 238, 0.7), 0 0 28px rgba(0, 255, 255, 0.4);
 }
 
-/* --- Page Layout --- */
 .cart-page {
-    background: #020617; /* Solid deep dark for contrast */
+    background: #020617; 
     border: 1px solid rgba(0, 210, 255, 0.1);
-    border-radius: 4px; /* Sharper corners */
+    border-radius: 4px;
     padding: 3rem 2rem;
     color: #e6ffff;
     box-shadow: 0 0 40px rgba(0, 0, 0, 0.5);
 }
 
-/* --- Cart Item Card --- */
 .cart-item-card {
     background: rgba(22, 27, 34, 0.5);
     backdrop-filter: blur(10px);
     border: 1px solid rgba(0, 255, 255, 0.2);
-    border-radius: 4px; /* Sharp geometry */
+    border-radius: 4px;
     padding: 1.5rem;
     transition: all 0.3s ease;
     display: flex;
@@ -215,7 +213,6 @@
     color: #fff;
 }
 
-/* --- Action Area Styling --- */
 .quantity-input {
     width: 70px;
     height: 38px;
@@ -275,7 +272,6 @@
     font-family: monospace;
 }
 
-/* --- Checkout Button Fix --- */
 .checkout-btn-wrap {
     margin-top: 2rem;
     display: flex;
@@ -289,7 +285,7 @@
     text-transform: uppercase;
     letter-spacing: 1px;
     padding: 1rem 3rem;
-    border-radius: 4px; /* Matching the sharp theme */
+    border-radius: 4px;
     border: none;
     box-shadow: 0 0 20px rgba(0, 255, 255, 0.4);
     transition: all 0.3s;

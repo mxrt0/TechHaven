@@ -192,13 +192,12 @@ body {
         transform: translateX(1px);
     }
 
-/* Icons inside sidebar nav */
 .sidebar .icon {
-    display: inline-flex; /* ensures it behaves like an element */
-    width: 24px; /* fixed width for all icons */
-    text-align: center; /* center the icon in its box */
-    margin-right: 0.75rem; /* consistent spacing to text */
-    font-size: 1.2rem; /* adjust size if needed */
+    display: inline-flex; 
+    width: 24px;
+    text-align: center;
+    margin-right: 0.75rem;
+    font-size: 1.2rem;
 }
 
 
@@ -232,34 +231,31 @@ body {
     }
 
     .glitch-title {
-        font-size: 2.2rem !important; /* Shrink hero title so it doesn't wrap weirdly */
+        font-size: 2.2rem !important;
     }
 
     .data-panel {
-        padding: 1.5rem !important; /* Reduce padding on mobile */
+        padding: 1.5rem !important;
     }
 
     .neon-btn {
-        width: 100%; /* Make buttons full-width on mobile for easier tapping */
+        width: 100%;
         text-align: center;
     }
 
-    /* Ensure the search row doesn't get too squashed */
     .row.g-3 > .col-12 {
         margin-bottom: 0.5rem;
     }
 }
 
-/* Apply this to the base of your public layout */
 html, body {
     height: 100%;
     margin: 0;
 }
 
 body {
-    /* Matches the 'depth' of the admin sidebar but adds a techy lean */
     background: linear-gradient(135deg, #0d1117 0%, #161b22 50%, #0d1117 100%);
-    background-attachment: fixed; /* Keeps the gradient still while scrolling */
+    background-attachment: fixed;
     color: #e6edf3;
     font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
 }

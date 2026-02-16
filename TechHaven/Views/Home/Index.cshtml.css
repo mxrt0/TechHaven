@@ -1,13 +1,11 @@
-﻿/* Fix for the white global background */
-.public-wrapper {
-    background-color: #0b0e14; /* Deep charcoal/navy */
+﻿.public-wrapper {
+    background-color: #0b0e14;
     color: #ffffff;
     min-height: 100vh;
-    margin: -24px; /* Compensate for default container padding if necessary */
+    margin: -24px;
     padding: 24px;
 }
 
-/* Hero Section */
 .hero-section {
     padding: 80px 0 60px;
     position: relative;
@@ -44,26 +42,24 @@
     box-shadow: 0 0 10px #00d2ff;
 }
 
-/* The Retail Card */
 .retail-card {
     display: block;
     background: #161b22;
-    border-radius: 4px; /* Sharper, more industrial feel */
-    text-decoration: none !important; /* No underlines */
+    border-radius: 4px; 
+    text-decoration: none !important;
     transition: all 0.3s ease;
     border: 1px solid rgba(255, 255, 255, 0.05);
     height: 100%;
 }
 
-/* Image Box - Solves the white background clashing */
 .retail-image-box {
-    background: #ffffff; /* Matches your image backgrounds perfectly */
+    background: #ffffff; 
     height: 250px;
     display: flex;
     align-items: center;
     justify-content: center;
     padding: 15px;
-    margin: 10px; /* Small gap to show the dark card frame */
+    margin: 10px;
     border-radius: 2px;
     position: relative;
     overflow: hidden;
@@ -73,7 +69,7 @@
     max-height: 100%;
     max-width: 100%;
     object-fit: contain;
-    mix-blend-mode: multiply; /* Helps white backgrounds blend into the container */
+    mix-blend-mode: multiply;
     transition: transform 0.5s ease;
 }
 
@@ -99,7 +95,6 @@
     gap: 8px;
 }
 
-/* Hover States */
 .retail-card:hover {
     border-color: #00d2ff;
     box-shadow: 0 0 25px rgba(0, 210, 255, 0.2);
@@ -110,7 +105,6 @@
         transform: scale(1.1);
     }
 
-/* Small Pulsing Dot for "Collection" */
 .pulse-dot {
     width: 6px;
     height: 6px;
@@ -120,11 +114,11 @@
     animation: pulse 1.5s infinite;
 }
 .retail-image-box {
-    background: #ffffff; /* Essential to make your specific images look clean */
-    border: 4px solid #161b22; /* Creates a 'frame' effect against the global dark bg */
+    background: #ffffff; 
+    border: 4px solid #161b22;
     box-shadow: inset 0 0 10px rgba(0,0,0,0.1);
 }
-/* Hero Styles */
+
 .glitch-title {
     font-size: clamp(2.5rem, 8vw, 4rem);
     font-weight: 900;
@@ -145,26 +139,24 @@
     margin-bottom: 50px;
 }
 
-/* Category Spec Cards */
 .spec-card {
     display: block;
     background: #161b22;
     border: 1px solid rgba(255, 255, 255, 0.05);
-    text-decoration: none !important; /* No underlines ever */
+    text-decoration: none !important;
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     position: relative;
     height: 100%;
 }
 
-/* Handling the White Background Images */
 .spec-img-wrap {
-    background: #fff; /* Blends with your image backgrounds */
+    background: #fff; 
     height: 220px;
     padding: 20px;
     display: flex;
     align-items: center;
     justify-content: center;
-    margin: 1px; /* Show the dark border of the card slightly */
+    margin: 1px; 
 }
 
     .spec-img-wrap img {
@@ -174,7 +166,6 @@
         transition: transform 0.5s ease;
     }
 
-/* Detail Section */
 .spec-details {
     padding: 20px;
     border-top: 1px solid rgba(0, 210, 255, 0.1);
@@ -219,7 +210,6 @@
         letter-spacing: 1px;
     }
 
-/* Hover States */
 .spec-card:hover {
     border-color: #00d2ff;
     background: #1c2128;
