@@ -12,7 +12,7 @@
         <i class="bi bi-arrow-left"></i> BACK
     </button>
 }
-<div id="temp-message" data-temp-Msg="@TempData["SuccessMessage"]"></div>
+<div id="temp-message" data-temp-Msg="@TempData["SuccessMessage"]" data-type="cart"></div>
 @if (TempData["ErrorMessage"] is not null)
 {
     <div class="alert alert-danger text-center">
@@ -24,9 +24,7 @@
 <div class="container my-5 cart-page">
     <h2 class="mb-5 neon-title text-center">🛒 YOUR CART</h2>
 
-    @if (!Model.Items.Any())
-    {
-        <div class="empty-cart text-center">
+        <div class="empty-cart text-center" style="@(Model.Items.Any() ? "display:none;" : "display:block;")">
             <p class="font-monospace text-uppercase">Your cart is empty</p>
             <a asp-controller="Products"
                asp-action="Index"
@@ -34,9 +32,7 @@
                 Browse products
              </a>
         </div>
-    }
-    else
-    {
+
         <div class="cart-items">
             @foreach (var item in Model.Items)
             {
@@ -72,8 +68,8 @@
                         </strong>
                     </div>
                 </div>
-            }
-        </div>
+           }
+    </div>
 
         
         <div class="cart-footer mt-5">
@@ -96,7 +92,6 @@
                 Proceed to Checkout <i class="bi bi-arrow-right ms-2"></i>
             </a>
         </div>
-    }
 </div>
 @section Scripts {
     <script src="~/js/toast.js"></script>
