@@ -70,7 +70,7 @@ Follow these steps to get the project running locally.
 
 ```bash
 git clone https://github.com/mxrt0/TechHaven.git
-cd TechHaven
+cd TechHaven/TechHaven
 ```
 
 ### 2. Restore .NET dependencies
@@ -79,7 +79,22 @@ cd TechHaven
 dotnet restore
 ```
 
-### 3. Apply database migrations
+### 3. Compile TypeScript assets
+
+```bash
+cd wwwroot
+npm install
+npx tsc -p tsconfig.json
+cd ..
+```
+
+### 4. Build the application
+
+```bash
+dotnet build
+```
+
+### 5. Apply database migrations
 
 ```bash
 dotnet ef database update
@@ -90,19 +105,10 @@ dotnet ef database update
 Update-Database
 ```
 
-### 4. Compile TypeScript assets
+### 6. Run the application
 
 ```bash
-cd wwwroot
-npm install
-npx tsc -p tsconfig.json
-cd ..
-```
-
-### 5. Run the application
-
-```bash
-dotnet run
+dotnet run --launch-profile https
 ```
 
 The app will be available at `https://localhost:7235` or `http://localhost:5150`.
